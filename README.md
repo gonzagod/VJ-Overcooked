@@ -7,7 +7,7 @@
 
 ## Clonar Repo:
 ```bash
-git clone git@github.com:gonzagod/VJ-Goonies.git
+git clone git@github.com:gonzagod/VJ-Overcooked.git
 ```
 ## Basics
 
