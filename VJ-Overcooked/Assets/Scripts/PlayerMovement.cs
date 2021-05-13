@@ -6,11 +6,12 @@ public class PlayerMovement : MonoBehaviour
 {
     public Animator animator;
     public float speed;
-    public float gravity;
     public float rotationSpeed ;
     //public GameObject player;
     public CharacterController player_controller;
     public Rigidbody rb_player;
+
+    private Vector3 gravityVector = new Vector3(0,-10,0);
 
     private void Start ()
     {
@@ -30,5 +31,6 @@ public class PlayerMovement : MonoBehaviour
           animator.SetBool("isWalking", true);
         }
         else animator.SetBool("isWalking", false);
+        player_controller.Move(gravityVector * Time.deltaTime);
     }
 }

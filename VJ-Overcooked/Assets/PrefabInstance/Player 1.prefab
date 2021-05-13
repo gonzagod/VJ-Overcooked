@@ -5813,10 +5813,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3564366591035119767}
   speed: 4.5
-  gravity: -9.81
   rotationSpeed: 117.06
   player_controller: {fileID: 3564366591163797931}
-  rb_player: {fileID: 3564366591163806507}
+  rb_player: {fileID: 0}
 --- !u!1 &5338081241473501240
 GameObject:
   m_ObjectHideFlags: 0
