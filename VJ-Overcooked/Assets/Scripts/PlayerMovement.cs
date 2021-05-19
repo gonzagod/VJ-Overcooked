@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     public float rotationSpeed ;
     //public GameObject player;
     public CharacterController player_controller;
-    public Rigidbody rb_player;
 
     private Vector3 gravityVector = new Vector3(0,-10,0);
 
@@ -27,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
         player_controller.Move(movementDirection * speed * Time.deltaTime);
 
         if (movementDirection.magnitude >= 0.1f){
-          transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection), 0.15F);
+          transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection), 0.1F);
           animator.SetBool("isWalking", true);
         }
         else animator.SetBool("isWalking", false);

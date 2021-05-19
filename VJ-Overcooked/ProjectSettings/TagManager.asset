@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Table
+  - Plate
+  - PlateReturn
+  - PlateStation
+  - CookingUtensil
+  - ChoppingStation
+  - CookingStation
+  - Canvas
+  - Crate
+  - Onion Crate
   layers:
   - Default
   - TransparentFX
