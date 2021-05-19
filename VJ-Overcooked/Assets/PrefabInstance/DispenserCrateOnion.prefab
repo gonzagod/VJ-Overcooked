@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525965424300603088}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.435, y: 0.4509859, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.4509859, z: -0.435}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1525965424300604306}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1525965424300603097
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,6 +40,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1525965424300604317}
   - component: {fileID: 1525965424300589714}
+  - component: {fileID: 7686029456566860009}
+  - component: {fileID: 1433710542993670283}
+  - component: {fileID: 4587547811540478006}
   m_Layer: 11
   m_Name: DispenserCrateOnion
   m_TagString: Crate
@@ -76,6 +79,60 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 4, z: 1}
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!114 &7686029456566860009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525965424300603097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565eb26696d0c0a4e8625a3528f8279d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crate_highlighted: {fileID: 2100000, guid: 3abf57e2186673f43839f9c0a75eef6e, type: 2}
+  crate: {fileID: 2100000, guid: a070392d3a43be34380c3ea65cf0f0b3, type: 2}
+  onion_crate: {fileID: 2100000, guid: 504681ae075ac144bbedd8b46547e920, type: 2}
+  onion_crate_highlighted: {fileID: 2100000, guid: bd69f7aa1eb5f47488de6ec21b19add4,
+    type: 2}
+--- !u!95 &1433710542993670283
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525965424300603097}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6c5178ca4cd27094cb00ecdbbe2421c8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4587547811540478006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525965424300603097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ebeb52f0f5fd84dbb95b951c38fcc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Food: {fileID: 1058063327868763, guid: ee8e29453edb9224fb7ccbdfdd86076c, type: 3}
+  SpaceIcon: {fileID: 1501513928342337427, guid: 4e06b624072560146a071c1424dc5e81,
+    type: 3}
+  Player: {fileID: 0}
+  foodSwitch: {fileID: 0}
+  myAnimatorController: {fileID: 1433710542993670283}
 --- !u!1 &1525965424300603098
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +142,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1525965424300604319}
-  - component: {fileID: 1525965424300589274}
   - component: {fileID: 1525965424300589715}
   m_Layer: 11
   m_Name: Crate
@@ -111,25 +167,6 @@ Transform:
   m_Father: {fileID: 1525965424300604317}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 89.99999, z: 0}
---- !u!95 &1525965424300589274
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525965424300603098}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!65 &1525965424300589715
 BoxCollider:
   m_ObjectHideFlags: 0

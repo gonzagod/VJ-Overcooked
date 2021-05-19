@@ -10,6 +10,8 @@ public class MapSelectorScript : MonoBehaviour
     public GameObject SpaceIcon;
     private Vector3 pos;
     public int level;
+    private bool spaceIconClone = false;
+    private GameObject clone;
     bool playerNear()
     {
         if (Math.Abs(transform.position.x - Player.transform.position.x) < 0.75 & Math.Abs(transform.position.z - Player.transform.position.z) < 1.5) return true;
@@ -18,7 +20,7 @@ public class MapSelectorScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -27,12 +29,17 @@ public class MapSelectorScript : MonoBehaviour
         if (playerNear())
         {
             pos = new Vector3(transform.position.x, (transform.position.y + 0.5f), transform.position.z);
-            GameObject clone = Instantiate(SpaceIcon, new Vector3(pos.x, pos.y + 1f, pos.z), Quaternion.identity);
-            Destroy(clone, 0.1f);
+            if (!spaceIconClone){
+                clone = Instantiate(SpaceIcon, new Vector3(pos.x, pos.y + 1f, pos.z), Quaternion.identity);
+                spaceIconClone = true;
+              }
             if (Input.GetKeyDown("space"))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + level);
             }
+        } else {
+          Destroy(clone);
+          spaceIconClone = false;
         }
     }
 }

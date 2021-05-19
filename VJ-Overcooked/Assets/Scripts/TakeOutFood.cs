@@ -9,7 +9,11 @@ public class TakeOutFood : MonoBehaviour
     public GameObject Food;
     public GameObject SpaceIcon;
     public GameObject Player;
+    public FoodSwitch foodSwitch;
     private Vector3 pos;
+    private bool spaceIconClone = false;
+    private GameObject clone;
+    public Animator myAnimatorController;
     // Start is called before the first frame update
 
     bool playerNear()
@@ -19,26 +23,31 @@ public class TakeOutFood : MonoBehaviour
     }
     void Start()
     {
-
+        myAnimatorController.SetBool("Open", false);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Posició Capsa x " + transform.position.x);
-        //Debug.Log("Posició Capsa z " + transform.position.z);
-        //Debug.Log("Posició PJ x " + Player.transform.position.x);
-        //Debug.Log("Posició PJ z " + Player.transform.position.z);
+        myAnimatorController.SetBool("Open", false);
+
         if (playerNear())
         {
             pos = new Vector3(transform.position.x, (transform.position.y + 0.5f), transform.position.z);
-            GameObject clone = Instantiate(SpaceIcon, new Vector3(pos.x, pos.y + 1f, pos.z), Quaternion.identity);
-            Destroy(clone, 0.1f);
-            if (Input.GetKeyDown("space"))
+            if (!spaceIconClone){
+                clone = Instantiate(SpaceIcon, new Vector3(pos.x, pos.y + 1f, pos.z), Quaternion.identity);
+                spaceIconClone = true;
+              }
+            if (Input.GetKeyUp("space"))
             {
-                Instantiate(Food, pos, Quaternion.identity);
+                myAnimatorController.SetBool("Open", true);
+                foodSwitch.changeSelectedFood(0);
+                foodSwitch.SelectFood();
             }
+        } else {
+          Destroy(clone);
+          spaceIconClone = false;
         }
     }
 }
