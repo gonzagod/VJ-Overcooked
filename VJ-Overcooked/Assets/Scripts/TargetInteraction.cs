@@ -5,136 +5,80 @@ using UnityEngine;
 public class TargetInteraction : MonoBehaviour
 {
 
-    public GameObject target;
-
-
+    private GameObject target;
+    private FoodSwitch foodSwitch;
+    private int itemOnHands;
+    private Animator playerAnimator;
     // Start is called before the first frame update
     void Start()
     {
         target = null;
+        foodSwitch = gameObject.transform.Find("player_no_anim/Food").GetComponent<FoodSwitch>();
+        playerAnimator = transform.Find("player_no_anim").gameObject.GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        target = gameObject.transform.Find("player_no_anim").GetComponent<TargetHighlight>().target;
+        if (target != null){
+            itemOnHands = foodSwitch.selectedFood;
+            if(Input.GetKeyDown("space")){
+                switch(target.tag){
+                    case "Table":
+                        string itemOnTable = target.GetComponent<TableTopItem>().ItemOnTop;
+                        if(itemOnTable == ""){
+                            if(itemOnHands >= 0){
+                                target.GetComponent<TableTopItem>().UpdateItemOnTop(itemOnHands);
+                                foodSwitch.emptyHands();
+                            }
+                        }else if(itemOnHands == -1){
+                            foodSwitch.changeSelectedFoodString(itemOnTable);
+                            target.GetComponent<TableTopItem>().CleanTable();
+                        }
+                        break;
 
-    }
+                    case "ChoppingStation":
+                        string itemOnChoppingTable = target.GetComponent<ChoppingTableItem>().ItemOnTop;
+                        if(itemOnChoppingTable == ""){
+                            if(itemOnHands >= 0){
+                                target.GetComponent<ChoppingTableItem>().UpdateItemOnTop(itemOnHands);
+                                foodSwitch.emptyHands();
+                            }
+                        }else {
+                            bool chopping = target.GetComponent<ChoppingTableItem>().Chopping;
+                            if(!chopping && itemOnHands == -1){
+                                foodSwitch.changeSelectedFoodString(itemOnChoppingTable);
+                                target.GetComponent<ChoppingTableItem>().CleanTable();
+                            }
+                        }
+                        break;
 
-    public void ChangeTarget(Transform newTarget) {
-        if (target != null && newTarget.gameObject != target){
-          highlightTarget(target, false);
-        }
-        target = newTarget.gameObject;
-        highlightTarget(target, true);
-    }
-
-    public void IgnoreTarget(){
-      if(target != null) {
-        highlightTarget(target, false);
-        target = null;
-      }
-    }
-
-    private void highlightTarget(GameObject target, bool highlight){
-      if (!highlight) {
-          if (target.tag == "Table") {
-              MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
-              Material[] mats = renderer.materials;
-              Material tableDefaultMaterial = target.transform.GetComponent<TableMaterials>().table;
-              mats[0] = tableDefaultMaterial;
-              renderer.materials = mats;
-
-          } else if (target.tag == "Crate"){
-              SkinnedMeshRenderer renderer = target.transform.Find("Crate").Find("Crate_mesh").GetComponent<SkinnedMeshRenderer>();
-              Material[] mats = renderer.materials;
-              Material crateDefaultMaterial = target.transform.GetComponent<CrateMaterials>().crate;
-              mats[0] = crateDefaultMaterial;
-              renderer.materials = mats;
-
-              Transform crateType = target.transform.Find("Crate").Find("CrateLid_mesh");
-              SkinnedMeshRenderer topRenderer = crateType.gameObject.GetComponent<SkinnedMeshRenderer>();
-              if(crateType.tag == "Onion Crate"){
-                  Material[] topMats = topRenderer.materials;
-                  Material onionCrateDefaultMaterial = target.transform.GetComponent<CrateMaterials>().onion_crate;
-                  topMats[0] = onionCrateDefaultMaterial;
-                  topMats[1] = onionCrateDefaultMaterial;
-                  topRenderer.materials = topMats;
-              }
-          } else if (target.tag == "ChoppingStation"){
-              MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
-              Material[] mats = renderer.materials;
-              Material tableDefaultMaterial = target.transform.GetComponent<TableMaterials>().table;
-              mats[0] = tableDefaultMaterial;
-              renderer.materials = mats;
-
-              MeshRenderer knifeRenderer = target.transform.Find("Knife").GetComponent<MeshRenderer>();;
-              Material[] knifeMats = knifeRenderer.materials;
-              Material knifeDefaultMaterial = target.transform.GetComponent<KnifeMaterials>().knife;
-              knifeMats[0] = knifeDefaultMaterial;
-              knifeRenderer.materials = knifeMats;
-          }
-          else if (target.tag == "CookingStation"){
-              MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
-              Material[] mats = renderer.materials;
-              Material cookerDefaultMaterial = target.transform.GetComponent<CookerMaterials>().cooker;
-              mats[0] = cookerDefaultMaterial;
-              renderer.materials = mats;
-
-              /* MeshRenderer knifeRenderer = target.transform.Find("Knife").GetComponent<MeshRenderer>();;
-              Material[] knifeMats = knifeRenderer.materials;
-              Material knifeDefaultMaterial = target.transform.GetComponent<KnifeMaterials>().knife;
-              knifeMats[0] = knifeDefaultMaterial;
-              knifeRenderer.materials = knifeMats; */
-          }
-      } else {
-        if (target.tag == "Table") {
-            MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
-            Material[] mats = renderer.materials;
-            Material tableHighlightedMaterial = target.transform.GetComponent<TableMaterials>().table_highlighted;
-            mats[0] = tableHighlightedMaterial;
-            renderer.materials = mats;
-        } else if (target.tag == "Crate"){
-            SkinnedMeshRenderer renderer = target.transform.Find("Crate").Find("Crate_mesh").GetComponent<SkinnedMeshRenderer>();
-            Material[] mats = renderer.materials;
-            Material crateHighlightedMaterial = target.transform.GetComponent<CrateMaterials>().crate_highlighted;
-            mats[0] = crateHighlightedMaterial;
-            renderer.materials = mats;
-
-            Transform crateType = target.transform.Find("Crate").Find("CrateLid_mesh");
-            SkinnedMeshRenderer topRenderer = crateType.gameObject.GetComponent<SkinnedMeshRenderer>();
-            if(crateType.tag == "Onion Crate"){
-                Material[] topMats = topRenderer.materials;
-                Material onionCrateHighlightedMaterial = target.transform.GetComponent<CrateMaterials>().onion_crate_highlighted;
-                topMats[0] = onionCrateHighlightedMaterial;
-                topMats[1] = onionCrateHighlightedMaterial;
-                topRenderer.materials = topMats;
+                    default:
+                        break;
+                }
+            } if(Input.GetKeyDown("left ctrl")){
+                if(target.tag == "ChoppingStation"){
+                    string itemOnChoppingTable = target.GetComponent<ChoppingTableItem>().ItemOnTop;
+                    int itemOnChoppingTableInt = target.GetComponent<ChoppingTableItem>().getItemInteger(itemOnChoppingTable);
+                    if(itemOnChoppingTableInt >= 0 && itemOnChoppingTableInt < 4){
+                        if(itemOnHands < 0){
+                            bool chopping = target.GetComponent<ChoppingTableItem>().Chopping;
+                            bool ItemChoppeable = target.GetComponent<ChoppingTableItem>().itemOnTopChoppeable;
+                            if(!chopping){
+                                target.GetComponent<ChoppingTableItem>().StartChopping();
+                            }else if(ItemChoppeable)target.GetComponent<ChoppingTableItem>().ContinueChopping();
+                            playerAnimator.SetBool("isWalking", false);
+                            playerAnimator.SetBool("isHolding", false);
+                            playerAnimator.SetBool("isCutting", true);
+                            gameObject.transform.Find("player_no_anim/Chef_Body/Hand_Open_R").gameObject.SetActive(false);
+                            gameObject.transform.Find("player_no_anim/Chef_Body/Hand_Grip_R").gameObject.SetActive(true);
+                            gameObject.transform.Find("player_no_anim/Chef_Body/Knife").gameObject.SetActive(true);
+                        }
+                    }
+                }
             }
-        } else if (target.tag == "ChoppingStation"){
-            MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
-            Material[] mats = renderer.materials;
-            Material tableHighlightedMaterial = target.transform.GetComponent<TableMaterials>().table_highlighted;
-            mats[0] = tableHighlightedMaterial;
-            renderer.materials = mats;
-
-            MeshRenderer knifeRenderer = target.transform.Find("Knife").GetComponent<MeshRenderer>();;
-            Material[] knifeMats = knifeRenderer.materials;
-            Material knifeHighlightedMaterial = target.transform.GetComponent<KnifeMaterials>().knife_highlighted;
-            knifeMats[0] = knifeHighlightedMaterial;
-            knifeRenderer.materials = knifeMats;
         }
-        else if (target.tag == "CookingStation"){
-            MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
-            Material[] mats = renderer.materials;
-            Material cookerHighlightedMaterial = target.transform.GetComponent<CookerMaterials>().cooker_highlighted;
-            mats[0] = cookerHighlightedMaterial;
-            renderer.materials = mats;
-
-            /* MeshRenderer knifeRenderer = target.transform.Find("Knife").GetComponent<MeshRenderer>();;
-            Material[] knifeMats = knifeRenderer.materials;
-            Material knifeDefaultMaterial = target.transform.GetComponent<KnifeMaterials>().knife;
-            knifeMats[0] = knifeDefaultMaterial;
-            knifeRenderer.materials = knifeMats; */
-        }
-      }
     }
 }

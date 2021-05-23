@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4795782358542662}
   - component: {fileID: 135032272323078229}
-  - component: {fileID: -2536202654848365525}
   m_Layer: 24
   m_Name: Onion
   m_TagString: Pre-Ingredient
@@ -46,18 +45,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.38
   m_Center: {x: 0, y: 0.38, z: 0}
---- !u!114 &-2536202654848365525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1058063327868763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 098896c453be36749bcae3a0ae72ff62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1072650116354409
 GameObject:
   m_ObjectHideFlags: 0

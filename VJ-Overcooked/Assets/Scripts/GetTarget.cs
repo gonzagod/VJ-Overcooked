@@ -7,7 +7,7 @@ public class GetTarget : MonoBehaviour
 {
 
     private Transform [] tableColliders;
-    private Component targetInteraction;
+    private Component targetHighlight;
     private Transform lastTarget;
 
     // Start is called before the first frame update
@@ -23,10 +23,11 @@ public class GetTarget : MonoBehaviour
         Vector3 playerPos = transform.Find("player_no_anim/PlayerDetector").position;
         Transform target = GetClosestTable(playerPos, tableColliders);
         if(target != null && target != lastTarget) {
-          GetComponentInChildren<TargetInteraction>().ChangeTarget(target);
+          GetComponentInChildren<TargetHighlight>().ChangeTarget(target);
           lastTarget = target;
         } else if(target == null) {
-          GetComponentInChildren<TargetInteraction>().IgnoreTarget();
+          GetComponentInChildren<TargetHighlight>().IgnoreTarget();
+          lastTarget = null;
         }
     }
 

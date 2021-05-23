@@ -6,7 +6,7 @@ public class MenuButtonController : MonoBehaviour
 {
     public int index;
     [SerializeField]
-    int maxIndex;
+    int maxIndex = 0;
 
     // Start is called before the first frame update
     void Start()

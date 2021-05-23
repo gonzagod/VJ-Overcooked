@@ -11,7 +11,7 @@ public class PlayerFoodScript : MonoBehaviour
     void Start()
     {
         CarryingFood = false;
-        
+
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class PlayerFoodScript : MonoBehaviour
         if (foodSwitch.selectedFood >= 0 && !CarryingFood) Carry();
         else if (Input.GetKeyUp("space") && foodSwitch.selectedFood >= 0 && CarryingFood)
         {
-                switch (foodSwitch.selectedFood)
+                /* switch (foodSwitch.selectedFood)
                 {
                     case 0:
                         Instantiate(onion, transform.position, Quaternion.identity);
@@ -35,6 +35,8 @@ public class PlayerFoodScript : MonoBehaviour
                 Let();
                 foodSwitch.changeSelectedFood(-1);
                 foodSwitch.SelectFood();
+                */
+                Debug.Log("suelta");
         }
 
         else if (Input.GetKeyUp("space") && foodSwitch.selectedFood < 0){

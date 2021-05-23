@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class MenuButton : MonoBehaviour
 {
     [SerializeField]
-    MenuButtonController menuButtonController;
+    MenuButtonController menuButtonController = null;
     [SerializeField]
-    int thisIndex;
+    int thisIndex = 0;
     [SerializeField]
-    Pause Pause;
+    Pause Pause = null;
     private Image myImage;
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,7 @@ public class MenuButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (menuButtonController.index == thisIndex)
+        if (menuButtonController.index == thisIndex && Pause.paused)
         {
             myImage.enabled = true;
             if (Input.GetKeyDown("space"))
@@ -43,10 +43,10 @@ public class MenuButton : MonoBehaviour
                         Pause.resume();
                         Pause.quit();
                         break;
-                } 
+                }
             } else
             {
-                
+
             }
         } else
         {

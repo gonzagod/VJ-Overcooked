@@ -9,7 +9,7 @@ public class ArrowMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class ArrowMenu : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             if (transform.position.z == 6.36f) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            //else if (transform.position.z == 6.08f) 
+            //else if (transform.position.z == 6.08f)
             //else if (transform.position.z == 5.80f)
             //else if (transform.position.z == 5.52f)
         }

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Pause : MonoBehaviour
 {
     public Canvas ui;
+    public bool paused = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class Pause : MonoBehaviour
 
     public void letspause()
     {
+        paused = true;
         Time.timeScale = 0;
         ui.enabled = true;
 
@@ -31,6 +33,7 @@ public class Pause : MonoBehaviour
     {
         ui.enabled = false;
         Time.timeScale = 1;
+        paused = false;
     }
 
     public void controls()
@@ -41,10 +44,12 @@ public class Pause : MonoBehaviour
     public void restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        paused = false;
     }
 
     public void quit()
     {
-    SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1);
+        paused = false;
     }
 }

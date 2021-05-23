@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4716487569523985004}
   - component: {fileID: 4495536328543648712}
-  - component: {fileID: 2118459088496307763}
+  - component: {fileID: 4461512468673510876}
   m_Layer: 0
   m_Name: Keyboard_Space
   m_TagString: Untagged
@@ -83,18 +83,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2118459088496307763
-MonoBehaviour:
+--- !u!95 &4461512468673510876
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1501513928342337427}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3de82bc073dcbb145b055eacd36d6fac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 02c2f21978dba4c4b8b09d3432ebbc4f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4253871155872705844
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +128,7 @@ Transform:
   m_GameObject: {fileID: 4253871155872705844}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -3.48, z: 0}
-  m_LocalScale: {x: 6.666666, y: 6.666666, z: 6.666666}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
   m_Father: {fileID: 4716487569523985004}
   m_RootOrder: 0

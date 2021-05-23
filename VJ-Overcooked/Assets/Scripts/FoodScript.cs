@@ -9,12 +9,6 @@ public class FoodScript : MonoBehaviour
     GameObject Player;
     private Vector3 pos;
 
-    bool playerNear()
-    {
-        if (Math.Abs(transform.position.x - Player.transform.position.x) < 0.75 & Math.Abs(transform.position.z - Player.transform.position.z) < 1.5) return true;
-        else return false;
-    }
-
     void Carry()
     {
         estat = 1;
@@ -31,7 +25,7 @@ public class FoodScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (estat == 0 & Input.GetKeyDown("space")) if (playerNear()) Carry();
+        if (estat == 0 & Input.GetKeyDown("space")) Carry();
         if (estat == 1) Carry();
     }
 }

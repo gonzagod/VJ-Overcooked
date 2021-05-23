@@ -36,6 +36,7 @@ public class MapSelectorScript : MonoBehaviour
             if (Input.GetKeyDown("space"))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + level);
+                Debug.Log("SceneLoader map selector");
             }
         } else {
           Destroy(clone);
