@@ -1777,9 +1777,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4131579452979124860}
-  - component: {fileID: 4131579452979124851}
+  - component: {fileID: 7004489621685644144}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: ReceptesUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1809,7 +1809,7 @@ RectTransform:
   m_AnchoredPosition: {x: 57, y: -26.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &4131579452979124851
+--- !u!114 &7004489621685644144
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1818,15 +1818,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4131579452979124861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401e1eaa0e32cef4bbc4e8c39a151d9e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fcb5c42bc2e8fb408fe4b91e6c91b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Recipe0: {fileID: -9003307493764779777, guid: 668649c85abd4c34ca1f114dc9e03b58,
-    type: 3}
-  Recipe1: {fileID: 21300000, guid: b66afd5e1fd910542a95472ebd7e5cac, type: 3}
-  Recipe2: {fileID: 21300000, guid: 33feac09fbf0d88479066a47e36d5dd3, type: 3}
-  Recipe3: {fileID: 21300000, guid: 1d5039d11d2f7cd41b5c1921ac6c5213, type: 3}
-  Recipe4: {fileID: 21300000, guid: d2543bdf4a4e91e45948ab4721cb284b, type: 3}
-  Recipe5: {fileID: 21300000, guid: 0fe43cc60dfa4724a9f5c760f49fdbd9, type: 3}
-  Recipe6: {fileID: 21300000, guid: 85eaac693f24d4746b297374fa0bdf1b, type: 3}
+  Recipe0: {fileID: 0}
+  Recipe1: {fileID: 0}
+  Recipe2: {fileID: 0}
+  Recipe3: {fileID: 0}
+  Recipe4: {fileID: 0}
+  Recipe5: {fileID: 0}
+  Recipe6: {fileID: 0}
   _poolOrders: 

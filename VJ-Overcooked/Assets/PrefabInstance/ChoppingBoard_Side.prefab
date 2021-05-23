@@ -332,8 +332,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1, z: 1.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.2, y: 2, z: 1.2}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &1560088463508420691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,6 +377,7 @@ MonoBehaviour:
   ItemOnTop: 
   Chopping: 0
   Player: {fileID: 0}
+  itemOnTopChoppeable: 0
   playerAnimator: {fileID: 0}
 --- !u!1001 &979721398348604174
 PrefabInstance:
