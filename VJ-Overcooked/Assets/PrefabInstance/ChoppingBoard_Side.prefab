@@ -378,6 +378,7 @@ MonoBehaviour:
   Chopping: 0
   Player: {fileID: 0}
   itemOnTopChoppeable: 0
+  timeChopping: 0
   playerAnimator: {fileID: 0}
 --- !u!1001 &979721398348604174
 PrefabInstance:

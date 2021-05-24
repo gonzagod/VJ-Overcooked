@@ -30,6 +30,7 @@ public class TargetInteraction : MonoBehaviour
                         string itemOnTable = target.GetComponent<TableTopItem>().ItemOnTop;
                         if(itemOnTable == ""){
                             if(itemOnHands >= 0){
+                                Debug.Log("itemOnHands = " + itemOnHands);
                                 target.GetComponent<TableTopItem>().UpdateItemOnTop(itemOnHands);
                                 foodSwitch.emptyHands();
                             }
@@ -61,14 +62,14 @@ public class TargetInteraction : MonoBehaviour
             } if(Input.GetKeyDown("left ctrl")){
                 if(target.tag == "ChoppingStation"){
                     string itemOnChoppingTable = target.GetComponent<ChoppingTableItem>().ItemOnTop;
-                    int itemOnChoppingTableInt = target.GetComponent<ChoppingTableItem>().getItemInteger(itemOnChoppingTable);
-                    if(itemOnChoppingTableInt >= 0 && itemOnChoppingTableInt < 4){
+                    bool ItemChoppeable = target.GetComponent<ChoppingTableItem>().itemOnTopChoppeable;
+                    if(itemOnChoppingTable != "" && ItemChoppeable){
                         if(itemOnHands < 0){
                             bool chopping = target.GetComponent<ChoppingTableItem>().Chopping;
-                            bool ItemChoppeable = target.GetComponent<ChoppingTableItem>().itemOnTopChoppeable;
-                            if(!chopping){
+                            float timechopping = target.GetComponent<ChoppingTableItem>().timeChopping;
+                            if(!chopping && timechopping == 0f){
                                 target.GetComponent<ChoppingTableItem>().StartChopping();
-                            }else if(ItemChoppeable)target.GetComponent<ChoppingTableItem>().ContinueChopping();
+                            }else if(!chopping && timechopping > 0f) target.GetComponent<ChoppingTableItem>().ContinueChopping();
                             playerAnimator.SetBool("isWalking", false);
                             playerAnimator.SetBool("isHolding", false);
                             playerAnimator.SetBool("isCutting", true);

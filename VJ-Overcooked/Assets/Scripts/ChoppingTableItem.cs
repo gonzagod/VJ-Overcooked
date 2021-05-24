@@ -9,10 +9,10 @@ public class ChoppingTableItem : MonoBehaviour
     public bool Chopping = false;
     public GameObject Player;
     public bool itemOnTopChoppeable = false;
-    private int timeChopping = 0;
-    private int timeToChop = 1000;
-    private FoodSwitch foodSwitch;
+    public float timeChopping = 0;
     public Animator playerAnimator;
+    private FoodSwitch foodSwitch;
+    private Animator itemOnTopAnimator = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,11 +26,10 @@ public class ChoppingTableItem : MonoBehaviour
         GameObject playerTarget = Player.transform.Find("player_no_anim").GetComponent<TargetHighlight>().target;
         int itemOnTableInt = getItemInteger(ItemOnTop);
         if (playerTarget != null && playerTarget.name == gameObject.name){
-            if ( itemOnTableInt < 4 && itemOnTableInt >= 0 && !Chopping ) {
-                Debug.Log("Entra");
+            if (itemOnTopChoppeable && !Chopping ) {
                 gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(true);
                 gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
-            } else if ( (foodSwitch.selectedFood >= 0 && foodSwitch.selectedFood < 4 && itemOnTableInt == -1) ||
+            } else if ( (foodSwitch.selectedFoodChoppeable && itemOnTableInt == -1) ||
                          itemOnTableInt > 3 && !Chopping){
                 gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(false);
                 gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(true);
@@ -38,21 +37,13 @@ public class ChoppingTableItem : MonoBehaviour
                 gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(false);
                 gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
             }
+            if(Chopping) timeChopping += Time.deltaTime;
         } else {
             if(Chopping) StopChopping();
             gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(false);
             gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
         }
-        if(Chopping) timeChopping++;
-        if(timeChopping >= timeToChop){
-            timeChopping = 0;
-            Chopping = false;
-            playerAnimator.SetBool("isCutting", false);
-            Player.transform.Find("player_no_anim/Chef_Body/Hand_Open_R").gameObject.SetActive(true);
-            Player.transform.Find("player_no_anim/Chef_Body/Hand_Grip_R").gameObject.SetActive(false);
-            Player.transform.Find("player_no_anim/Chef_Body/Knife").gameObject.SetActive(false);
-        }
-        if(timeChopping%200 == 0 && timeChopping > 0) Debug.Log("timeChopping = " + timeChopping);
+        if(timeChopping >= 4f) FinishedChopping();
     }
 
     public void UpdateItemOnTop(int foodId){
@@ -65,6 +56,7 @@ public class ChoppingTableItem : MonoBehaviour
             case 4:
                 ItemOnTop = "ChoppedOnion";
                 gameObject.transform.Find("ChoppedOnion").gameObject.SetActive(true);
+                transform.Find("ChoppedOnion/Onion").GetComponent<Animator>().enabled = false;
                 itemOnTopChoppeable = false;
                 break;
         }
@@ -73,7 +65,7 @@ public class ChoppingTableItem : MonoBehaviour
     public void CleanTable() {
         foreach (Transform food in transform)
         {
-            if (food.gameObject.tag == "Pre-Ingredient")
+            if (food.gameObject.tag == "Pre-Ingredient" || food.gameObject.tag == "Ingredient")
                 food.gameObject.SetActive(false);
         }
         ItemOnTop = "";
@@ -104,21 +96,32 @@ public class ChoppingTableItem : MonoBehaviour
     }
 
     public void StartChopping(){
-        Debug.Log("StartChopping");
         Chopping = true;
         ItemChopped();
+        itemOnTopAnimator.speed = 0.78f;
     }
 
     public void ContinueChopping(){
         if(Chopping == false){
-            Debug.Log("ContinueChopping");
             Chopping = true;
+            itemOnTopAnimator.speed = 0.78f;
         }
     }
 
     public void StopChopping(){
-        Debug.Log("StopChopping");
         Chopping = false;
+        itemOnTopAnimator.speed = 0f;
+    }
+
+    public void FinishedChopping(){
+        Chopping = false;
+        itemOnTopChoppeable = false;
+        timeChopping = 0;
+        playerAnimator.SetBool("isCutting", false);
+        Player.transform.Find("player_no_anim/Chef_Body/Hand_Open_R").gameObject.SetActive(true);
+        Player.transform.Find("player_no_anim/Chef_Body/Hand_Grip_R").gameObject.SetActive(false);
+        Player.transform.Find("player_no_anim/Chef_Body/Knife").gameObject.SetActive(false);
+        gameObject.transform.Find("ChoppedOnion/OnionIcon").gameObject.SetActive(true);
     }
 
     private void ItemChopped(){
@@ -127,7 +130,8 @@ public class ChoppingTableItem : MonoBehaviour
                 ItemOnTop = "ChoppedOnion";
                 gameObject.transform.Find("Onion").gameObject.SetActive(false);
                 gameObject.transform.Find("ChoppedOnion").gameObject.SetActive(true);
-                itemOnTopChoppeable = false;
+                gameObject.transform.Find("ChoppedOnion/OnionIcon").gameObject.SetActive(false);
+                itemOnTopAnimator = transform.Find("ChoppedOnion/Onion").GetComponent<Animator>();
                 break;
             case "Lettuce":
                 ItemOnTop = "Chopped Lettuce";

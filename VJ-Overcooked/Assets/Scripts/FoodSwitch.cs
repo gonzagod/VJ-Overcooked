@@ -3,6 +3,7 @@
 public class FoodSwitch : MonoBehaviour
 {
     public int selectedFood = -1;
+    public string selectedFoodString = "";
     public bool selectedFoodChoppeable = false;
     private Animator playerAnimator = null;
     void Start()
@@ -25,7 +26,7 @@ public class FoodSwitch : MonoBehaviour
         int i = 0;
         foreach (Transform food in transform)
         {
-            if (i == selectedFood)
+            if (food.gameObject.name == selectedFoodString)
             {
                 food.gameObject.SetActive(true);
             }
@@ -44,6 +45,7 @@ public class FoodSwitch : MonoBehaviour
 
     public void changeSelectedFoodString(string foodName)
     {
+        selectedFoodString = foodName;
         switch(foodName){
             case "Onion":
                 changeSelectedFood(0);
@@ -57,8 +59,11 @@ public class FoodSwitch : MonoBehaviour
             case "Tomato":
                 changeSelectedFood(3);
                 break;
-            case "Sliced Onion":
+            case "ChoppedOnion":
                 changeSelectedFood(4);
+                break;
+            case "Plate":
+                changeSelectedFood(8);
                 break;
             default:
                 break;
