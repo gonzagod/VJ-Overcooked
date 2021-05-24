@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class RecipeOrder : MonoBehaviour
 {
-    private float timeForNextOrder = 20f;
+    private float timeForNextOrder = 2f;
     private int maxOrders = 5;
     private float elapsedTime;
     private int minRecipe;

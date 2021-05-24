@@ -1506,7 +1506,7 @@ GameObject:
   - component: {fileID: 4131579452206761530}
   - component: {fileID: 4131579452206761535}
   - component: {fileID: 4131579452206761529}
-  - component: {fileID: 4131579452206761528}
+  - component: {fileID: 1996013128914546304}
   m_Layer: 5
   m_Name: 1
   m_TagString: UIOrders
@@ -1556,7 +1556,7 @@ MonoBehaviour:
   m_EffectColor: {r: 0.3294118, g: 0.427451, b: 0.4431373, a: 0.3764706}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
---- !u!114 &4131579452206761528
+--- !u!114 &1996013128914546304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1575,8 +1575,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -9003307493764779777, guid: 668649c85abd4c34ca1f114dc9e03b58,
-    type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1821,11 +1820,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fcb5c42bc2e8fb408fe4b91e6c91b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Recipe0: {fileID: 0}
-  Recipe1: {fileID: 0}
-  Recipe2: {fileID: 0}
-  Recipe3: {fileID: 0}
-  Recipe4: {fileID: 0}
-  Recipe5: {fileID: 0}
-  Recipe6: {fileID: 0}
+  Recipe0: {fileID: 21300000, guid: 54039fe83f13d664398b76dfb2ec401e, type: 3}
+  Recipe1: {fileID: 21300000, guid: b25b6263afa471d4784b501720405a52, type: 3}
+  Recipe2: {fileID: 21300000, guid: 4ee3cd1961efb4246962c9e639a87cb5, type: 3}
+  Recipe3: {fileID: 21300000, guid: f4b89fff3e39af2419b8a0ee4757a65d, type: 3}
+  Recipe4: {fileID: 21300000, guid: 9204e52a22debc741a39dfbafb0eacd5, type: 3}
+  Recipe5: {fileID: 21300000, guid: 54039fe83f13d664398b76dfb2ec401e, type: 3}
+  Recipe6: {fileID: 21300000, guid: 54039fe83f13d664398b76dfb2ec401e, type: 3}
   _poolOrders: 
