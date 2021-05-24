@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 1560088463508420691}
   - component: {fileID: 1560088463508421628}
   - component: {fileID: 2514811510363183415}
+  - component: {fileID: 8825486869080523474}
   m_Layer: 11
   m_Name: ChoppingBoard_Side
   m_TagString: ChoppingStation
@@ -380,6 +381,21 @@ MonoBehaviour:
   itemOnTopChoppeable: 0
   timeChopping: 0
   playerAnimator: {fileID: 0}
+--- !u!114 &8825486869080523474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560088463508420700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5446e7ad55a4644b21bac3231ac5d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TBar: {fileID: 7207808827121168892, guid: d7bf820ccf97cce48bc66cfb0c25dc10, type: 3}
+  Table: {fileID: 2514811510363183415}
+  timeBar: {fileID: 7103918742819862264, guid: d7bf820ccf97cce48bc66cfb0c25dc10, type: 3}
 --- !u!1001 &979721398348604174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -465,6 +481,10 @@ PrefabInstance:
     - target: {fileID: 1682905104854128, guid: 71271713668f8864da99564697876856, type: 3}
       propertyPath: m_Name
       value: ChoppedOnion
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682905104854128, guid: 71271713668f8864da99564697876856, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4087390834662021, guid: 71271713668f8864da99564697876856, type: 3}
       propertyPath: m_LocalPosition.x

@@ -14,6 +14,15 @@ TagManager:
   - Canvas
   - Crate
   - Onion Crate
+  - Pre-Ingredient
+  - Ingredient
+  - UIOrders
+  - Mushroom Crate
+  - Meat Crate
+  - Lettuce Crate
+  - Tomato Crate
+  - BarFill
+  - Top Crate
   layers:
   - Default
   - TransparentFX
@@ -50,4 +59,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BarBackground
+    uniqueID: 214652261
+    locked: 0
+  - name: BarFill
+    uniqueID: 148230421
     locked: 0
