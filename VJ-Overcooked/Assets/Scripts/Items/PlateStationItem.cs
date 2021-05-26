@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlateStationItem : MonoBehaviour
 {
-    public string ItemOnTop = "";
+    /* public string ItemOnTop = "";
     private bool check;
     public GameObject Player;
-    private FoodSwitch foodSwitch;
+    private ItemSwitch foodSwitch;
     public PlateReturnTopItem plateReturn;
     public RecipeOrder recipes;
     private float time = 0.5f;
@@ -88,6 +88,6 @@ public class PlateStationItem : MonoBehaviour
     void GeneratePlate()
     {
         plateReturn.UpdateItemOnTop(8);
-    }
+    }*/
 
 }

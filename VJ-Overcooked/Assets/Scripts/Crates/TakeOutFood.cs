@@ -5,11 +5,10 @@ using System;
 
 public class TakeOutFood : MonoBehaviour
 {
-
     public GameObject Food;
     public GameObject SpaceIcon;
     public GameObject Player;
-    private FoodSwitch foodSwitch;
+    private ItemSwitch itemSwitch;
     private Vector3 pos;
     public Animator myAnimatorController;
     // Start is called before the first frame update
@@ -17,7 +16,7 @@ public class TakeOutFood : MonoBehaviour
     void Start()
     {
         myAnimatorController.SetBool("Open", false);
-        foodSwitch = Player.transform.Find("player_no_anim/Food").GetComponent<FoodSwitch>();
+        itemSwitch = Player.transform.Find("player_no_anim/Item").GetComponent<ItemSwitch>();
 
     }
 
@@ -28,12 +27,13 @@ public class TakeOutFood : MonoBehaviour
         GameObject playerTarget = Player.transform.Find("player_no_anim").GetComponent<TargetHighlight>().target;
         if ( playerTarget != null && playerTarget.name == gameObject.name)
         {
-            if(foodSwitch.selectedFood == -1) gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(true);
+            if(itemSwitch.selectedItemOnHands == null) gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(true);
             if (Input.GetKeyUp("space"))
             {
-                if (foodSwitch.selectedFood == -1){
+                if (itemSwitch.selectedItemOnHands == null){
                     myAnimatorController.SetBool("Open", true);
-                    foodSwitch.changeSelectedFoodString(Food.name);
+                    GameObject foodInstant = Instantiate(Food) as GameObject;
+                    itemSwitch.setItemOnHands(foodInstant);
                 }
             }
         } else {

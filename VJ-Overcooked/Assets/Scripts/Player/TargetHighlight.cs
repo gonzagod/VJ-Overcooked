@@ -79,10 +79,10 @@ public class TargetHighlight : MonoBehaviour
               mats[0] = cookerDefaultMaterial;
               renderer.materials = mats;
 
-              GameObject utensil = target.GetComponent<CookingStationScript>().hasUtensilOnTop();
+              GameObject utensil = target.GetComponent<CookingStationScript>().utensilOnTop;
               if(utensil != null){
-                  string utensilType = target.GetComponent<CookingStationScript>().typeOfUtensil(utensil);
-                  if(utensilType == "Pot"){
+                  string utensilName = target.GetComponent<CookingStationScript>().utensilOnTopString;
+                  if(utensilName == "Pot"){
                       MeshRenderer utensilRenderer = utensil.transform.Find("Pot/Pot").GetComponent<MeshRenderer>();
                       Material[] utensilMats = utensilRenderer.materials;
                       Material utensilDefaultMaterial = utensil.transform.GetComponent<PotMaterials>().pot;
@@ -150,10 +150,10 @@ public class TargetHighlight : MonoBehaviour
             mats[0] = cookerHighlightedMaterial;
             renderer.materials = mats;
 
-            GameObject utensil = target.GetComponent<CookingStationScript>().hasUtensilOnTop();
+            GameObject utensil = target.GetComponent<CookingStationScript>().utensilOnTop;
             if(utensil != null){
-                string utensilType = target.GetComponent<CookingStationScript>().typeOfUtensil(utensil);
-                if(utensilType == "Pot"){
+                string utensilName = target.GetComponent<CookingStationScript>().utensilOnTopString;
+                if(utensilName == "Pot"){
                     MeshRenderer utensilRenderer = utensil.transform.Find("Pot/Pot").GetComponent<MeshRenderer>();
                     Material[] utensilMats = utensilRenderer.materials;
                     Material utensilHighlightedMaterial = utensil.transform.GetComponent<PotMaterials>().pot_highlighted;
