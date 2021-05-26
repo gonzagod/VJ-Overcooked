@@ -54,6 +54,9 @@ public class TableTopItem : MonoBehaviour
                 ItemOnTop = "Plate";
                 gameObject.transform.Find("Plate").gameObject.SetActive(true);
                 break;
+            case 9:
+                ItemOnTop = "Pot";
+                break;
             default:
                 break;
         }
@@ -66,5 +69,28 @@ public class TableTopItem : MonoBehaviour
                 food.gameObject.SetActive(false);
         }
         ItemOnTop = "";
+    }
+
+    public void placeUtensil(GameObject utensil){
+        GameObject Pot = GameObject.Find(utensil.name);
+        Pot.transform.SetParent(gameObject.transform.Find("AttachPoint"));
+        Pot.transform.localRotation = Quaternion.identity;
+        Pot.transform.localPosition = Vector3.zero;
+        Pot.transform.localScale = Vector3.one;
+        ItemOnTop = "Pot";
+    }
+
+    public GameObject hasUtensilOnTop(){
+        GameObject utensil = null;
+        foreach(Transform child in transform.Find("AttachPoint")){
+            if(child.tag == "CookingUtensil") utensil = child.gameObject;
+        }
+        return utensil;
+    }
+
+    public string typeOfUtensil(GameObject utensil){
+        if(utensil.name.Contains("Pot")) return "Pot";
+        else if(utensil.name.Contains("Pan")) return "Pan";
+        else return "";
     }
 }

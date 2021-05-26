@@ -72,20 +72,41 @@ public class TargetHighlight : MonoBehaviour
               Material knifeDefaultMaterial = target.transform.GetComponent<KnifeMaterials>().knife;
               knifeMats[0] = knifeDefaultMaterial;
               knifeRenderer.materials = knifeMats;
-          }
-          else if (target.tag == "CookingStation"){
+          } else if (target.tag == "CookingStation"){
               MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
               Material[] mats = renderer.materials;
               Material cookerDefaultMaterial = target.transform.GetComponent<CookerMaterials>().cooker;
               mats[0] = cookerDefaultMaterial;
               renderer.materials = mats;
 
-              /* MeshRenderer knifeRenderer = target.transform.Find("Knife").GetComponent<MeshRenderer>();;
-              Material[] knifeMats = knifeRenderer.materials;
-              Material knifeDefaultMaterial = target.transform.GetComponent<KnifeMaterials>().knife;
-              knifeMats[0] = knifeDefaultMaterial;
-              knifeRenderer.materials = knifeMats; */
-          }
+              GameObject utensil = target.GetComponent<CookingStationScript>().hasUtensilOnTop();
+              if(utensil != null){
+                  string utensilType = target.GetComponent<CookingStationScript>().typeOfUtensil(utensil);
+                  if(utensilType == "Pot"){
+                      MeshRenderer utensilRenderer = utensil.transform.Find("Pot/Pot").GetComponent<MeshRenderer>();
+                      Material[] utensilMats = utensilRenderer.materials;
+                      Material utensilDefaultMaterial = utensil.transform.GetComponent<PotMaterials>().pot;
+                      utensilMats[0] = utensilDefaultMaterial;
+                      utensilRenderer.materials = utensilMats;
+                  }
+              }
+          } /*else if (target.tag == "PlateStation")
+            {
+                MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
+                Material[] mats = renderer.materials;
+                Material tableDefaultMaterial = target.transform.GetComponent<TableMaterials>().table;
+                mats[0] = tableDefaultMaterial;
+                renderer.materials = mats;
+            }
+
+            else if (target.tag == "PlateReturn")
+            {
+                MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
+                Material[] mats = renderer.materials;
+                Material tableDefaultMaterial = target.transform.GetComponent<TableMaterials>().table;
+                mats[0] = tableDefaultMaterial;
+                renderer.materials = mats;
+            }*/
       } else {
         if (target.tag == "Table") {
             MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
@@ -129,12 +150,30 @@ public class TargetHighlight : MonoBehaviour
             mats[0] = cookerHighlightedMaterial;
             renderer.materials = mats;
 
-            /* MeshRenderer knifeRenderer = target.transform.Find("Knife").GetComponent<MeshRenderer>();;
-            Material[] knifeMats = knifeRenderer.materials;
-            Material knifeDefaultMaterial = target.transform.GetComponent<KnifeMaterials>().knife;
-            knifeMats[0] = knifeDefaultMaterial;
-            knifeRenderer.materials = knifeMats; */
-        }
+            GameObject utensil = target.GetComponent<CookingStationScript>().hasUtensilOnTop();
+            if(utensil != null){
+                string utensilType = target.GetComponent<CookingStationScript>().typeOfUtensil(utensil);
+                if(utensilType == "Pot"){
+                    MeshRenderer utensilRenderer = utensil.transform.Find("Pot/Pot").GetComponent<MeshRenderer>();
+                    Material[] utensilMats = utensilRenderer.materials;
+                    Material utensilHighlightedMaterial = utensil.transform.GetComponent<PotMaterials>().pot_highlighted;
+                    utensilMats[0] = utensilHighlightedMaterial;
+                    utensilRenderer.materials = utensilMats;
+                }
+            }
+        } /* else if (target.tag == "PlateStation"){
+            MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
+            Material[] mats = renderer.materials;
+            Material tableHighlightedMaterial = target.transform.GetComponent<TableMaterials>().table_highlighted;
+            mats[0] = tableHighlightedMaterial;
+            renderer.materials = mats;
+        } else if (target.tag == "PlateReturn"){
+             MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
+             Material[] mats = renderer.materials;
+             Material tableHighlightedMaterial = target.transform.GetComponent<TableMaterials>().table_highlighted;
+             mats[0] = tableHighlightedMaterial;
+             renderer.materials = mats;
+            } */
       }
     }
 }

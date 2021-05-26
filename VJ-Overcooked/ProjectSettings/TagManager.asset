@@ -23,6 +23,10 @@ TagManager:
   - Tomato Crate
   - BarFill
   - Top Crate
+  - Pot
+  - Icon
+  - Ingredient Icon
+  - Time Bar
   layers:
   - Default
   - TransparentFX
