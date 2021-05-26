@@ -5,18 +5,19 @@ using UnityEngine;
 public class ChoppingTableItem : MonoBehaviour
 {
 
-    public string ItemOnTop = "";
+    public string itemOnTopString = "";
     public bool Chopping = false;
-    public GameObject Player;
     public bool itemOnTopChoppeable = false;
+    public GameObject itemOnTop = null;
     public float timeChopping = 0;
+    public GameObject Player;
     public Animator playerAnimator;
-    private FoodSwitch foodSwitch;
+    private ItemSwitch itemSwitch;
     private Animator itemOnTopAnimator = null;
     // Start is called before the first frame update
     void Start()
     {
-        foodSwitch = Player.transform.Find("player_no_anim/Food").GetComponent<FoodSwitch>();
+        itemSwitch = Player.transform.Find("player_no_anim/Item").GetComponent<ItemSwitch>();
         playerAnimator = Player.transform.Find("player_no_anim").GetComponent<Animator>();
     }
 
@@ -24,20 +25,23 @@ public class ChoppingTableItem : MonoBehaviour
     void Update()
     {
         GameObject playerTarget = Player.transform.Find("player_no_anim").GetComponent<TargetHighlight>().target;
-        int itemOnTableInt = getItemInteger(ItemOnTop);
+
         if (playerTarget != null && playerTarget.name == gameObject.name){
             if (itemOnTopChoppeable && !Chopping ) {
                 gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(true);
                 gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
-            } else if ( (foodSwitch.selectedFoodChoppeable && itemOnTableInt == -1) ||
-                         itemOnTableInt > 3 && !Chopping){
+            } else if ( (itemSwitch.selectedFoodChoppeable && itemOnTop == null) ||
+                         itemOnTopChoppeable && !Chopping){
                 gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(false);
                 gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(true);
             } else if(Chopping){
                 gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(false);
                 gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
             }
-            if(Chopping) timeChopping += Time.deltaTime;
+            if(Chopping) {
+                timeChopping += Time.deltaTime;
+                transform.Find("Knife").gameObject.SetActive(false);
+            } else transform.Find("Knife").gameObject.SetActive(true);
         } else {
             if(Chopping) StopChopping();
             gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(false);
@@ -46,53 +50,23 @@ public class ChoppingTableItem : MonoBehaviour
         if(timeChopping >= 4f) FinishedChopping();
     }
 
-    public void UpdateItemOnTop(int foodId){
-        switch(foodId){
-            case 0:
-                ItemOnTop = "Onion";
-                gameObject.transform.Find("Onion").gameObject.SetActive(true);
-                itemOnTopChoppeable = true;
-                break;
-            case 4:
-                ItemOnTop = "ChoppedOnion";
-                gameObject.transform.Find("ChoppedOnion").gameObject.SetActive(true);
-                transform.Find("ChoppedOnion/Onion").GetComponent<Animator>().enabled = false;
-                itemOnTopChoppeable = false;
-                break;
+    public void setItemOnChoppingTable(GameObject item, string itemName, bool itemChoppeable){
+        if(item != null){
+            item.transform.SetParent(transform.Find("AttachPoint"), false);
+            itemOnTopString = itemName;
+            itemOnTopChoppeable = itemChoppeable;
+            if(!itemChoppeable){
+                item.transform.GetComponentInChildren<Animator>().enabled = false;
+            }
         }
+        itemOnTop = item;
     }
 
     public void CleanTable() {
-        foreach (Transform food in transform)
-        {
-            if (food.gameObject.tag == "Pre-Ingredient" || food.gameObject.tag == "Ingredient")
-                food.gameObject.SetActive(false);
-        }
-        ItemOnTop = "";
+        itemOnTopString = "";
+        Chopping = false;
         itemOnTopChoppeable = false;
-    }
-
-    public int getItemInteger(string foodName){
-        switch(foodName){
-            case "Onion":
-                return 0;
-            case "Lettuce":
-                return 1;
-            case "Mushroom":
-                return 2;
-            case "Tomato":
-                return 3;
-            case "ChoppedOnion":
-                return 4;
-            case "Chopped Lettuce":
-                return 5;
-            case "Chopped Mushroom":
-                return 6;
-            case "Chopped Tomato":
-                return 7;
-            default:
-                return -1;
-        }
+        itemOnTop = null;
     }
 
     public void StartChopping(){
@@ -121,26 +95,26 @@ public class ChoppingTableItem : MonoBehaviour
         Player.transform.Find("player_no_anim/Chef_Body/Hand_Open_R").gameObject.SetActive(true);
         Player.transform.Find("player_no_anim/Chef_Body/Hand_Grip_R").gameObject.SetActive(false);
         Player.transform.Find("player_no_anim/Chef_Body/Knife").gameObject.SetActive(false);
-        gameObject.transform.Find("ChoppedOnion/OnionIcon").gameObject.SetActive(true);
+        //gameObject.transform.Find("/OnionIcon").gameObject.SetActive(true);
     }
 
     private void ItemChopped(){
-        switch(ItemOnTop){
+        switch(itemOnTopString){
             case "Onion":
-                ItemOnTop = "ChoppedOnion";
-                gameObject.transform.Find("Onion").gameObject.SetActive(false);
-                gameObject.transform.Find("ChoppedOnion").gameObject.SetActive(true);
-                gameObject.transform.Find("ChoppedOnion/OnionIcon").gameObject.SetActive(false);
-                itemOnTopAnimator = transform.Find("ChoppedOnion/Onion").GetComponent<Animator>();
+                foreach(Transform child in transform.Find("AttachPoint")) Destroy(child.gameObject);
+                GameObject newFood = Instantiate(Resources.Load("ChoppedOnion"), new Vector3(0.6f,  0.4f, 0f), Quaternion.Euler(0f, 0f, 90f)) as GameObject;
+                setItemOnChoppingTable(newFood, "ChoppedOnion", true);
+                //gameObject.transform.Find("ChoppedOnion/OnionIcon").gameObject.SetActive(false);
+                itemOnTopAnimator = itemOnTop.GetComponentInChildren<Animator>();
                 break;
             case "Lettuce":
-                ItemOnTop = "Chopped Lettuce";
+                itemOnTopString = "Chopped Lettuce";
                 break;
             case "Mushroom":
-                ItemOnTop = "Chopped Mushroom";
+                itemOnTopString = "Chopped Mushroom";
                 break;
             case "Tomato":
-                ItemOnTop = "Chopped Tomato";
+                itemOnTopString = "Chopped Tomato";
                 break;
         }
     }

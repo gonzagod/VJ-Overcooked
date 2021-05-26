@@ -6,17 +6,19 @@ public class TargetInteraction : MonoBehaviour
 {
 
     private GameObject target;
-    private FoodSwitch foodSwitch;
-    private int itemOnHands;
-    private GameObject goOnHands = null;
+    private ItemSwitch itemSwitch;
+    private string itemOnHandsName = "";
+    private bool itemOnHandsChoppeable = false;
+    private string itemOnHandsChoppedFood = "";
+    private string typeOfItemOnHands = "";
+    private GameObject itemOnHands = null;
     private Animator playerAnimator;
     // Start is called before the first frame update
     void Start()
     {
         target = null;
-        foodSwitch = gameObject.transform.Find("player_no_anim/Food").GetComponent<FoodSwitch>();
+        itemSwitch = gameObject.transform.Find("player_no_anim/Item").GetComponent<ItemSwitch>();
         playerAnimator = transform.Find("player_no_anim").gameObject.GetComponent<Animator>();
-
     }
 
     // Update is called once per frame
@@ -24,101 +26,85 @@ public class TargetInteraction : MonoBehaviour
     {
         target = gameObject.transform.Find("player_no_anim").GetComponent<TargetHighlight>().target;
         if (target != null){
-            itemOnHands = foodSwitch.selectedFood;
-            goOnHands = foodSwitch.selectedItemOnHands;
-            string choppedFood = foodSwitch.choppedFood;
+            itemOnHands = itemSwitch.selectedItemOnHands;
+            itemOnHandsName = itemSwitch.selectedItemName;
+            itemOnHandsChoppedFood = itemSwitch.choppedFood;
+            itemOnHandsChoppeable = itemSwitch.selectedFoodChoppeable;
+            typeOfItemOnHands = itemSwitch.typeOfItem;
             if(Input.GetKeyDown("space")){
                 switch(target.tag){
                     case "Table":
-                        string itemOnTable = target.GetComponent<TableTopItem>().ItemOnTop;
-                        if(itemOnTable == ""){
-                            if(itemOnHands >= 0){
-                                if(itemOnHands < 9){
-                                    Debug.Log("itemOnHands = " + itemOnHands);
-                                    target.GetComponent<TableTopItem>().UpdateItemOnTop(itemOnHands);
-                                    foodSwitch.emptyHands();
-                                } else {
-                                    GameObject utensil = null;
-                                    foreach(Transform child in transform.Find("player_no_anim/Food/Utensil")){
-                                        if(child.tag == "CookingUtensil") utensil = child.gameObject;
-                                    }
-                                    target.GetComponent<TableTopItem>().placeUtensil(utensil);
-                                    foodSwitch.emptyHands();
-                                }
+                        string itemOnTableString = target.GetComponent<TableTopItem>().itemOnTopString;
+                        GameObject itemOnTable = target.GetComponent<TableTopItem>().itemOnTop;
+                        if(itemOnTable == null){
+                            if(itemOnHands != null){
+                                target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
+                                itemSwitch.emptyHands();
                             }
-                        }else if(itemOnHands == -1){
-                            GameObject utensil = target.GetComponent<TableTopItem>().hasUtensilOnTop();
-                            string utensilType = "";
-                            if(utensil != null){
-                                utensilType = target.GetComponent<TableTopItem>().typeOfUtensil(utensil);
-                                if(utensilType != "") foodSwitch.takeItem(utensil);
-                                target.GetComponent<TableTopItem>().CleanTable();
-                            } else {
-                                foodSwitch.changeSelectedFoodString(itemOnTable);
-                                target.GetComponent<TableTopItem>().CleanTable();
-                            }
-                        } else if(itemOnTable == "Pot" && itemOnHands > 3 && itemOnHands < 8){
-                            GameObject potOnTable = target.GetComponent<TableTopItem>().hasUtensilOnTop();
-                            int numOfIngredientsInPot = potOnTable.GetComponent<PotScript>().numIngredients;
-                            bool potBurned = potOnTable.GetComponent<PotScript>().burned;
+                        }else if(itemOnHands == null){
+                            itemSwitch.setItemOnHands(itemOnTable);
+                            target.GetComponent<TableTopItem>().CleanTable();
+                        } else if(itemOnTableString == "Pot" && itemOnHandsChoppedFood != ""){
+                            int numOfIngredientsInPot = itemOnTable.GetComponent<PotScript>().numIngredients;
+                            bool potBurned = itemOnTable.GetComponent<PotScript>().burned;
                             if(numOfIngredientsInPot < 3 && !potBurned){
-                                potOnTable.GetComponent<PotScript>().addIngredient(choppedFood);
-                                foodSwitch.emptyHands();
+                                itemOnTable.GetComponent<PotScript>().addIngredient(itemOnHandsChoppedFood);
+                                itemSwitch.emptyHands();
                             }
                         }
                         break;
 
                     case "ChoppingStation":
-                        string itemOnChoppingTable = target.GetComponent<ChoppingTableItem>().ItemOnTop;
-                        if(itemOnChoppingTable == ""){
-                            if(itemOnHands >= 0 && itemOnHands < 8){
-                                target.GetComponent<ChoppingTableItem>().UpdateItemOnTop(itemOnHands);
-                                foodSwitch.emptyHands();
+                        string itemOnChoppingTableString = target.GetComponent<ChoppingTableItem>().itemOnTopString;
+                        GameObject itemOnChoppingTable = target.GetComponent<ChoppingTableItem>().itemOnTop;
+                        if(itemOnChoppingTable == null){
+                            if(itemOnHandsChoppeable){
+                                Debug.Log("Entra");
+                                target.GetComponent<ChoppingTableItem>().setItemOnChoppingTable(itemOnHands, itemOnHandsName, itemOnHandsChoppeable);
+                                itemSwitch.emptyHands();
                             }
                         }else {
                             bool chopping = target.GetComponent<ChoppingTableItem>().Chopping;
-                            if(!chopping && itemOnHands == -1){
-                                foodSwitch.changeSelectedFoodString(itemOnChoppingTable);
+                            if(!chopping && itemOnHands == null){
+                                itemSwitch.setItemOnHands(itemOnChoppingTable);
                                 target.GetComponent<ChoppingTableItem>().CleanTable();
                             }
                         }
                         break;
 
                     case "CookingStation":
-                        if(choppedFood != ""){
-                            GameObject utensil = target.GetComponent<CookingStationScript>().hasUtensilOnTop();
-                            string utensilType = "";
+                        if(itemOnHandsChoppedFood != ""){
+                            GameObject utensil = target.GetComponent<CookingStationScript>().utensilOnTop;
+                            string utensilName = target.GetComponent<CookingStationScript>().utensilOnTopString;
                             if(utensil != null){
-                                utensilType = target.GetComponent<CookingStationScript>().typeOfUtensil(utensil);
-                                if(utensilType == "Pot"){
+                                if(utensilName == "Pot"){
                                     int numOfIngredientsInPot = utensil.GetComponent<PotScript>().numIngredients;
                                     bool potBurned = utensil.GetComponent<PotScript>().burned;
                                     if(numOfIngredientsInPot < 3 && !potBurned){
-                                        utensil.GetComponent<PotScript>().addIngredient(choppedFood);
-                                        foodSwitch.emptyHands();
+                                        utensil.GetComponent<PotScript>().addIngredient(itemOnHandsChoppedFood);
+                                        itemSwitch.deleteItemOnHands();
+                                        itemSwitch.emptyHands();
                                     }
                                 }
                             }
-                        } else if(itemOnHands == -1){
-                            GameObject utensil = target.GetComponent<CookingStationScript>().hasUtensilOnTop();
-                            string utensilType = "";
+                        } else if(itemOnHands == null){
+                            GameObject utensil = target.GetComponent<CookingStationScript>().utensilOnTop;
+                            string utensilName = target.GetComponent<CookingStationScript>().utensilOnTopString;
                             if(utensil != null){
-                                utensilType = target.GetComponent<CookingStationScript>().typeOfUtensil(utensil);
-                                if(utensilType != "") foodSwitch.takeItem(utensil);
+                                if(utensilName != "") itemSwitch.setItemOnHands(utensil);
+                                target.GetComponent<CookingStationScript>().cleanCookingStation();
                             }
-                        }else if(itemOnHands > 8){
-                            GameObject utensil = target.GetComponent<CookingStationScript>().hasUtensilOnTop();
+                        }else if(typeOfItemOnHands == "Utensil"){
+                            GameObject utensil = target.GetComponent<CookingStationScript>().utensilOnTop;
                             if(utensil == null){
-                                if(itemOnHands == 9) {
-                                    target.GetComponent<CookingStationScript>().setPotOnTop(goOnHands.name);
-                                }
-                                foodSwitch.emptyHands();
+                                target.GetComponent<CookingStationScript>().setPotOnTop(itemOnHands.name);
+                                itemSwitch.emptyHands();
                             }
 
                         }
                         break;
 
-                    case "PlateStation":
+                    /* case "PlateStation":
                         string itemOnPlateStation = target.GetComponent<PlateStationItem>().ItemOnTop;
                         if (itemOnHands >= 0)
                         {
@@ -144,17 +130,17 @@ public class TargetInteraction : MonoBehaviour
                             foodSwitch.changeSelectedFoodString(itemOnPlateReturn);
                             target.GetComponent<PlateReturnTopItem>().CleanTable();
                         }
-                        break;
+                        break;*/
 
                     default:
                         break;
                 }
             } if(Input.GetKeyDown("left ctrl")){
                 if(target.tag == "ChoppingStation"){
-                    string itemOnChoppingTable = target.GetComponent<ChoppingTableItem>().ItemOnTop;
-                    bool ItemChoppeable = target.GetComponent<ChoppingTableItem>().itemOnTopChoppeable;
-                    if(itemOnChoppingTable != "" && ItemChoppeable){
-                        if(itemOnHands < 0){
+                    string itemOnChoppingTable = target.GetComponent<ChoppingTableItem>().itemOnTopString;
+                    bool itemChoppeable = target.GetComponent<ChoppingTableItem>().itemOnTopChoppeable;
+                    if(itemOnChoppingTable != "" && itemChoppeable){
+                        if(itemOnHands == null){
                             bool chopping = target.GetComponent<ChoppingTableItem>().Chopping;
                             float timechopping = target.GetComponent<ChoppingTableItem>().timeChopping;
                             if(!chopping && timechopping == 0f){

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4940893809145157}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4432673366251794}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4748734798613933}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4867145420167708}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4854810190076037}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4036133471060854}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4047403030193911}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4289606163029347}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4780616526373092}
   - component: {fileID: 137838480424257593}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Mushroom_Whole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4899591211943082}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Mushroom_Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4741212993792416}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4696392585274250}
   - component: {fileID: 135319549765311702}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Mushroom
   m_TagString: Pre-Ingredient
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4974713694254932}
   - component: {fileID: 137989395549844263}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Mushroom_Sliced
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -530,7 +530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4647355199660548}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,7 +560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4090773203971812}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -590,7 +590,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4086962166495229}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -620,7 +620,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4229054970165961}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -650,7 +650,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4425912088976106}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,7 +680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4192582938003366}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -711,7 +711,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4322604346673618}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +741,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4383344880582987}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -779,7 +779,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4588931562663214}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -810,7 +810,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4122981652454542}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -840,7 +840,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4670348955688711}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -870,7 +870,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4413686547818679}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Joints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -901,7 +901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4507863316925352}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -940,7 +940,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4672235468442929}
   - component: {fileID: 95415216844649475}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}

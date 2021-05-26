@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4689019104614786}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4920245293073529}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4498208420749779}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4569310131299675}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4722278975197079}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Onion_Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4987791752774881}
   - component: {fileID: 135961489613219970}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Lettuce
   m_TagString: Pre-Ingredient
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190252324810784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.16719, y: -5.100128e-18, z: 4.593787}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4516700600152496}
@@ -208,7 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4516700600152496}
   - component: {fileID: 95595531383011952}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Onion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,8 +241,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1245885921991314}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: fd26ef052f0bec943aa878e77dafec6e, type: 2}
-  m_Controller: {fileID: 9100000, guid: 4b2efdafa5a464e4cb989607549e258b, type: 2}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -260,7 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4467565350959006}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4923820900240284}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +320,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4911064496761403}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4993685349348623}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4274805528676391}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Joints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,7 +412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4657346296630354}
   - component: {fileID: 137757156660489496}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Onion_Whole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +451,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c145518ace0b7574784c2e2d27c8396a, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -494,7 +494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4878855180230580}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,7 +524,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4092439043317991}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4267868763957561}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4018361886398783}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,7 +615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4079116968847521}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -654,7 +654,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4969682240819783}
   - component: {fileID: 137176712073075163}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Onion_Sliced
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -743,7 +743,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4983354623291702}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -773,7 +773,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4605491656328750}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -811,7 +811,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4316276027780293}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -841,7 +841,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4051032120996529}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,7 +871,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4108779406134323}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -901,7 +901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4635835959395226}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Slice07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -931,7 +931,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4812485735189140}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: ct_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -962,7 +962,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4599258286485174}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: bn_Slice05
   m_TagString: Untagged
   m_Icon: {fileID: 0}

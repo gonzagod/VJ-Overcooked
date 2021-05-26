@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4772001973338096}
   - component: {fileID: 136712789604385726}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: StewPotato_Raw
   m_TagString: Pre-Ingredient
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 33514703915524958}
   - component: {fileID: 23535304228849505}
   - component: {fileID: 95676315342101867}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Fish_Raw
   m_TagString: Untagged
   m_Icon: {fileID: 0}

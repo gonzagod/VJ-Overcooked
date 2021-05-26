@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlateReturnTopItem : MonoBehaviour
 {
-    public string ItemOnTop = "";
+    /* public string ItemOnTop = "";
     private GameObject Player;
-    private FoodSwitch foodSwitch;
+    private ItemSwitch foodSwitch;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,5 +51,5 @@ public class PlateReturnTopItem : MonoBehaviour
             default:
                 return -1;
         }
-    }
+    }*/
 }

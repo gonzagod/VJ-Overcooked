@@ -6,6 +6,9 @@ using UnityEngine;
 public class CookingStationScript : MonoBehaviour
 {
 
+    public GameObject utensilOnTop = null;
+    public string utensilOnTopString = "";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,23 +32,14 @@ public class CookingStationScript : MonoBehaviour
 
     public void setPotOnTop(string potName){
         GameObject Pot = GameObject.Find(potName);
-        Pot.transform.SetParent(gameObject.transform.Find("AttachPoint"));
-        Pot.transform.localRotation = Quaternion.identity;
-        Pot.transform.localPosition = Vector3.zero;
-        Pot.transform.localScale = Vector3.one;
+        Pot.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
+        utensilOnTop = Pot;
+        utensilOnTopString = "Pot";
     }
 
-    public GameObject hasUtensilOnTop(){
-        GameObject Utensil = null;
-        foreach(Transform child in transform.Find("AttachPoint")){
-            if(child.tag == "CookingUtensil") Utensil = child.gameObject;
-        }
-        return Utensil;
+    public void cleanCookingStation(){
+        utensilOnTop = null;
+        utensilOnTopString = "";
     }
 
-    public string typeOfUtensil(GameObject Utensil){
-        if(Utensil.name.Contains("Pot")) return "Pot";
-        else if(Utensil.name.Contains("Pan")) return "Pan";
-        else return "";
-    }
 }
