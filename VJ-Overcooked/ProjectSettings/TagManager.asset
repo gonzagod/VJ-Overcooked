@@ -27,6 +27,8 @@ TagManager:
   - Icon
   - Ingredient Icon
   - Time Bar
+  - Recipe
+  - Tomato Soup
   layers:
   - Default
   - TransparentFX

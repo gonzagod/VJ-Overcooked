@@ -118,7 +118,7 @@ public class TargetInteraction : MonoBehaviour
                         }
                         break;
 
-                    /* case "PlateStation":
+                    case "PlateStation":
                         string itemOnPlateStation = target.GetComponent<PlateStationItem>().ItemOnTop;
                         if (itemOnHands >= 0)
                         {
@@ -144,7 +144,7 @@ public class TargetInteraction : MonoBehaviour
                             foodSwitch.changeSelectedFoodString(itemOnPlateReturn);
                             target.GetComponent<PlateReturnTopItem>().CleanTable();
                         }
-                        break; */
+                        break;
 
                     default:
                         break;

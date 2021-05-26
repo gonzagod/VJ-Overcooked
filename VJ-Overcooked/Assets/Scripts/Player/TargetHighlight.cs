@@ -90,7 +90,7 @@ public class TargetHighlight : MonoBehaviour
                       utensilRenderer.materials = utensilMats;
                   }
               }
-          } /*else if (target.tag == "PlateStation")
+          } else if (target.tag == "PlateStation")
             {
                 MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
                 Material[] mats = renderer.materials;
@@ -106,7 +106,7 @@ public class TargetHighlight : MonoBehaviour
                 Material tableDefaultMaterial = target.transform.GetComponent<TableMaterials>().table;
                 mats[0] = tableDefaultMaterial;
                 renderer.materials = mats;
-            }*/
+            }
       } else {
         if (target.tag == "Table") {
             MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
@@ -161,7 +161,7 @@ public class TargetHighlight : MonoBehaviour
                     utensilRenderer.materials = utensilMats;
                 }
             }
-        } /* else if (target.tag == "PlateStation"){
+        } else if (target.tag == "PlateStation"){
             MeshRenderer renderer = target.transform.Find("Worktop").GetComponent<MeshRenderer>();
             Material[] mats = renderer.materials;
             Material tableHighlightedMaterial = target.transform.GetComponent<TableMaterials>().table_highlighted;
@@ -173,7 +173,7 @@ public class TargetHighlight : MonoBehaviour
              Material tableHighlightedMaterial = target.transform.GetComponent<TableMaterials>().table_highlighted;
              mats[0] = tableHighlightedMaterial;
              renderer.materials = mats;
-            } */
+            }
       }
     }
 }

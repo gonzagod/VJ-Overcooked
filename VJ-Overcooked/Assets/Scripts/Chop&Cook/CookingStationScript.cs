@@ -9,10 +9,8 @@ public class CookingStationScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(SceneManager.GetActiveScene().name == "Nivell 1"){
-            if(gameObject.name == "CookingStation 1" || gameObject.name == "CookingStation 2"){
-                setItemOnTop("Pot");
-            }
+        if(gameObject.name == "CookingStation 1" || gameObject.name == "CookingStation 2"){
+            setItemOnTop("Pot");
         }
     }
 

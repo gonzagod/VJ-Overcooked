@@ -91,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6622930249334041269}
   - component: {fileID: 7103918742819862264}
+  - component: {fileID: 3434408194400371971}
   m_Layer: 5
   m_Name: TimeBar2
   m_TagString: Time Bar
@@ -106,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7207808827121168892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.9111278, y: -4.6820097, z: 9.954041}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 7369644505139880591}
@@ -126,8 +127,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d0b27045edee74f99876862339c9e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 0
+  maxTime: 4.5
   elapsedTime: 0
+--- !u!114 &3434408194400371971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7207808827121168892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d9fc32f0ed82cc4c86dacaaff7568c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7341344156252001889
 GameObject:
   m_ObjectHideFlags: 0
