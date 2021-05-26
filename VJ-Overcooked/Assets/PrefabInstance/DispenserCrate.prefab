@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ebeb52f0f5fd84dbb95b951c38fcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Food: {fileID: 1744900596178042, guid: 6dd866190afa41a468dac4513b1708ae, type: 3}
+  Food: {fileID: 0}
   SpaceIcon: {fileID: 1501513928342337427, guid: 4e06b624072560146a071c1424dc5e81,
     type: 3}
   Player: {fileID: 0}
