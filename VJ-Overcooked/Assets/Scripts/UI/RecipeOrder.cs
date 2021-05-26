@@ -52,7 +52,7 @@ public class RecipeOrder : MonoBehaviour
             newOrder();
         }
 
-      if (Input.GetKeyDown("space"))
+      if (Input.GetKeyDown("p"))
         {
             orderDelivered(0);
         }
@@ -136,7 +136,7 @@ public class RecipeOrder : MonoBehaviour
             ChildGameObject.GetComponent<Image>().enabled = false;
         }
 
-        _poolOrders.RemoveAt(pos);
+        if (pos != -1) _poolOrders.RemoveAt(pos);
         showOrders();
     }
 }
