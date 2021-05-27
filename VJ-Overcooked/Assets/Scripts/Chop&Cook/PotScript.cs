@@ -13,6 +13,7 @@ public class PotScript : MonoBehaviour
     public bool foodReady = false;
     public float burningCount = 0f;
     public bool visibleTimeBar = false;
+    public bool soupReady = false;
     private bool burningAlarm = false;
     private GameObject parentPlace = null;
     private GameObject content = null;
@@ -94,6 +95,8 @@ public class PotScript : MonoBehaviour
         ingredientNames.Clear();
         visibleTimeBar = false;
         timeCooked = 0;
+        foodReady = false;
+        soupReady = false;
     }
 
     private void updateIcons(){
@@ -180,6 +183,7 @@ public class PotScript : MonoBehaviour
 
     private void foodReadyAnim(){
         foodReady = true;
+        if(numIngredients == 3) soupReady = true;
         StartCoroutine(DoFadeIn(transform.Find("CookingTick/Icon").gameObject.GetComponent<SpriteRenderer>()));
     }
 
@@ -203,7 +207,6 @@ public class PotScript : MonoBehaviour
     }
 
     private void alarmPot(){
-        foodReady = false;
         burningAlarm = true;
         StartCoroutine(burnAnimation(transform.Find("BurnWarning").gameObject.GetComponent<SpriteRenderer>()));
         audioPot.clip = Resources.Load("CookingWarning") as AudioClip;

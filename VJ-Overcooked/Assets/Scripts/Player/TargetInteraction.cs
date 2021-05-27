@@ -79,6 +79,21 @@ public class TargetInteraction : MonoBehaviour
                                 itemSwitch.deleteItemOnHands();
                                 itemSwitch.emptyHands();
                             }
+                        } else if (itemOnTableString == "Pot" && itemOnTable.transform.GetComponent<PotScript>().soupReady)
+                        {
+                            if (itemOnHandsName == "Plate")
+                            {
+                                if(itemOnTable.transform.GetComponent<PotScript>().ingredientNames[0] == "Onion") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("OnionSoup");
+                                itemOnTable.transform.GetComponent<PotScript>().cleanPot();
+                            }
+                        }
+                        else if (itemOnTableString == "Plate" && itemOnHandsName == "Pot")
+                        {
+                            if (itemOnHands.transform.GetComponent<PotScript>().soupReady)
+                            {
+                                if (itemOnHands.transform.GetComponent<PotScript>().ingredientNames[0] == "Onion") itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate("OnionSoup");
+                                itemOnHands.transform.GetComponent<PotScript>().cleanPot();
+                            }
                         }
                         break;
 
@@ -132,33 +147,25 @@ public class TargetInteraction : MonoBehaviour
                         }
                         break;
 
-                    /* case "PlateStation":
-                        string itemOnPlateStation = target.GetComponent<PlateStationItem>().ItemOnTop;
-                        if (itemOnHands >= 0)
+                    case "PlateStation":
+                        if (typeOfItemOnHands == "Plate")
                         {
-                            target.GetComponent<PlateStationItem>().UpdateItemOnTop(itemOnHands);
-                            foodSwitch.emptyHands();
-                        }
-                        else
-                        {
-                            foodSwitch.changeSelectedFoodString(itemOnPlateStation);
-                            target.GetComponent<PlateStationItem>().CleanTable();
+                            target.GetComponent<PlateStationItem>().setPlateOnTop(itemOnHandsName);
+                            itemSwitch.deleteItemOnHands();
+                            itemSwitch.emptyHands();
+                            String plateType = itemOnHands.GetComponent<PlateSample>().PlateType;
+                            GameObject recipes = GameObject.Find("GameEnviroment 1/Canvases/HUDCanvas/ReceptesUI");
+                            recipes.GetComponent<RecipeOrder>().orderDelivered(plateType,-1);
                         }
                         break;
 
-                    case "PlateReturn":
-                        string itemOnPlateReturn = target.GetComponent<PlateReturnTopItem>().ItemOnTop;
-                        if (itemOnHands >= 0)
+                   case "PlateReturn":
+                        GameObject plate = target.GetComponent<PlateReturnTopItem>().utensilOnTop;
+                        if (itemOnHands == null)
                         {
-                            target.GetComponent<PlateReturnTopItem>().UpdateItemOnTop(itemOnHands);
-                            foodSwitch.emptyHands();
+                            itemSwitch.setItemOnHands(plate);
                         }
-                        else
-                        {
-                            foodSwitch.changeSelectedFoodString(itemOnPlateReturn);
-                            target.GetComponent<PlateReturnTopItem>().CleanTable();
-                        }
-                        break;*/
+                        break;
 
                     default:
                         break;
