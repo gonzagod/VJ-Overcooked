@@ -10,20 +10,22 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController player_controller;
     public GameObject target = null;
     private Vector3 gravityVector = new Vector3(0,-10,0);
-
+    private TargetInteraction targetInter;
     private void Start ()
     {
         animator = GetComponent<Animator>();
         target = gameObject.GetComponent<TargetHighlight>().target;
+        targetInter =  gameObject.GetComponentInParent(typeof(TargetInteraction)) as TargetInteraction;
     }
 
     // Update is called once per frame
     void Update()
     {
+        bool usingExtinguisher = targetInter.usingExtinguisher;
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 movementDirection = new Vector3(horizontalInput, 0f, verticalInput);
-        player_controller.Move(movementDirection * speed * Time.deltaTime);
+        if(!usingExtinguisher) player_controller.Move(movementDirection * speed * Time.deltaTime);
 
         if (movementDirection.magnitude >= 0.1f){
           transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection), 0.1F);

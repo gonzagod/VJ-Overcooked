@@ -16,6 +16,9 @@ public class TableTopItem : MonoBehaviour
             if(gameObject.name == "TableTop_Side 101" || gameObject.name == "TableTop_Side 102" || gameObject.name == "TableTop_Side 103"){
                 setStartingPlate();
             }
+            if(gameObject.name == "TableTop_Side 68"){
+                setExtinguisher();
+            }
         }else if(SceneManager.GetActiveScene().name == "Nivell 2"){
             if(gameObject.name == "TableTop_Space10" || gameObject.name == "TableTop_Space9" || gameObject.name == "TableTop_Space8"){
                 setStartingPlate();
@@ -45,5 +48,12 @@ public class TableTopItem : MonoBehaviour
     private void setStartingPlate(){
         GameObject plate = Instantiate(Resources.Load("Plate"), Vector3.zero, Quaternion.identity) as GameObject;
         setItemOnTable(plate, "Plate");
+    }
+
+    private void setExtinguisher(){
+        GameObject Extinguisher = GameObject.Find("FireExtinguisher");
+        Extinguisher.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
+        itemOnTop = Extinguisher;
+        itemOnTopString = "FireExtinguisher";
     }
 }

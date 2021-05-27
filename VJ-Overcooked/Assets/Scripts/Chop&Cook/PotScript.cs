@@ -10,11 +10,16 @@ public class PotScript : MonoBehaviour
     public float timeCooked = 0;
     public float maxTimeToCook = 10;
     public bool burned = false;
+    public bool foodReady = false;
+    public float burningCount = 0f;
+    public bool visibleTimeBar = false;
+    private bool burningAlarm = false;
     private GameObject parentPlace = null;
     private GameObject content = null;
     private GameObject soup = null;
     private GameObject steam = null;
     private GameObject burnedContent = null;
+    private AudioSource audioPot = null;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +28,8 @@ public class PotScript : MonoBehaviour
         soup = content.transform.Find("Soup").gameObject;
         steam = content.transform.Find("PFX_PotSteam").gameObject;
         burnedContent = content.transform.Find("Burned").gameObject;
+        audioPot = gameObject.GetComponent<AudioSource>();
+        burningCount = 0f;
     }
 
     // Update is called once per frame
@@ -35,13 +42,28 @@ public class PotScript : MonoBehaviour
         parentPlace = gameObject.transform.parent.gameObject;
         if(parentPlace.name == "AttachPoint"){
             if(parentPlace.transform.parent.gameObject.tag == "CookingStation"){
-                if(numIngredients > 0) timeCooked += Time.deltaTime;
+                if(numIngredients > 0 && timeCooked < 20f){
+                    timeCooked += Time.deltaTime;
+                    steam.SetActive(true);
+                }
+            }
+        }else{
+            if(timeCooked > maxTimeToCook) {
+                timeCooked = maxTimeToCook;
+                burningAlarm = false;
             }
         }
-        if(timeCooked >= 15f && !burned) burnPot();
+        if(timeCooked >= maxTimeToCook*2 && !burned) burnPot();
+        if(timeCooked >= maxTimeToCook && timeCooked < maxTimeToCook*1.2 && !foodReady) foodReadyAnim();
+        if(timeCooked >= maxTimeToCook*1.5 && !burningAlarm) alarmPot();
+
+        if(burningCount <= 0){
+            transform.Find("BurningPot").gameObject.SetActive(false);
+        }
     }
 
     public void addIngredient(string foodName){
+        visibleTimeBar = true;
         ingredientNames.Add(foodName);
         numIngredients++;
         switch(numIngredients){
@@ -58,12 +80,20 @@ public class PotScript : MonoBehaviour
                 break;
         }
         updateIcons();
-        if(numIngredients > 1) timeCooked /= 2;
+        if(numIngredients > 1){
+            if(timeCooked >= 10f) timeCooked = 5f;
+            else timeCooked /= 2;
+        }
+        foodReady = false;
+        burningAlarm = false;
     }
 
     public void cleanPot(){
         numIngredients = 0;
+        burningAlarm = false;
         ingredientNames.Clear();
+        visibleTimeBar = false;
+        timeCooked = 0;
     }
 
     private void updateIcons(){
@@ -122,24 +152,89 @@ public class PotScript : MonoBehaviour
 
     private void burnPot(){
         cleanPot();
+        var fireSound =  Resources.Load("FireIgnition") as AudioClip;
+        audioPot.PlayOneShot(fireSound);
         burned = true;
+        burningCount = 2.5f;
         updateIcons();
     }
 
     private void activateContent(){
-        //content.SetActive(true);
         soup.SetActive(true);
-        steam.SetActive(true);
     }
 
     private void desactivateContent(){
-        //content.SetActive(false);
         soup.SetActive(false);
         steam.SetActive(false);
     }
 
     private void checkBurned(){
-        if(burned) burnedContent.SetActive(true);
-        else burnedContent.SetActive(false);
+        if(burned){
+            burnedContent.SetActive(true);
+            transform.Find("BurningPot").gameObject.SetActive(true);
+        }else {
+            burnedContent.SetActive(false);
+            transform.Find("BurningPot").gameObject.SetActive(false);
+        }
+    }
+
+    private void foodReadyAnim(){
+        foodReady = true;
+        StartCoroutine(DoFadeIn(transform.Find("CookingTick/Icon").gameObject.GetComponent<SpriteRenderer>()));
+    }
+
+    private IEnumerator DoFadeIn(SpriteRenderer _sprite) {
+        Color tmpColor = _sprite.color;
+        float timeFade = 1f;
+        float time = 0f;
+        float cont = 0f;
+        while(time < 2f)
+        {
+            time += Time.deltaTime;
+            cont += Time.deltaTime / timeFade;
+            if (time < (timeFade/2)) tmpColor.a = cont;
+            else tmpColor.a = timeFade - cont;
+            _sprite.color = tmpColor;
+
+            yield return null;
+        }
+        tmpColor.a = 0;
+        _sprite.color = tmpColor;
+    }
+
+    private void alarmPot(){
+        foodReady = false;
+        burningAlarm = true;
+        StartCoroutine(burnAnimation(transform.Find("BurnWarning").gameObject.GetComponent<SpriteRenderer>()));
+        audioPot.clip = Resources.Load("CookingWarning") as AudioClip;
+    }
+
+    private IEnumerator burnAnimation(SpriteRenderer _sprite) {
+        Color tmpColor = _sprite.color;
+        float timeTotalFade = 0.7f;
+        float timeFading = 0.35f;
+        bool playSound = false;
+        float time = 0f;
+        float cont = 0f;
+        while(time < 5f && timeCooked >= 15f && timeCooked< 20f)
+        {
+            time += Time.deltaTime;
+            cont += Time.deltaTime;
+            if(cont > timeTotalFade) {
+                cont = 0f;
+                playSound = false;
+            }
+            if (cont < timeFading) tmpColor.a = cont*2;
+            else tmpColor.a = (timeTotalFade - cont)*2;
+            if(cont > timeFading - 0.1 && !playSound){
+                playSound = true;
+                audioPot.Play(0);
+            }
+            _sprite.color = tmpColor;
+
+            yield return null;
+        }
+        tmpColor.a = 0;
+        _sprite.color = tmpColor;
     }
 }

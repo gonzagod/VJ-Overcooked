@@ -5,7 +5,7 @@ public class ItemSwitch : MonoBehaviour
     public string selectedItemName = ""; //Onion, Tomato, Mushroom, Lettuce...
     public bool selectedFoodChoppeable = false; //True if Pre-Ingredient, False if Ingredient
     public string choppedFood = ""; //ChoppedOnion => Onion , ChoppedMushroom => Mushroom ...
-    public string typeOfItem = ""; //Food , Plate , Utensil
+    public string typeOfItem = ""; //Food , Plate , Utensil, Fire Extinguisher
     public GameObject selectedItemOnHands = null; //GameObject in Item
     private Animator playerAnimator = null;
     void Start()
@@ -69,6 +69,9 @@ public class ItemSwitch : MonoBehaviour
                 } else if(item.name.Contains("Plate")){
                     selectedItemName="Plate";
                     typeOfItem = "Plate";
+                } else if(item.name.Contains("FireExtinguisher")){
+                    selectedItemName = "FireExtinguisher";
+                    typeOfItem = "FireExtinguisher";
                 }
             }
         }

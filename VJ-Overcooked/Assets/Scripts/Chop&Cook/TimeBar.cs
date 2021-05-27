@@ -11,6 +11,7 @@ public class TimeBar : MonoBehaviour
     float startTime;
     float fillAmount;
     bool timeStop;
+    bool visibleTimeBar = false;
     private GameObject bar;
 
     void Start()
@@ -33,20 +34,37 @@ public class TimeBar : MonoBehaviour
         }
 
         if(placedParent.name.Contains("Pot")){
-            elapsedTime = placedParent.GetComponent<PotScript>().timeCooked;
+            float burningCount = placedParent.GetComponent<PotScript>().burningCount;
+            if(burningCount > 0f) {
+                elapsedTime = burningCount;
+                maxTime = 2.5f;
+            } else {
+                elapsedTime = placedParent.GetComponent<PotScript>().timeCooked;
+                maxTime = 10f;
+            }
+            visibleTimeBar = placedParent.GetComponent<PotScript>().visibleTimeBar;
         }
 
         if(elapsedTime <= 0){
             foreach(Transform child in gameObject.transform) child.gameObject.SetActive(false);
         }
         else foreach(Transform child in gameObject.transform) child.gameObject.SetActive(true);
-        if(elapsedTime > 0) {
+        if(elapsedTime > 0 || visibleTimeBar) {
             float t = maxTime - elapsedTime;
             fillAmount = elapsedTime / maxTime;
-            if (fillAmount > 1f) gameObject.SetActive(false);
+            if (fillAmount >= 1f) disableTimeBar();
+            else if(fillAmount >= 0) enableTimeBar();
             var newScale = bar.transform.localScale;
             newScale.x = -fillAmount;
             bar.transform.localScale = newScale;
         }
+    }
+
+    private void disableTimeBar(){
+        foreach(Transform child in transform) child.gameObject.SetActive(false);
+    }
+
+    private void enableTimeBar(){
+        foreach(Transform child in transform) child.gameObject.SetActive(true);
     }
 }

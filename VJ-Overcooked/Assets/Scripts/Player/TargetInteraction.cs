@@ -5,6 +5,7 @@ using UnityEngine;
 public class TargetInteraction : MonoBehaviour
 {
 
+    public bool usingExtinguisher = false;
     private GameObject target;
     private ItemSwitch itemSwitch;
     private string itemOnHandsName = "";
@@ -13,6 +14,7 @@ public class TargetInteraction : MonoBehaviour
     private string typeOfItemOnHands = "";
     private GameObject itemOnHands = null;
     private Animator playerAnimator;
+    public GameObject particleExtinguisher;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +26,38 @@ public class TargetInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        itemOnHands = itemSwitch.selectedItemOnHands;
+        itemOnHandsName = itemSwitch.selectedItemName;
+        itemOnHandsChoppedFood = itemSwitch.choppedFood;
+        itemOnHandsChoppeable = itemSwitch.selectedFoodChoppeable;
+        typeOfItemOnHands = itemSwitch.typeOfItem;
+
         target = gameObject.transform.Find("player_no_anim").GetComponent<TargetHighlight>().target;
-        if (target != null){
-            itemOnHands = itemSwitch.selectedItemOnHands;
-            itemOnHandsName = itemSwitch.selectedItemName;
-            itemOnHandsChoppedFood = itemSwitch.choppedFood;
-            itemOnHandsChoppeable = itemSwitch.selectedFoodChoppeable;
-            typeOfItemOnHands = itemSwitch.typeOfItem;
+
+        if(itemOnHandsName=="FireExtinguisher"){
+            particleExtinguisher = itemOnHands.transform.Find("SprayPoint").gameObject;
+            if(Input.GetButton("Fire1")){
+                particleExtinguisher.SetActive(true);
+                usingExtinguisher = true;
+                }
+            else {
+                particleExtinguisher.SetActive(false);
+                usingExtinguisher = false;
+
+                if(Input.GetKeyDown("space") && target != null){
+                    if( target.tag == "Table"){
+                        string itemOnTableString = target.GetComponent<TableTopItem>().itemOnTopString;
+                        GameObject itemOnTable = target.GetComponent<TableTopItem>().itemOnTop;
+                        if(itemOnTable == null){
+                            if(itemOnHands != null){
+                                target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
+                                itemSwitch.emptyHands();
+                            }
+                        }
+                    }
+                }
+            }
+        }else if (target != null){
             if(Input.GetKeyDown("space")){
                 switch(target.tag){
                     case "Table":
@@ -49,6 +76,7 @@ public class TargetInteraction : MonoBehaviour
                             bool potBurned = itemOnTable.GetComponent<PotScript>().burned;
                             if(numOfIngredientsInPot < 3 && !potBurned){
                                 itemOnTable.GetComponent<PotScript>().addIngredient(itemOnHandsChoppedFood);
+                                itemSwitch.deleteItemOnHands();
                                 itemSwitch.emptyHands();
                             }
                         }
@@ -57,15 +85,15 @@ public class TargetInteraction : MonoBehaviour
                     case "ChoppingStation":
                         string itemOnChoppingTableString = target.GetComponent<ChoppingTableItem>().itemOnTopString;
                         GameObject itemOnChoppingTable = target.GetComponent<ChoppingTableItem>().itemOnTop;
+                        float timeChoppingSpent = target.GetComponent<ChoppingTableItem>().timeChopping;
                         if(itemOnChoppingTable == null){
                             if(itemOnHandsChoppeable){
-                                Debug.Log("Entra");
                                 target.GetComponent<ChoppingTableItem>().setItemOnChoppingTable(itemOnHands, itemOnHandsName, itemOnHandsChoppeable);
                                 itemSwitch.emptyHands();
                             }
                         }else {
                             bool chopping = target.GetComponent<ChoppingTableItem>().Chopping;
-                            if(!chopping && itemOnHands == null){
+                            if(!chopping && itemOnHands == null && timeChoppingSpent <= 0){
                                 itemSwitch.setItemOnHands(itemOnChoppingTable);
                                 target.GetComponent<ChoppingTableItem>().CleanTable();
                             }
@@ -135,7 +163,7 @@ public class TargetInteraction : MonoBehaviour
                     default:
                         break;
                 }
-            } if(Input.GetKeyDown("left ctrl")){
+            } else if(Input.GetKeyDown("left ctrl")){
                 if(target.tag == "ChoppingStation"){
                     string itemOnChoppingTable = target.GetComponent<ChoppingTableItem>().itemOnTopString;
                     bool itemChoppeable = target.GetComponent<ChoppingTableItem>().itemOnTopChoppeable;

@@ -72,13 +72,13 @@ public class ChoppingTableItem : MonoBehaviour
     public void StartChopping(){
         Chopping = true;
         ItemChopped();
-        itemOnTopAnimator.speed = 0.78f;
+        itemOnTopAnimator.speed = 0.65f;
     }
 
     public void ContinueChopping(){
         if(Chopping == false){
             Chopping = true;
-            itemOnTopAnimator.speed = 0.78f;
+            itemOnTopAnimator.speed = 0.65f;
         }
     }
 
@@ -95,26 +95,38 @@ public class ChoppingTableItem : MonoBehaviour
         Player.transform.Find("player_no_anim/Chef_Body/Hand_Open_R").gameObject.SetActive(true);
         Player.transform.Find("player_no_anim/Chef_Body/Hand_Grip_R").gameObject.SetActive(false);
         Player.transform.Find("player_no_anim/Chef_Body/Knife").gameObject.SetActive(false);
-        //gameObject.transform.Find("/OnionIcon").gameObject.SetActive(true);
+        itemOnTop.transform.Find("Icon").gameObject.SetActive(true);
     }
 
     private void ItemChopped(){
         switch(itemOnTopString){
             case "Onion":
                 foreach(Transform child in transform.Find("AttachPoint")) Destroy(child.gameObject);
-                GameObject newFood = Instantiate(Resources.Load("ChoppedOnion"), new Vector3(0.6f,  0.4f, 0f), Quaternion.Euler(0f, 0f, 90f)) as GameObject;
-                setItemOnChoppingTable(newFood, "ChoppedOnion", true);
-                //gameObject.transform.Find("ChoppedOnion/OnionIcon").gameObject.SetActive(false);
+                GameObject newOnion = Instantiate(Resources.Load("ChoppedOnion"), new Vector3(0.6f,  0.4f, 0f), Quaternion.Euler(0f, 0f, 90f)) as GameObject;
+                setItemOnChoppingTable(newOnion, "ChoppedOnion", true);
                 itemOnTopAnimator = itemOnTop.GetComponentInChildren<Animator>();
+                itemOnTop.transform.Find("Icon").gameObject.SetActive(false);
                 break;
             case "Lettuce":
-                itemOnTopString = "Chopped Lettuce";
+                foreach(Transform child in transform.Find("AttachPoint")) Destroy(child.gameObject);
+                GameObject newLettuce = Instantiate(Resources.Load("ChoppedLettuce"), new Vector3(0.6f,  0.4f, 0f), Quaternion.Euler(0f, 0f, 90f)) as GameObject;
+                setItemOnChoppingTable(newLettuce, "ChoppedLettuce", true);
+                itemOnTopAnimator = itemOnTop.GetComponentInChildren<Animator>();
+                itemOnTop.transform.Find("Icon").gameObject.SetActive(false);
                 break;
             case "Mushroom":
-                itemOnTopString = "Chopped Mushroom";
+                foreach(Transform child in transform.Find("AttachPoint")) Destroy(child.gameObject);
+                GameObject newMushroom = Instantiate(Resources.Load("ChoppedMushroom"), new Vector3(0.6f,  0.4f, 0f), Quaternion.Euler(0f, 0f, 90f)) as GameObject;
+                setItemOnChoppingTable(newMushroom, "ChoppedMushroom", true);
+                itemOnTopAnimator = itemOnTop.GetComponentInChildren<Animator>();
+                itemOnTop.transform.Find("Icon").gameObject.SetActive(false);
                 break;
             case "Tomato":
-                itemOnTopString = "Chopped Tomato";
+                foreach(Transform child in transform.Find("AttachPoint")) Destroy(child.gameObject);
+                GameObject newTomato = Instantiate(Resources.Load("ChoppedTomato"), new Vector3(0.6f,  0.4f, 0f), Quaternion.Euler(0f, 0f, 90f)) as GameObject;
+                setItemOnChoppingTable(newTomato, "ChoppedTomato", true);
+                itemOnTopAnimator = itemOnTop.GetComponentInChildren<Animator>();
+                itemOnTop.transform.Find("Icon").gameObject.SetActive(false);
                 break;
         }
     }

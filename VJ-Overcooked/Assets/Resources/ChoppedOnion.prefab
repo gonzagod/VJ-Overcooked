@@ -919,7 +919,7 @@ PrefabInstance:
     - target: {fileID: 3082019345558450323, guid: 1509704284a537b4eaee197e84404ffa,
         type: 3}
       propertyPath: m_Name
-      value: OnionIcon
+      value: Icon
       objectReference: {fileID: 0}
     - target: {fileID: 3082019345558450323, guid: 1509704284a537b4eaee197e84404ffa,
         type: 3}

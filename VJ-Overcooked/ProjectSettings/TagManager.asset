@@ -29,6 +29,7 @@ TagManager:
   - Time Bar
   - Recipe
   - Tomato Soup
+  - Fire Extinguisher
   layers:
   - Default
   - TransparentFX
