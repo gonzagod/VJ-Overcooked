@@ -20,7 +20,7 @@ public class PointsController : MonoBehaviour
         pointsText.text = spoints;
     }
 
-    void addPoints(int pts)
+    public void addPoints(int pts)
     {
         points += pts;
     }

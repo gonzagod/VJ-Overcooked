@@ -330,7 +330,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1560088463508420700}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.000002339482}
-  m_LocalPosition: {x: 22.8, y: 0, z: 1.2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7119726885028137467}
@@ -402,11 +402,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8d602eb046fb2e4c94b36f1d5262c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemOnTop: 
+  itemOnTopString: 
   Chopping: 0
-  Player: {fileID: 0}
   itemOnTopChoppeable: 0
+  itemOnTop: {fileID: 0}
   timeChopping: 0
+  Player: {fileID: 0}
   playerAnimator: {fileID: 0}
 --- !u!1001 &1823410036030902131
 PrefabInstance:

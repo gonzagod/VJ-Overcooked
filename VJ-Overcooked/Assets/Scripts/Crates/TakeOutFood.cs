@@ -16,8 +16,9 @@ public class TakeOutFood : MonoBehaviour
     void Start()
     {
         myAnimatorController.SetBool("Open", false);
+        //Player = GameObject.Find("Player_1");
         itemSwitch = Player.transform.Find("player_no_anim/Item").GetComponent<ItemSwitch>();
-
+       
     }
 
     // Update is called once per frame
