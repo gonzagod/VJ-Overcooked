@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChoppingTableItem : MonoBehaviour
 {
@@ -27,16 +28,18 @@ public class ChoppingTableItem : MonoBehaviour
         GameObject playerTarget = Player.transform.Find("player_no_anim").GetComponent<TargetHighlight>().target;
 
         if (playerTarget != null && playerTarget.name == gameObject.name){
-            if (itemOnTopChoppeable && !Chopping ) {
-                gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(true);
-                gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
-            } else if ( (itemSwitch.selectedFoodChoppeable && itemOnTop == null) ||
-                         itemOnTopChoppeable && !Chopping){
-                gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(false);
-                gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(true);
-            } else if(Chopping){
-                gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(false);
-                gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
+            if(SceneManager.GetActiveScene().name == "Nivell 1"){
+                if (itemOnTopChoppeable && !Chopping ) {
+                    gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(true);
+                    gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
+                } else if ( (itemSwitch.selectedFoodChoppeable && itemOnTop == null) ||
+                             itemOnTopChoppeable && !Chopping){
+                    gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(false);
+                    gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(true);
+                } else if(Chopping){
+                    gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(false);
+                    gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
+                }
             }
             if(Chopping) {
                 timeChopping += Time.deltaTime;
@@ -44,8 +47,10 @@ public class ChoppingTableItem : MonoBehaviour
             } else transform.Find("Knife").gameObject.SetActive(true);
         } else {
             if(Chopping) StopChopping();
-            gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(false);
-            gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
+            if(SceneManager.GetActiveScene().name == "Nivell 1"){
+                gameObject.transform.Find("Keyboard_Ctrl").gameObject.SetActive(false);
+                gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
+            }
         }
         if(timeChopping >= 4f) FinishedChopping();
     }

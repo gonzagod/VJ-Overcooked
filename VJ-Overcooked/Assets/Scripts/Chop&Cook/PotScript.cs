@@ -14,6 +14,7 @@ public class PotScript : MonoBehaviour
     public float burningCount = 0f;
     public bool visibleTimeBar = false;
     public bool soupReady = false;
+    public string madeOf = "";
     private bool burningAlarm = false;
     private GameObject parentPlace = null;
     private GameObject content = null;
@@ -64,6 +65,8 @@ public class PotScript : MonoBehaviour
     }
 
     public void addIngredient(string foodName){
+        if(numIngredients == 0) madeOf = foodName;
+        else if(madeOf != foodName) madeOf = "Error";
         visibleTimeBar = true;
         ingredientNames.Add(foodName);
         numIngredients++;
@@ -97,6 +100,7 @@ public class PotScript : MonoBehaviour
         timeCooked = 0;
         foodReady = false;
         soupReady = false;
+        updateIcons();
     }
 
     private void updateIcons(){

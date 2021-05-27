@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class TakeOutFood : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class TakeOutFood : MonoBehaviour
         myAnimatorController.SetBool("Open", false);
         //Player = GameObject.Find("Player_1");
         itemSwitch = Player.transform.Find("player_no_anim/Item").GetComponent<ItemSwitch>();
-       
+
     }
 
     // Update is called once per frame
@@ -28,7 +29,7 @@ public class TakeOutFood : MonoBehaviour
         GameObject playerTarget = Player.transform.Find("player_no_anim").GetComponent<TargetHighlight>().target;
         if ( playerTarget != null && playerTarget.name == gameObject.name)
         {
-            if(itemSwitch.selectedItemOnHands == null) gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(true);
+            if(itemSwitch.selectedItemOnHands == null && SceneManager.GetActiveScene().name == "Nivell 1") gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(true);
             if (Input.GetKeyUp("space"))
             {
                 if (itemSwitch.selectedItemOnHands == null){
@@ -38,7 +39,7 @@ public class TakeOutFood : MonoBehaviour
                 }
             }
         } else {
-            gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
+            if(SceneManager.GetActiveScene().name == "Nivell 1") gameObject.transform.Find("Keyboard_Space").gameObject.SetActive(false);
         }
     }
 }

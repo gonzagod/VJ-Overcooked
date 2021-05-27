@@ -184,7 +184,7 @@ public class RecipeOrder : MonoBehaviour
             GameObject points = GameObject.Find("GameEnviroment 1/Canvases/HUDCanvas/PointsUI");
             points.GetComponent<PointsController>().addPoints(-10);
         }
-        else if (order != "Plate") { 
+        else if (order != "Plate") {
             int size = _poolOrders.Count;
             int pos = -1;
             for (int i = 0; i < size; ++i)
@@ -198,7 +198,7 @@ public class RecipeOrder : MonoBehaviour
             }
             if (pos != -1)
             {
-                ChildGameObject = gameObject.transform.GetChild(pos).gameObject;
+                ChildGameObject = gameObject.transform.GetChild(size-1).gameObject;
                 ChildGameObject.GetComponent<Image>().enabled = false;
                 ChildofChildGameObject = ChildGameObject.transform.GetChild(0).gameObject;
                 ChildofChildGameObject.GetComponent<Image>().enabled = false;
@@ -210,9 +210,9 @@ public class RecipeOrder : MonoBehaviour
                 points.GetComponent<PointsController>().addPoints(pts);
                 _poolOrders.RemoveAt(pos);
                 orderTime.RemoveAt(pos);
-            }           
+            }
         }
         showOrders(false);
-        
+
     }
 }

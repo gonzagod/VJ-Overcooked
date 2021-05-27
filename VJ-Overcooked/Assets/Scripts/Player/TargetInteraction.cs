@@ -83,16 +83,25 @@ public class TargetInteraction : MonoBehaviour
                         {
                             if (itemOnHandsName == "Plate")
                             {
-                                if(itemOnTable.transform.GetComponent<PotScript>().ingredientNames[0] == "Onion") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("OnionSoup");
+                                string typeOfSoup = itemOnTable.transform.GetComponent<PotScript>().madeOf;
+                                if(typeOfSoup == "Onion") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("OnionSoup");
+                                else if(typeOfSoup == "Tomato") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("TomatoSoup");
+                                else if(typeOfSoup == "Mushroom") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("MushroomSoup");
+                                else if(typeOfSoup == "Error") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("ErrorSoup");
                                 itemOnTable.transform.GetComponent<PotScript>().cleanPot();
                             }
-                        }
-                        else if (itemOnTableString == "Plate" && itemOnHandsName == "Pot")
+                        } else if (itemOnTableString == "Plate")
                         {
-                            if (itemOnHands.transform.GetComponent<PotScript>().soupReady)
-                            {
-                                if (itemOnHands.transform.GetComponent<PotScript>().ingredientNames[0] == "Onion") itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate("OnionSoup");
-                                itemOnHands.transform.GetComponent<PotScript>().cleanPot();
+                            if(itemOnHandsName == "Pot"){
+                                if (itemOnHands.transform.GetComponent<PotScript>().soupReady)
+                                {
+                                    if (itemOnHands.transform.GetComponent<PotScript>().ingredientNames[0] == "Onion") itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate("OnionSoup");
+                                    itemOnHands.transform.GetComponent<PotScript>().cleanPot();
+                                }
+                            }else if(itemOnHandsChoppedFood != ""){
+                                if(itemOnHandsChoppedFood == "Tomato") itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate("PlatedTomato");
+                                itemSwitch.deleteItemOnHands();
+                                itemSwitch.emptyHands();
                             }
                         }
                         break;
@@ -153,7 +162,7 @@ public class TargetInteraction : MonoBehaviour
                             target.GetComponent<PlateStationItem>().setPlateOnTop(itemOnHandsName);
                             itemSwitch.deleteItemOnHands();
                             itemSwitch.emptyHands();
-                            String plateType = itemOnHands.GetComponent<PlateSample>().PlateType;
+                            string plateType = itemOnHands.GetComponent<PlateSample>().PlateType;
                             GameObject recipes = GameObject.Find("GameEnviroment 1/Canvases/HUDCanvas/ReceptesUI");
                             recipes.GetComponent<RecipeOrder>().orderDelivered(plateType,-1);
                         }

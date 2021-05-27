@@ -23,6 +23,9 @@ public class TableTopItem : MonoBehaviour
             if(gameObject.name == "TableTop_Space10" || gameObject.name == "TableTop_Space9" || gameObject.name == "TableTop_Space8"){
                 setStartingPlate();
             }
+            if(gameObject.name == "TableTop_Space21"){
+                setExtinguisher();
+            }
         }
     }
 
