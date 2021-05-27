@@ -5,89 +5,51 @@ using UnityEngine.SceneManagement;
 
 public class PlateStationItem : MonoBehaviour
 {
-    /* public string ItemOnTop = "";
-    private bool check;
-    public GameObject Player;
-    private ItemSwitch foodSwitch;
-    public PlateReturnTopItem plateReturn;
+    public GameObject utensilOnTop = null;
+    public string utensilOnTopString = "";
+    private PlateReturnTopItem plateReturn;
     public RecipeOrder recipes;
     private float time = 0.5f;
     private float timeElapsed;
+    private bool delivered;
+    private GameObject Plate;
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("Player_1");
-        plateReturn = GameObject.Find("PlateReturn").GetComponent<PlateReturnTopItem>();
-        foodSwitch = Player.transform.Find("player_no_anim/Food").GetComponent<FoodSwitch>();
         timeElapsed = 0f;
-        check = false;
+        delivered = false;
+        plateReturn = GameObject.Find("PlateReturn").GetComponent<PlateReturnTopItem>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameObject playerTarget = Player.transform.Find("player_no_anim").GetComponent<TargetHighlight>().target;
-        int itemOnTableInt = getItemInteger(ItemOnTop);
-
-        if (ItemOnTop != "")
+        if (delivered)
         {
             timeElapsed += Time.deltaTime;
-            if (!check)
+            if (timeElapsed > time)
             {
-                check = true;
-                recipes.orderDelivered(0);
-            }
-            if (timeElapsed >= time)
-            {
-                CleanTable();
+                delivered = false;
                 timeElapsed = 0f;
-                GeneratePlate();
-                check = false;
+                cleanPlateStation();
             }
         }
     }
-
-    public void UpdateItemOnTop(int foodId)
+    public void setPlateOnTop(string potName)
     {
-        switch (foodId)
-        {
-            case 8:
-                ItemOnTop = "Plate";
-                gameObject.transform.Find("Plate").gameObject.SetActive(true);
-                break;
-            case 9:
-                ItemOnTop = "OnionSoup";
-                gameObject.transform.Find("OnionSoup").gameObject.SetActive(true);
-                break;
-        }
+        Plate = Instantiate(Resources.Load("Plate")) as GameObject;
+        Plate.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
+        utensilOnTop = Plate;
+        utensilOnTopString = "Plate";
+        delivered = true;
     }
 
-    public void CleanTable()
+    public void cleanPlateStation()
     {
-        foreach (Transform food in transform)
-        {
-            if (food.gameObject.tag == "Plate")
-                food.gameObject.SetActive(false);
-        }
-        ItemOnTop = "";
+        utensilOnTop = null;
+        utensilOnTopString = "";
+        Destroy(Plate);
+        plateReturn.InstantiatePlate();
     }
-
-    public int getItemInteger(string foodName)
-    {
-        switch (foodName)
-        {
-            case "Plate":
-                return 8;
-            case "OnionSoup":
-                return 9;
-            default:
-                return -1;
-        }
-    }
-
-    void GeneratePlate()
-    {
-        plateReturn.UpdateItemOnTop(8);
-    }*/
 
 }

@@ -7,39 +7,50 @@ using UnityEngine.SceneManagement;
 
 public class RecipeOrder : MonoBehaviour
 {
-    private float timeForNextOrder = 2f;
+    private float timeForNextOrder = 20f;
     private int maxOrders = 5;
     private float elapsedTime;
     private int minRecipe;
     private int maxRecipe;
-    private int food;
+    private string food;
     private int rand;
+    private int extra;
     public Sprite Recipe0, Recipe1, Recipe2, Recipe3, Recipe4, Recipe5, Recipe6;
 
     private GameObject ChildGameObject;
+    private GameObject ChildofChildGameObject;
 
-    private List<int> _orders = new List<int>();
-    public List<int> _poolOrders = new List<int>();
+    public List<float> orderTime = new List<float>();
+    public List<String> _poolOrders = new List<String>();
     // Start is called before the first frame update
     void Start()
     {
         elapsedTime = 0f;
-        switch(SceneManager.GetActiveScene().buildIndex){
-            case 2:
+        switch(SceneManager.GetActiveScene().name){
+            case "Nivell 1":
                 minRecipe = 0;
                 maxRecipe = 0;
                 break;
-            case 3:
+            case "Nivell 2":
+                minRecipe = 0;
+                maxRecipe = 2;
                 break;
-            case 4:
+            case "Nivell 3":
+                minRecipe = 2;
+                maxRecipe = 3;
                 break;
-            case 5:
+            case "Nivell 4":
+                minRecipe = 6;
+                maxRecipe = 7;
                 break;
-            case 6:
+            case "Nivell 5":
+                minRecipe = 4;
+                maxRecipe = 6;
                 break;
             default:
                 break;
         }
+        newOrder();
     }
 
     // Update is called once per frame
@@ -51,10 +62,15 @@ public class RecipeOrder : MonoBehaviour
             elapsedTime = 0f;
             newOrder();
         }
-
-      if (Input.GetKeyDown("p"))
+        int size = orderTime.Count;
+        for (int i = 0; i < size; ++i)
         {
-            orderDelivered(0);
+            orderTime[i] -= Time.deltaTime;
+            if (orderTime[i] < 0)
+            {
+                orderDelivered("Fail",i);
+                size--;
+            }
         }
     }
 
@@ -62,81 +78,141 @@ public class RecipeOrder : MonoBehaviour
     {
         if (_poolOrders.Count < maxOrders)
         {
-            if (minRecipe == maxRecipe) _poolOrders.Add(minRecipe);
-            else
-            {
-                rand = UnityEngine.Random.Range(minRecipe, maxRecipe);
-                _poolOrders.Add(rand);
-            }
-            showOrders();
+         if (minRecipe == maxRecipe) rand = minRecipe;
+         else rand = UnityEngine.Random.Range(minRecipe, maxRecipe + 1);
+         switch (rand)
+         {
+            case 0:
+                food = "OnionSoup";
+            break;
+            case 1:
+                food = "TomatoSoup";
+            break;
+            case 2:
+                food = "OnionTomatoBurger";
+            break;
+            case 3:
+                food = "LettuceTomatoBurger";
+            break;
+            case 4:
+                food = "ChickenPotatoesMushroom";
+            break;
+            case 5:
+                food = "ChickenPotatoesTomato";
+            break;
+            case 6:
+                food = "MushroomSoup";
+            break;
+            case 7:
+                food = "TomatoSoup";
+            break;
+            default:
+            break;
+         }
+            _poolOrders.Add(food);
+            showOrders(true);
         }
     }
 
-    void showOrders()
+    void showOrders(bool actualitzar)
     {
-
         int size = _poolOrders.Count;
         for (int i = 0; i < size; ++i)
         {
             ChildGameObject = gameObject.transform.GetChild(i).gameObject;
+            ChildofChildGameObject = ChildGameObject.transform.GetChild(0).gameObject;
             food = _poolOrders[i];
             switch (food)
             {
-                case 0:
+                case "OnionSoup":
                    ChildGameObject.GetComponent<Image>().enabled = true;
                    ChildGameObject.GetComponent<Image>().sprite = Recipe0;
                 break;
-                case 1:
+                case "MushroomSoup":
                     ChildGameObject.GetComponent<Image>().enabled = true;
                     ChildGameObject.GetComponent<Image>().sprite = Recipe1;
-                break;
-                case 2:
+                    break;
+                case "TomatoSoup":
                     ChildGameObject.GetComponent<Image>().enabled = true;
                     ChildGameObject.GetComponent<Image>().sprite = Recipe2;
-                break;
-                case 3:
+                    break;
+                case "OnionTomatoBurger":
                     ChildGameObject.GetComponent<Image>().enabled = true;
                     ChildGameObject.GetComponent<Image>().sprite = Recipe3;
-                break;
-                case 4:
+                    break;
+                case "LettuceTomatoBurger":
                     ChildGameObject.GetComponent<Image>().enabled = true;
                     ChildGameObject.GetComponent<Image>().sprite = Recipe4;
-                break;
-                case 5:
+                    break;
+                case "ChickenPotatoesTomato":
                     ChildGameObject.GetComponent<Image>().enabled = true;
                     ChildGameObject.GetComponent<Image>().sprite = Recipe5;
-                break;
-                case 6:
+                    break;
+                case "ChickenPotatoesMushroom":
                     ChildGameObject.GetComponent<Image>().enabled = true;
                     ChildGameObject.GetComponent<Image>().sprite = Recipe6;
-                break;
+                    break;
                 default:
                 break;
 
             }
+            ChildofChildGameObject.GetComponent<Image>().enabled = true;
+            if (i == size - 1 && actualitzar)
+            {
+                ChildGameObject.GetComponent<TimeBarRecipes>().elapsedTime = 60f;
+                ChildGameObject.GetComponent<TimeBarRecipes>().maxTime = 60f;
+                orderTime.Add(60f);
+            }
+            else
+            {
+                ChildGameObject.GetComponent<TimeBarRecipes>().elapsedTime = orderTime[i];
+            }
         }
     }
 
-    public void orderDelivered(int order)
+    public void orderDelivered(string order, int posError)
     {
-        int size = _poolOrders.Count;
-        int pos = -1;
-        for (int i = 0; i < size; ++i)
+        if (order == "Fail")
         {
-            int x = _poolOrders[i];
-            //Debug.Log("numero comanda " + x.ToString() + " Posicio " + i.ToString());
-            if (x == order)
-            {
-                pos = i;
-                i = size;
-            }
-        }
-        for (int i = 0; i < size; ++i) {
-            ChildGameObject = gameObject.transform.GetChild(i).gameObject;
+            int size = _poolOrders.Count;
+            ChildGameObject = gameObject.transform.GetChild(size - 1).gameObject;
             ChildGameObject.GetComponent<Image>().enabled = false;
+            ChildofChildGameObject = ChildGameObject.transform.GetChild(0).gameObject;
+            ChildofChildGameObject.GetComponent<Image>().enabled = false;
+            _poolOrders.RemoveAt(posError);
+            orderTime.RemoveAt(posError);
+            GameObject points = GameObject.Find("GameEnviroment 1/Canvases/HUDCanvas/PointsUI");
+            points.GetComponent<PointsController>().addPoints(-10);
         }
-
-        if (pos != -1) _poolOrders.RemoveAt(pos);
-        showOrders();
+        else if (order != "Plate") { 
+            int size = _poolOrders.Count;
+            int pos = -1;
+            for (int i = 0; i < size; ++i)
+            {
+                string x = _poolOrders[i];
+                if (x == order)
+                {
+                    pos = i;
+                    i = size;
+                }
+            }
+            if (pos != -1)
+            {
+                ChildGameObject = gameObject.transform.GetChild(pos).gameObject;
+                ChildGameObject.GetComponent<Image>().enabled = false;
+                ChildofChildGameObject = ChildGameObject.transform.GetChild(0).gameObject;
+                ChildofChildGameObject.GetComponent<Image>().enabled = false;
+                GameObject points = GameObject.Find("GameEnviroment 1/Canvases/HUDCanvas/PointsUI");
+                if (orderTime[pos] > 40f) extra = 4;
+                else if (orderTime[pos] > 25f) extra = 2;
+                else extra = 1;
+                int pts = 20 + extra;
+                points.GetComponent<PointsController>().addPoints(pts);
+                _poolOrders.RemoveAt(pos);
+                orderTime.RemoveAt(pos);
+            }           
+        }
+        showOrders(false);
+        
     }
 }

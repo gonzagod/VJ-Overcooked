@@ -6,6 +6,11 @@ public class godMode : MonoBehaviour
 {
     public GameObject playerItem;
     public ItemSwitch itemSwitch;
+    private GameObject itemOnHands = null;
+    private string itemOnHandsName = "";
+    private bool itemOnHandsChoppeable = false;
+    private string itemOnHandsChoppedFood = "";
+    private string typeOfItemOnHands = "";
 
     // Start is called before the first frame update
     void Start()
@@ -17,9 +22,14 @@ public class godMode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        itemOnHands = itemSwitch.selectedItemOnHands;
+        itemOnHandsName = itemSwitch.selectedItemName;
+        itemOnHandsChoppedFood = itemSwitch.choppedFood;
+        itemOnHandsChoppeable = itemSwitch.selectedFoodChoppeable;
+        typeOfItemOnHands = itemSwitch.typeOfItem;
         if (Input.GetKeyDown("o"))
         {
-            GameObject Onion = Instantiate(Resources.Load("Onion")) as GameObject;
+            GameObject Onion = Instantiate(Resources.Load("ChoppedOnion")) as GameObject;
             itemSwitch.setItemOnHands(Onion);
         }
         else if (Input.GetKeyDown("m"))
@@ -37,21 +47,21 @@ public class godMode : MonoBehaviour
             GameObject Tomato = Instantiate(Resources.Load("Tomato")) as GameObject;
             itemSwitch.setItemOnHands(Tomato);
         }
-        /*else if (Input.GetKeyDown("y"))
+        else if (Input.GetKeyDown("y"))
         {
-            food.changeSelectedFoodString("Chopped Onion");
+            itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("PlatedLettuce");
         }
         else if (Input.GetKeyDown("i"))
         {
-
+            itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("PlatedTomato");
         }
         else if (Input.GetKeyDown("r"))
         {
-
+            itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("PlatedBurger");
         }
         else if (Input.GetKeyDown("e"))
         {
-            food.changeSelectedFood(9);
-        }*/
+            itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("PlatedOnion");
+        }
     }
 }

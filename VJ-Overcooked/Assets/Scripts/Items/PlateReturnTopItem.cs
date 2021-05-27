@@ -4,52 +4,33 @@ using UnityEngine;
 
 public class PlateReturnTopItem : MonoBehaviour
 {
-    /* public string ItemOnTop = "";
+    public GameObject utensilOnTop = null;
+    public string utensilOnTopString = "";
     private GameObject Player;
-    private ItemSwitch foodSwitch;
+    private GameObject Plate;
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.Find("Player_1");
-        foodSwitch = Player.transform.Find("player_no_anim/Food").GetComponent<FoodSwitch>();
     }
 
     // Update is called once per frame
     void Update()
     {
         GameObject playerTarget = Player.transform.Find("player_no_anim").GetComponent<TargetHighlight>().target;
-        int itemOnTableInt = getItemInteger(ItemOnTop);
-    }
-
-    public void UpdateItemOnTop(int foodId)
-    {
-        switch (foodId)
-        {
-            case 8:
-                ItemOnTop = "Plate";
-                gameObject.transform.Find("Plate").gameObject.SetActive(true);
-                break;
-        }
     }
 
     public void CleanTable()
     {
-        foreach (Transform food in transform)
-        {
-            if (food.gameObject.tag == "Plate")
-                food.gameObject.SetActive(false);
-        }
-        ItemOnTop = "";
+       utensilOnTop = null;
+       utensilOnTopString = "";
+       Destroy(Plate);
     }
 
-    public int getItemInteger(string foodName)
+    public void InstantiatePlate()
     {
-        switch (foodName)
-        {
-            case "Plate":
-                return 8;
-            default:
-                return -1;
-        }
-    }*/
+        Plate = Instantiate(Resources.Load("Plate")) as GameObject;
+        Plate.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
+        utensilOnTop = Plate;
+    }
 }
