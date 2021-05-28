@@ -19,7 +19,7 @@ public class TimeController : MonoBehaviour
         timesUpSound = GetComponents<AudioSource>();
         m_Play = false;
         elapsedTime = 0f;
-        startTime = 5f;
+        startTime = 150f;
     }
 
     // Update is called once per frame
@@ -27,7 +27,7 @@ public class TimeController : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
         float t = startTime - elapsedTime;
-        if (t <= 0f)
+        if (t < 0f)
         {
             if (m_Play)
             {
@@ -49,17 +49,17 @@ public class TimeController : MonoBehaviour
             }
 
         }
-        else if (t <= 10f)
+        else 
         {
             string minutes = ((int)t / 60).ToString("00");
             string seconds = (t % 60).ToString("00");
 
             timerText.text = minutes + ":" + seconds;
-                if (!m_Play)
+                if (!m_Play && t <= 10f)
                 {
                     timesUpSound[0].Play();
                     m_Play = true;
                 }
         }
-    }
+     }
 }

@@ -25251,6 +25251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 917723150}
   - component: {fileID: 917723149}
+  - component: {fileID: 917723151}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -25286,6 +25287,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &917723151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917723148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771af819bb156324caf582db3c6ebe9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &924698332 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7554645625420612144, guid: bda7eed7507cac44fa3f82f1eba1ae34,
@@ -26699,7 +26712,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2462228878279892452, guid: 48cae865caf269c4da2122db289c3635,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6432570856872105654, guid: 48cae865caf269c4da2122db289c3635,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 308b658f7b9e9814fa09f4fbb86f2f1e,
+        type: 3}
+    - target: {fileID: 7558654727998334166, guid: 48cae865caf269c4da2122db289c3635,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7558654727998334166, guid: 48cae865caf269c4da2122db289c3635,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905048226451218623, guid: 48cae865caf269c4da2122db289c3635,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5757948844569461656, guid: 48cae865caf269c4da2122db289c3635, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 48cae865caf269c4da2122db289c3635, type: 3}
 --- !u!4 &1610455626 stripped
 Transform:
