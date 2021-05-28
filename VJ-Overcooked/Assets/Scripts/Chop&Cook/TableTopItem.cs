@@ -33,6 +33,13 @@ public class TableTopItem : MonoBehaviour
             if(gameObject.name == "TableTop_Level3 3"){
                 setExtinguisher();
             }
+        }else if(SceneManager.GetActiveScene().name == "Nivell 4"){
+            if(gameObject.name == "TableTop_Side 2" || gameObject.name == "TableTop_Side 6" || gameObject.name == "TableTop_Side 7"){
+                setStartingPlate();
+            }
+            if(gameObject.name == "TableTop_Side 8"){
+                setExtinguisher();
+            }
         }else if(SceneManager.GetActiveScene().name == "Nivell 5"){
             if(gameObject.name == "TableTop_SidLv5_14" || gameObject.name == "TableTop_SidLv5_21"){
                 setStartingPlate();

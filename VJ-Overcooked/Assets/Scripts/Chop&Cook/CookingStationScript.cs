@@ -24,8 +24,13 @@ public class CookingStationScript : MonoBehaviour
     public void setItemOnTop(){
         if (gameObject.name == "CookingStation 1") setPotOnTop("Pot 1");
         if (gameObject.name == "CookingStation 2") setPotOnTop("Pot 2");
-        if (gameObject.name == "CookingStation 3") setPanOnTop("Pan 1");
-        if (gameObject.name == "CookingStation 4") setPanOnTop("Pan 2");
+        if (SceneManager.GetActiveScene().name == "Nivell 4"){
+            if (gameObject.name == "CookingStation 3") setPotOnTop("Pot 3");
+            if (gameObject.name == "CookingStation 4") setPotOnTop("Pot 4");
+        }else {
+            if (gameObject.name == "CookingStation 3") setPanOnTop("Pan 1");
+            if (gameObject.name == "CookingStation 4") setPanOnTop("Pan 2");
+        }
     }
 
     public void setPotOnTop(string potName){
