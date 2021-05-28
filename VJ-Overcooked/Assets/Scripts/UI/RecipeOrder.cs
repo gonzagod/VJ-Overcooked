@@ -97,10 +97,10 @@ public class RecipeOrder : MonoBehaviour
                 food = "LettuceTomatoBurger";
             break;
             case 4:
-                food = "ChickenPotatoesMushroom";
+                food = "ChickenPotatoMushroom";
             break;
             case 5:
-                food = "ChickenPotatoesTomato";
+                food = "ChickenPotatoTomato";
             break;
             case 6:
                 food = "MushroomSoup";
@@ -146,11 +146,11 @@ public class RecipeOrder : MonoBehaviour
                     ChildGameObject.GetComponent<Image>().enabled = true;
                     ChildGameObject.GetComponent<Image>().sprite = Recipe4;
                     break;
-                case "ChickenPotatoesTomato":
+                case "ChickenPotatoTomato":
                     ChildGameObject.GetComponent<Image>().enabled = true;
                     ChildGameObject.GetComponent<Image>().sprite = Recipe5;
                     break;
-                case "ChickenPotatoesMushroom":
+                case "ChickenPotatoMushroom":
                     ChildGameObject.GetComponent<Image>().enabled = true;
                     ChildGameObject.GetComponent<Image>().sprite = Recipe6;
                     break;
@@ -188,14 +188,12 @@ public class RecipeOrder : MonoBehaviour
             GameObject pointsScene = GameObject.Find("PointsSurvivor");
             pointsScene.GetComponent<PointsScene>().AddPoints(-10);
         }
-        else if (order != "Plate") {
+        else if (order != "Plate" && order != "Error") {
             int size = _poolOrders.Count;
             int pos = -1;
             for (int i = 0; i < size; ++i)
             {
                 string x = _poolOrders[i];
-                Debug.Log("PoolOrder" + x);
-                Debug.Log("Order" + order);
                 if (x == order)
                 {
                     pos = i;

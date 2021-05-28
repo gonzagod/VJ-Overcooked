@@ -82,13 +82,13 @@ public class TargetInteraction : MonoBehaviour
                             }
                         } else if (itemOnTableString == "Pot" && itemOnTable.transform.GetComponent<PotScript>().soupReady)
                         {
-                            if (itemOnHandsName == "Plate")
+                            if (itemOnHandsName == "Plate" && itemOnHands.GetComponent<PlateSample>().CanIInstantiatePlate())
                             {
                                 string typeOfSoup = itemOnTable.transform.GetComponent<PotScript>().madeOf;
-                                if(typeOfSoup == "Onion") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("OnionSoup");
-                                else if(typeOfSoup == "Tomato") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("TomatoSoup");
-                                else if(typeOfSoup == "Mushroom") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("MushroomSoup");
-                                else if(typeOfSoup == "Error") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("ErrorSoup");
+                                if (typeOfSoup == "Onion") itemOnHands.GetComponent<PlateSample>().InstantiatePlate("OnionSoup");
+                                else if(typeOfSoup == "Tomato") itemOnHands.GetComponent<PlateSample>().InstantiatePlate("TomatoSoup");
+                                else if(typeOfSoup == "Mushroom") itemOnHands.GetComponent<PlateSample>().InstantiatePlate("MushroomSoup");
+                                else if(typeOfSoup == "Error") itemOnHands.GetComponent<PlateSample>().InstantiatePlate("ErrorSoup");
                                 itemOnTable.transform.GetComponent<PotScript>().cleanPot();
                             }
                         } else if(itemOnTableString == "Pan" && itemOnHandsChoppedFood != ""){
@@ -115,14 +115,19 @@ public class TargetInteraction : MonoBehaviour
                         } else if (itemOnTableString == "Plate")
                         {
                             if(itemOnHandsName == "Pot"){
-                                if (itemOnHands.transform.GetComponent<PotScript>().soupReady)
+                                if (itemOnHands.transform.GetComponent<PotScript>().soupReady && itemOnTable.GetComponent<PlateSample>().CanIInstantiatePlate())
                                 {
-                                    string typeOfSoup = itemOnHands.transform.GetComponent<PotScript>().madeOf;
-                                    if(typeOfSoup == "Onion") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("OnionSoup");
-                                    else if(typeOfSoup == "Tomato") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("TomatoSoup");
-                                    else if(typeOfSoup == "Mushroom") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("MushroomSoup");
-                                    else if(typeOfSoup == "Error") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("ErrorSoup");
-                                    itemOnHands.transform.GetComponent<PotScript>().cleanPot();
+                                    int numOfIngredientsInPot = itemOnHands.GetComponent<PotScript>().numIngredients;
+                                    bool soupInPot = itemOnHands.GetComponent<PotScript>().soupReady;
+                                    if (numOfIngredientsInPot == 3 && soupInPot)
+                                    {
+                                        string typeOfSoup = itemOnHands.GetComponent<PotScript>().madeOf;
+                                        if (typeOfSoup == "Onion") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("OnionSoup");
+                                        else if (typeOfSoup == "Tomato") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("TomatoSoup");
+                                        else if (typeOfSoup == "Mushroom") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("MushroomSoup");
+                                        else if (typeOfSoup == "Error") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("ErrorSoup");
+                                        itemOnHands.GetComponent<PotScript>().cleanPot();
+                                    }
                                 }
                             }else if (itemOnHandsChoppedFood != "") {
                                 if (itemOnTable.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate(itemOnHandsChoppedFood))

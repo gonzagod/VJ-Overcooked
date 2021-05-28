@@ -80,6 +80,7 @@ public class godMode : MonoBehaviour
             itemOnHandsChoppeable = itemSwitch.selectedFoodChoppeable;
             typeOfItemOnHands = itemSwitch.typeOfItem;
             itemOnHands.GetComponent<PlateSample>().InstantiatePlate(recipes._poolOrders[0]);
+            itemSwitch.setItemOnHands(itemOnHands);
             }
     }
 }
