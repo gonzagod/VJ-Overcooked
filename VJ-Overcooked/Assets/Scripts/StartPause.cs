@@ -13,7 +13,7 @@ public class StartPause : MonoBehaviour
     public void Pause()
     {
         // how many seconds to pause the game
-        StartCoroutine(PauseGame(1f));
+        StartCoroutine(PauseGame(1.2f));
     }
     public IEnumerator PauseGame(float pauseTime)
     {

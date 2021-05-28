@@ -168,6 +168,18 @@ public class TargetInteraction : MonoBehaviour
                                         }
                                     }
                                 }
+                            } else if (itemOnHandsName == "Pan" && itemOnHands.transform.GetComponent<PanScript>().foodReady)
+                            {
+                                if (itemOnTableString == "Plate" && itemOnTable.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate(itemOnHandsName))
+                                {
+                                    string primaryFoodOnPan = itemOnHands.GetComponent<PanScript>().primaryFood;
+                                    bool foodInPanReady = itemOnHands.GetComponent<PanScript>().foodReady;
+                                    if (foodInPanReady && itemOnTable.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate(primaryFoodOnPan))
+                                    {
+                                        itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate(primaryFoodOnPan);
+                                        itemOnHands.transform.GetComponent<PanScript>().cleanPan();
+                                    }
+                                }
                             }
                         }
                         else if (itemOnHandsName == "Plate")

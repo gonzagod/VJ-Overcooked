@@ -14,7 +14,10 @@ public class CameraFollow : MonoBehaviour
     void Start() {
         distance = 7f;
         target = GameObject.Find("Player_1").transform;
-        if(SceneManager.GetActiveScene().name == "Nivell 1") offset = new Vector3(0f, distance+2.5f, -distance+1);
+        if(SceneManager.GetActiveScene().name == "Nivell 1" ||
+           SceneManager.GetActiveScene().name == "Nivell 2" ||
+           SceneManager.GetActiveScene().name == "Nivell 5")
+            offset = new Vector3(0f, distance+2.5f, -distance+1);
         else offset = new Vector3(0f, distance, -distance);
     }
 

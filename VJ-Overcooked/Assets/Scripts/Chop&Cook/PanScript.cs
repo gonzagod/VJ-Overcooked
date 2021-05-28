@@ -143,6 +143,7 @@ public class PanScript : MonoBehaviour
     }
 
     private void updateContent(){
+        GameObject newFood = null;
         switch(ingredientName){
             case "ChoppedBurger":
                 foreach(Transform child in content.transform) if(child.gameObject.tag == "Ingredient") Destroy(child.gameObject);
@@ -151,7 +152,9 @@ public class PanScript : MonoBehaviour
                 ingredientName = "PlatedBurger";
                 food.transform.SetParent(content.transform, false);
                 primaryFood = "Burger";
-                //food.transform.Find("Icon").gameObject.SetActive(false);
+                newFood = Instantiate(Resources.Load("Icons/"+ primaryFood + "Icon"), new Vector3(0, 100f, 0), Quaternion.identity) as GameObject;
+                newFood.transform.localScale = new Vector3(20f, 20f, 1);
+                newFood.transform.SetParent(food.transform, false);
                 break;
             case "ChoppedChicken":
                 foreach(Transform child in content.transform) if(child.gameObject.tag == "Ingredient") Destroy(child.gameObject);
@@ -160,7 +163,8 @@ public class PanScript : MonoBehaviour
                 ingredientName = "PlatedChicken";
                 food.transform.SetParent(content.transform, false);
                 primaryFood = "Chicken";
-                //food.transform.Find("Icon").gameObject.SetActive(false);
+                newFood = Instantiate(Resources.Load("Icons/"+ primaryFood + "Icon"), new Vector3(0, 1f, 0), Quaternion.identity) as GameObject;
+                newFood.transform.SetParent(food.transform, false);
                 break;
             case "ChoppedPotato":
                 foreach(Transform child in content.transform) if(child.gameObject.tag == "Ingredient") Destroy(child.gameObject);
@@ -169,12 +173,14 @@ public class PanScript : MonoBehaviour
                 ingredientName = "PlatedPotato";
                 food.transform.SetParent(content.transform, false);
                 primaryFood = "Potato";
-                //food.transform.Find("Icon").gameObject.SetActive(false);
+                newFood = Instantiate(Resources.Load("Icons/"+ primaryFood + "Icon"), new Vector3(0, 1.3f, 0), Quaternion.identity) as GameObject;
+                newFood.transform.SetParent(food.transform, false);
                 break;
 
             default:
                 break;
         }
+
     }
 
     private IEnumerator DoFadeIn(SpriteRenderer _sprite) {

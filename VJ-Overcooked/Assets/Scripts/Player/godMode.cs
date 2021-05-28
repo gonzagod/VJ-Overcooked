@@ -29,43 +29,61 @@ public class godMode : MonoBehaviour
         typeOfItemOnHands = itemSwitch.typeOfItem;
         if (Input.GetKeyDown("o"))
         {
+            itemSwitch.deleteItemOnHands();
+            itemSwitch.emptyHands();
             GameObject Onion = Instantiate(Resources.Load("ChoppedOnion")) as GameObject;
             itemSwitch.setItemOnHands(Onion);
         }
         else if (Input.GetKeyDown("m"))
         {
+            itemSwitch.deleteItemOnHands();
+            itemSwitch.emptyHands();
             GameObject Mushroom = Instantiate(Resources.Load("Mushroom")) as GameObject;
             itemSwitch.setItemOnHands(Mushroom);
         }
         else if (Input.GetKeyDown("l"))
         {
+            itemSwitch.deleteItemOnHands();
+            itemSwitch.emptyHands();
             GameObject Lettuce = Instantiate(Resources.Load("Lettuce")) as GameObject;
             itemSwitch.setItemOnHands(Lettuce);
         }
         else if (Input.GetKeyDown("t"))
         {
+            itemSwitch.deleteItemOnHands();
+            itemSwitch.emptyHands();
             GameObject Tomato = Instantiate(Resources.Load("ChoppedTomato")) as GameObject;
             itemSwitch.setItemOnHands(Tomato);
         }
         else if (Input.GetKeyDown("b"))
         {
+            itemSwitch.deleteItemOnHands();
+            itemSwitch.emptyHands();
             GameObject ChoppedBurger = Instantiate(Resources.Load("ChoppedBurger")) as GameObject;
             itemSwitch.setItemOnHands(ChoppedBurger);
         }
         else if (Input.GetKeyDown("y"))
         {
+            itemSwitch.deleteItemOnHands();
+            itemSwitch.emptyHands();
             itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("PlatedLettuce");
         }
         else if (Input.GetKeyDown("i"))
         {
+            itemSwitch.deleteItemOnHands();
+            itemSwitch.emptyHands();
             itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("PlatedTomato");
         }
         else if (Input.GetKeyDown("r"))
         {
+            itemSwitch.deleteItemOnHands();
+            itemSwitch.emptyHands();
             itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("Burger");
         }
         else if (Input.GetKeyDown("e"))
         {
+            itemSwitch.deleteItemOnHands();
+            itemSwitch.emptyHands();
             itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("PlatedOnion");
         }
         else if (Input.GetKeyDown("x")) {
@@ -81,6 +99,6 @@ public class godMode : MonoBehaviour
             typeOfItemOnHands = itemSwitch.typeOfItem;
             itemOnHands.GetComponent<PlateSample>().InstantiatePlate(recipes._poolOrders[0]);
             itemSwitch.setItemOnHands(itemOnHands);
-            }
+        }
     }
 }

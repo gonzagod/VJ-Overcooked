@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class RecipeOrder : MonoBehaviour
 {
-    private float timeForNextOrder = 10f;
+    private float timeForNextOrder = 23f;
+    private float timeOrder = 60f;
     private int maxOrders = 5;
     private float elapsedTime;
     private int minRecipe;
@@ -161,9 +162,9 @@ public class RecipeOrder : MonoBehaviour
             ChildofChildGameObject.GetComponent<Image>().enabled = true;
             if (i == size - 1 && actualitzar)
             {
-                ChildGameObject.GetComponent<TimeBarRecipes>().elapsedTime = 20f;
-                ChildGameObject.GetComponent<TimeBarRecipes>().maxTime = 20f;
-                orderTime.Add(20f);
+                ChildGameObject.GetComponent<TimeBarRecipes>().elapsedTime = timeOrder;
+                ChildGameObject.GetComponent<TimeBarRecipes>().maxTime = timeOrder;
+                orderTime.Add(timeOrder);
             }
             else
             {
