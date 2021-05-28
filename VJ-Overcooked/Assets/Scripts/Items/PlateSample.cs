@@ -65,7 +65,7 @@ public class PlateSample : MonoBehaviour
                     childIcon.transform.SetParent(gameObject.transform.Find("Icon" + i.ToString()), false);
                 }
             }
-            else if (ingredientNames.Contains("Chicken") && ingredientNames.Contains("Potatoes") && ingredientNames.Contains("Tomato"))
+            else if (ingredientNames.Contains("Chicken") && ingredientNames.Contains("Potato") && ingredientNames.Contains("Tomato"))
             {
                 CleanPlate();
                 ingredientNames.Add("Chicken");

@@ -31,15 +31,15 @@ public class godMode : MonoBehaviour
         {
             itemSwitch.deleteItemOnHands();
             itemSwitch.emptyHands();
-            GameObject Onion = Instantiate(Resources.Load("ChoppedOnion")) as GameObject;
+            GameObject Onion = Instantiate(Resources.Load("ChoppedPotato")) as GameObject;
             itemSwitch.setItemOnHands(Onion);
         }
         else if (Input.GetKeyDown("m"))
         {
             itemSwitch.deleteItemOnHands();
             itemSwitch.emptyHands();
-            GameObject Mushroom = Instantiate(Resources.Load("Mushroom")) as GameObject;
-            itemSwitch.setItemOnHands(Mushroom);
+            GameObject ChoppedChicken = Instantiate(Resources.Load("ChoppedChicken")) as GameObject;
+            itemSwitch.setItemOnHands(ChoppedChicken);
         }
         else if (Input.GetKeyDown("l"))
         {

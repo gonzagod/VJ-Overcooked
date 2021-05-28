@@ -22,6 +22,11 @@ public class PotScript : MonoBehaviour
     private GameObject steam = null;
     private GameObject burnedContent = null;
     private AudioSource audioPot = null;
+    private AudioSource audioCooking = null;
+    private AudioSource[] addSound = new AudioSource[6];
+    private AudioSource[] audioSound;
+    private AudioSource audioCooked = null;
+    bool isAudioCooking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +35,11 @@ public class PotScript : MonoBehaviour
         soup = content.transform.Find("Soup").gameObject;
         steam = content.transform.Find("PFX_PotSteam").gameObject;
         burnedContent = content.transform.Find("Burned").gameObject;
-        audioPot = gameObject.GetComponent<AudioSource>();
+        audioSound = gameObject.GetComponents<AudioSource>();
+        audioPot = audioSound[0];
+        audioCooking = audioSound[7];
+        audioCooked = audioSound[8];
+        for (int i = 0; i < 6; ++i) addSound[i] = audioSound[i + 1];
         burningCount = 0f;
     }
 
@@ -65,6 +74,7 @@ public class PotScript : MonoBehaviour
     }
 
     public void addIngredient(string foodName){
+        int rand6 = UnityEngine.Random.Range(0, 5);
         if(numIngredients == 0) madeOf = foodName;
         else if(madeOf != foodName) madeOf = "Error";
         visibleTimeBar = true;
@@ -90,10 +100,17 @@ public class PotScript : MonoBehaviour
         }
         foodReady = false;
         burningAlarm = false;
+        addSound[rand6].Play();
+        if (!isAudioCooking)
+        {
+            isAudioCooking = true;
+            audioCooking.Play();
+        }
     }
 
     public void cleanPot(){
         numIngredients = 0;
+        soup.transform.localPosition = new Vector3(0, 0, 0);
         burningAlarm = false;
         ingredientNames.Clear();
         visibleTimeBar = false;
@@ -104,6 +121,8 @@ public class PotScript : MonoBehaviour
         burningCount = 0f;
         checkBurned();
         updateIcons();
+        isAudioCooking = false;
+        audioCooking.Stop();
     }
 
     private void updateIcons(){
@@ -190,6 +209,7 @@ public class PotScript : MonoBehaviour
     }
 
     private void foodReadyAnim(){
+        audioCooked.Play();
         foodReady = true;
         if(numIngredients == 3) soupReady = true;
         StartCoroutine(DoFadeIn(transform.Find("CookingTick/Icon").gameObject.GetComponent<SpriteRenderer>()));

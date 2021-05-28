@@ -15,9 +15,25 @@ public class TargetInteraction : MonoBehaviour
     public GameObject itemOnHands = null;
     private Animator playerAnimator;
     public GameObject particleExtinguisher;
+    AudioSource[] sounds;
+    AudioSource[] itemDown = new AudioSource[5];
+    AudioSource[] itemPickUp = new AudioSource[5];
+    AudioSource extintorSound;
+    private bool extintorSounding;
     // Start is called before the first frame update
     void Start()
     {
+        sounds = transform.GetComponents<AudioSource>();
+        
+        for (int i = 0; i < 5; ++i)
+        {
+            itemDown[i] = sounds[i];
+        }
+        for (int j = 5; j < 10; ++j)
+        {
+            itemPickUp[j-5] = sounds[j];
+        }
+        extintorSound = sounds[10];
         target = null;
         itemSwitch = gameObject.transform.Find("player_no_anim/Item").GetComponent<ItemSwitch>();
         playerAnimator = transform.Find("player_no_anim").gameObject.GetComponent<Animator>();
@@ -26,6 +42,7 @@ public class TargetInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        int rand5 = UnityEngine.Random.Range(0,4);
         itemOnHands = itemSwitch.selectedItemOnHands;
         itemOnHandsName = itemSwitch.selectedItemName;
         itemOnHandsChoppedFood = itemSwitch.choppedFood;
@@ -39,12 +56,19 @@ public class TargetInteraction : MonoBehaviour
             if(Input.GetButton("Fire1")){
                 particleExtinguisher.SetActive(true);
                 usingExtinguisher = true;
+                if (!extintorSounding)
+                {
+                    extintorSounding = true;
+                    extintorSound.Play();
+                }
                 }
             else {
                 particleExtinguisher.SetActive(false);
                 usingExtinguisher = false;
+                extintorSounding = false;
+                extintorSound.Stop();
 
-                if(Input.GetKeyDown("space") && target != null){
+                if (Input.GetKeyDown("space") && target != null){
                     if( target.tag == "Table"){
                         string itemOnTableString = target.GetComponent<TableTopItem>().itemOnTopString;
                         GameObject itemOnTable = target.GetComponent<TableTopItem>().itemOnTop;
@@ -52,6 +76,7 @@ public class TargetInteraction : MonoBehaviour
                             if(itemOnHands != null){
                                 target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
                                 itemSwitch.emptyHands();
+                                itemDown[rand5].Play();
                             }
                         }
                     }
@@ -67,10 +92,12 @@ public class TargetInteraction : MonoBehaviour
                             if(itemOnHands != null){
                                 target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
                                 itemSwitch.emptyHands();
+                                itemDown[rand5].Play();
                             }
                         } else if(itemOnHands == null){
                             itemSwitch.setItemOnHands(itemOnTable);
                             target.GetComponent<TableTopItem>().CleanTable();
+                            itemPickUp[rand5].Play();
                         } else if(itemOnTableString == "Pot" && itemOnHandsChoppedFood != ""){
                             int numOfIngredientsInPot = itemOnTable.GetComponent<PotScript>().numIngredients;
                             bool potBurned = itemOnTable.GetComponent<PotScript>().burned;
@@ -90,6 +117,7 @@ public class TargetInteraction : MonoBehaviour
                                 else if(typeOfSoup == "Mushroom") itemOnHands.GetComponent<PlateSample>().InstantiatePlate("MushroomSoup");
                                 else if(typeOfSoup == "Error") itemOnHands.GetComponent<PlateSample>().InstantiatePlate("ErrorSoup");
                                 itemOnTable.transform.GetComponent<PotScript>().cleanPot();
+                                itemPickUp[rand5].Play();
                             }
                         } else if(itemOnTableString == "Pan" && itemOnHandsChoppedFood != ""){
                             string ingredientOnPan = itemOnTable.GetComponent<PanScript>().ingredientName;
@@ -109,6 +137,7 @@ public class TargetInteraction : MonoBehaviour
                                 if(foodInPanReady && itemOnHands.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate(primaryFoodOnPan)){
                                     itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate(primaryFoodOnPan);
                                     itemOnTable.transform.GetComponent<PanScript>().cleanPan();
+                                    itemPickUp[rand5].Play();
                                 }
 
                             }
@@ -127,6 +156,7 @@ public class TargetInteraction : MonoBehaviour
                                         else if (typeOfSoup == "Mushroom") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("MushroomSoup");
                                         else if (typeOfSoup == "Error") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("ErrorSoup");
                                         itemOnHands.GetComponent<PotScript>().cleanPot();
+                                        itemPickUp[rand5].Play();
                                     }
                                 }
                             }else if (itemOnHandsChoppedFood != "") {
@@ -135,6 +165,7 @@ public class TargetInteraction : MonoBehaviour
                                     itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate(itemOnHandsChoppedFood);
                                     itemSwitch.deleteItemOnHands();
                                     itemSwitch.emptyHands();
+                                    itemDown[rand5].Play();
                                 }
 
                             } else if (itemOnHandsName == "Plate") {
@@ -147,6 +178,7 @@ public class TargetInteraction : MonoBehaviour
                                             itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate(ingredient);
                                         }
                                         itemOnTable.GetComponent<PlateSample>().CleanPlate();
+                                        itemPickUp[rand5].Play();
                                     }
                                     else if (itemOnTable.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate(itemOnHands.GetComponent<PlateSample>().ingredientNames))
                                     {
@@ -155,6 +187,7 @@ public class TargetInteraction : MonoBehaviour
                                             itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate(ingredient);
                                         }
                                         itemOnHands.GetComponent<PlateSample>().CleanPlate();
+                                        itemDown[rand5].Play();
                                     }
                                 }
                                 else
@@ -165,6 +198,7 @@ public class TargetInteraction : MonoBehaviour
                                         {
                                             itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate(itemOnHands.GetComponent<PlateSample>().PlateType);
                                             itemOnHands.GetComponent<PlateSample>().CleanPlate();
+                                            itemPickUp[rand5].Play();
                                         }
                                     }
                                 }
@@ -178,6 +212,7 @@ public class TargetInteraction : MonoBehaviour
                                     {
                                         itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate(primaryFoodOnPan);
                                         itemOnHands.transform.GetComponent<PanScript>().cleanPan();
+                                        itemPickUp[rand5].Play();
                                     }
                                 }
                             }
@@ -191,6 +226,7 @@ public class TargetInteraction : MonoBehaviour
                                     foreach(string ingredient in itemOnHands.GetComponent<PlateSample>().ingredientNames)
                                     {
                                         itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate(ingredient);
+                                        itemDown[rand5].Play();
                                     }
                                 }
                             }
@@ -206,6 +242,7 @@ public class TargetInteraction : MonoBehaviour
                                             target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
                                             itemSwitch.deleteItemOnHands();
                                             itemSwitch.emptyHands();
+                                            itemDown[rand5].Play();
                                         }
                                             break;
                                     case "ChoppedTomato":
@@ -217,6 +254,7 @@ public class TargetInteraction : MonoBehaviour
                                             target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
                                             itemSwitch.deleteItemOnHands();
                                             itemSwitch.emptyHands();
+                                            itemDown[rand5].Play();
                                         }
                                             break;
                                     case "ChoppedMushroom":
@@ -228,6 +266,7 @@ public class TargetInteraction : MonoBehaviour
                                             target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
                                             itemSwitch.deleteItemOnHands();
                                             itemSwitch.emptyHands();
+                                            itemDown[rand5].Play();
                                         }
                                             break;
                                     case "ChoppedLettuce":
@@ -239,6 +278,7 @@ public class TargetInteraction : MonoBehaviour
                                             target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
                                             itemSwitch.deleteItemOnHands();
                                             itemSwitch.emptyHands();
+                                            itemDown[rand5].Play();
                                         }
                                             break;
                                     default:
@@ -257,12 +297,14 @@ public class TargetInteraction : MonoBehaviour
                             if(itemOnHandsChoppeable){
                                 target.GetComponent<ChoppingTableItem>().setItemOnChoppingTable(itemOnHands, itemOnHandsName, itemOnHandsChoppeable);
                                 itemSwitch.emptyHands();
+                                itemDown[rand5].Play();
                             }
                         }else {
                             bool chopping = target.GetComponent<ChoppingTableItem>().Chopping;
                             if(!chopping && itemOnHands == null && timeChoppingSpent <= 0){
                                 itemSwitch.setItemOnHands(itemOnChoppingTable);
                                 target.GetComponent<ChoppingTableItem>().CleanTable();
+                                itemPickUp[rand5].Play();
                             }
                         }
                         break;
@@ -298,6 +340,7 @@ public class TargetInteraction : MonoBehaviour
                             if(utensil != null){
                                 if(utensilName != "") itemSwitch.setItemOnHands(utensil);
                                 target.GetComponent<CookingStationScript>().cleanCookingStation();
+                                itemPickUp[rand5].Play();
                             }
                         }else if(typeOfItemOnHands == "Utensil"){
                             GameObject utensil = target.GetComponent<CookingStationScript>().utensilOnTop;
@@ -305,6 +348,7 @@ public class TargetInteraction : MonoBehaviour
                                 if(itemOnHandsName == "Pot") target.GetComponent<CookingStationScript>().setPotOnTop(itemOnHands.name);
                                 else target.GetComponent<CookingStationScript>().setPanOnTop(itemOnHands.name);
                                 itemSwitch.emptyHands();
+                                itemDown[rand5].Play();
                             }
 
                         }else if(typeOfItemOnHands == "Plate"){
@@ -321,6 +365,7 @@ public class TargetInteraction : MonoBehaviour
                                         else if(typeOfSoup == "Mushroom") itemOnHands.GetComponent<PlateSample>().InstantiatePlate("MushroomSoup");
                                         else if(typeOfSoup == "Error") itemOnHands.GetComponent<PlateSample>().InstantiatePlate("ErrorSoup");
                                         utensil.GetComponent<PotScript>().cleanPot();
+                                        itemPickUp[rand5].Play();
                                     }
                                 }else if(utensilName == "Pan"){
                                     string primaryFoodOnPan = utensil.GetComponent<PanScript>().primaryFood;
@@ -328,6 +373,7 @@ public class TargetInteraction : MonoBehaviour
                                     if(foodInPanReady && itemOnHands.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate(primaryFoodOnPan)){
                                         itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate(primaryFoodOnPan);
                                         utensil.GetComponent<PanScript>().cleanPan();
+                                        itemPickUp[rand5].Play();
                                     }
                                 }
                             }
@@ -340,6 +386,7 @@ public class TargetInteraction : MonoBehaviour
                             target.GetComponent<PlateStationItem>().setPlateOnTop(itemOnHandsName);
                             itemSwitch.deleteItemOnHands();
                             itemSwitch.emptyHands();
+                            itemDown[rand5].Play();
                             string plateType = itemOnHands.GetComponent<PlateSample>().PlateType;
                             GameObject recipes = GameObject.Find("GameEnviroment 1/Canvases/HUDCanvas/ReceptesUI");
                             recipes.GetComponent<RecipeOrder>().orderDelivered(plateType,-1);
@@ -351,6 +398,7 @@ public class TargetInteraction : MonoBehaviour
                         if (itemOnHands == null)
                         {
                             itemSwitch.setItemOnHands(plate);
+                            itemPickUp[rand5].Play();
                         }
                         break;
 
@@ -361,6 +409,7 @@ public class TargetInteraction : MonoBehaviour
                                 float burningCountPot = itemOnHands.transform.GetComponent<PotScript>().burningCount;
                                 if(!burnedPot || (burnedPot && burningCountPot <= 0)){
                                     itemOnHands.transform.GetComponent<PotScript>().cleanPot();
+                                    itemPickUp[rand5].Play();
                                 }
 
                             } else if(itemOnHandsName == "Pan") {
@@ -368,13 +417,17 @@ public class TargetInteraction : MonoBehaviour
                                 float burningCountPan = itemOnHands.transform.GetComponent<PanScript>().burningCount;
                                 if(!burnedPan || (burnedPan && burningCountPan <= 0)){
                                     itemOnHands.transform.GetComponent<PanScript>().cleanPan();
+                                    itemPickUp[rand5].Play();
                                 }
                             }
                         }else if(typeOfItemOnHands == "Plate"){
                             itemOnHands.transform.GetComponent<PlateSample>().CleanPlate();
-                        }else {
+                            itemDown[rand5].Play();
+                        }
+                        else {
                             itemSwitch.deleteItemOnHands();
                             itemSwitch.emptyHands();
+                            itemDown[rand5].Play();
                         }
                         break;
 

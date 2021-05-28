@@ -20,6 +20,11 @@ public class PanScript : MonoBehaviour
     private GameObject steam = null;
     private GameObject burnedContent = null;
     private AudioSource audioPan = null;
+    private AudioSource[] audioSound;
+    private AudioSource[] addSound = new AudioSource[6];
+    private AudioSource audioCooked = null;
+    private AudioSource audioCooking = null;
+    bool isAudioCooking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +32,11 @@ public class PanScript : MonoBehaviour
         content = gameObject.transform.Find("Content").gameObject;
         steam = content.transform.Find("PFX_PanSteam").gameObject;
         burnedContent = content.transform.Find("Burned").gameObject;
-        audioPan = gameObject.GetComponent<AudioSource>();
+        audioSound = gameObject.GetComponents<AudioSource>();
+        audioPan = audioSound[0];
+        audioCooking = audioSound[7];
+        audioCooked = audioSound[8];
+        for (int i = 0; i < 6; ++i) addSound[i] = audioSound[i + 1];
         burningCount = 0f;
     }
 
@@ -60,6 +69,7 @@ public class PanScript : MonoBehaviour
     }
 
     public void addIngredient(GameObject ingredient, string foodName){
+        int rand6 = UnityEngine.Random.Range(0, 5);
         food = ingredient;
         food.transform.SetParent(content.transform, false);
         ingredientName = foodName;
@@ -67,6 +77,12 @@ public class PanScript : MonoBehaviour
         foodReady = false;
         burningAlarm = false;
         updateIcons();
+        addSound[rand6].Play();
+        if (!isAudioCooking)
+        {
+            isAudioCooking = true;
+            audioCooking.Play();
+        }
     }
 
     public void cleanPan(){
@@ -82,6 +98,8 @@ public class PanScript : MonoBehaviour
         food = null;
         checkBurned();
         updateIcons();
+        isAudioCooking = false;
+        audioCooking.Stop();
     }
 
     private void updateIcons(){
@@ -137,6 +155,7 @@ public class PanScript : MonoBehaviour
     }
 
     private void foodReadyAnim(){
+        audioCooked.Play();
         foodReady = true;
         StartCoroutine(DoFadeIn(transform.Find("CookingTick/Icon").gameObject.GetComponent<SpriteRenderer>()));
         updateContent();

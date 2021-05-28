@@ -5,16 +5,15 @@ using UnityEngine.UI;
 
 public class StartPause : MonoBehaviour
 {
+    AudioSource start;
     private float pauseTime;
     void Start()
     {
-        Pause();
-    }
-    public void Pause()
-    {
-        // how many seconds to pause the game
+        start = transform.GetComponent<AudioSource>();
+        start.Play();
         StartCoroutine(PauseGame(1.2f));
     }
+
     public IEnumerator PauseGame(float pauseTime)
     {
         Time.timeScale = 0f;
