@@ -12,12 +12,13 @@ public class TakeOutFood : MonoBehaviour
     private ItemSwitch itemSwitch;
     private Vector3 pos;
     public Animator myAnimatorController;
+    AudioSource[] pickup;
     // Start is called before the first frame update
 
     void Start()
     {
+        pickup = transform.GetComponents<AudioSource>();
         myAnimatorController.SetBool("Open", false);
-        //Player = GameObject.Find("Player_1");
         itemSwitch = Player.transform.Find("player_no_anim/Item").GetComponent<ItemSwitch>();
 
     }
@@ -36,6 +37,8 @@ public class TakeOutFood : MonoBehaviour
                     myAnimatorController.SetBool("Open", true);
                     GameObject foodInstant = Instantiate(Food) as GameObject;
                     itemSwitch.setItemOnHands(foodInstant);
+                    int rand = UnityEngine.Random.Range(0, 4);
+                    pickup[rand].Play();
                 }
             }
         } else {

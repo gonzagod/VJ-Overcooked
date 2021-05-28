@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class RecipeOrder : MonoBehaviour
 {
-    private float timeForNextOrder = 23f;
-    private float timeOrder = 60f;
+    private float timeForNextOrder = 27f;
+    private float timeOrder = 75f;
     private int maxOrders = 5;
     private float elapsedTime;
     private int minRecipe;
@@ -16,7 +16,9 @@ public class RecipeOrder : MonoBehaviour
     private string food;
     private int rand;
     private int extra;
-    AudioSource RecipeDelivered;
+    private AudioSource RecipeDelivered;
+    private AudioSource[] audioSound;
+    private AudioSource RecipeFail;
     public Sprite Recipe0, Recipe1, Recipe2, Recipe3, Recipe4, Recipe5, Recipe6;
 
     private GameObject ChildGameObject;
@@ -27,7 +29,9 @@ public class RecipeOrder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RecipeDelivered = transform.GetComponent<AudioSource>();
+        audioSound = transform.GetComponents<AudioSource>();
+        RecipeDelivered = audioSound[0];
+        RecipeFail = audioSound[1];
         elapsedTime = 0f;
         switch(SceneManager.GetActiveScene().name){
             case "Nivell 1":
@@ -151,7 +155,7 @@ public class RecipeOrder : MonoBehaviour
                     ChildGameObject.GetComponent<Image>().enabled = true;
                     ChildGameObject.GetComponent<Image>().sprite = Recipe5;
                     break;
-                case "ChickenPotatoMushroom":
+                case "ChickenTomatoMushroom":
                     ChildGameObject.GetComponent<Image>().enabled = true;
                     ChildGameObject.GetComponent<Image>().sprite = Recipe6;
                     break;
@@ -188,6 +192,7 @@ public class RecipeOrder : MonoBehaviour
             points.GetComponent<PointsController>().addPoints(-10);
             GameObject pointsScene = GameObject.Find("PointsSurvivor");
             pointsScene.GetComponent<PointsScene>().AddPoints(-10);
+            RecipeFail.Play();
         }
         else if (order != "Plate" && order != "Error") {
             int size = _poolOrders.Count;

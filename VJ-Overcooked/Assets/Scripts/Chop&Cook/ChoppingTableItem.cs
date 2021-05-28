@@ -15,9 +15,11 @@ public class ChoppingTableItem : MonoBehaviour
     public Animator playerAnimator;
     private ItemSwitch itemSwitch;
     private Animator itemOnTopAnimator = null;
+    private AudioSource chop;
     // Start is called before the first frame update
     void Start()
     {
+        chop = transform.GetComponent<AudioSource>();
         itemSwitch = Player.transform.Find("player_no_anim/Item").GetComponent<ItemSwitch>();
         playerAnimator = Player.transform.Find("player_no_anim").GetComponent<Animator>();
     }
@@ -76,25 +78,29 @@ public class ChoppingTableItem : MonoBehaviour
     }
 
     public void StartChopping(){
+        chop.PlayDelayed(1f);
         Chopping = true;
         ItemChopped();
         if(itemOnTopAnimator != null) itemOnTopAnimator.speed = 0.65f;
     }
 
     public void ContinueChopping(){
-        if(Chopping == false){
+        chop.PlayDelayed(1f);
+        if (Chopping == false){
             Chopping = true;
             if(itemOnTopAnimator != null) itemOnTopAnimator.speed = 0.65f;
         }
     }
 
     public void StopChopping(){
+        chop.Stop();
         Chopping = false;
         if(itemOnTopAnimator != null) itemOnTopAnimator.speed = 0f;
     }
 
     public void FinishedChopping(){
-        if(itemOnTopString == "Meat" || itemOnTopString == "Chicken" ||itemOnTopString == "Potato") updateItemOnTop();
+        chop.Stop();
+        if (itemOnTopString == "Meat" || itemOnTopString == "Chicken" ||itemOnTopString == "Potato") updateItemOnTop();
         Chopping = false;
         itemOnTopChoppeable = false;
         timeChopping = 0;
