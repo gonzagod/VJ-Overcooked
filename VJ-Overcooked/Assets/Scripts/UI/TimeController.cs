@@ -8,14 +8,14 @@ public class TimeController : MonoBehaviour
 {
     public Text timerText;
     private float startTime;
-    AudioSource timesUpSound;
+    AudioSource[] timesUpSound;
     private bool m_Play;
     private bool m_ToggleChange;
     float elapsedTime;
     // Start is called before the first frame update
     void Start()
     {
-        timesUpSound = GetComponent<AudioSource>();
+        timesUpSound = GetComponents<AudioSource>();
         m_Play = false;
         elapsedTime = 0f;
         startTime = 150f;
@@ -26,25 +26,39 @@ public class TimeController : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
         float t = startTime - elapsedTime;
-        if (t < 0f)
+        if (t <= 0f)
         {
-            SceneManager.LoadScene(1);
-        }
-
-        string minutes = ((int)t / 60).ToString("00");
-        string seconds = (t % 60).ToString("00");
-
-        timerText.text = minutes + ":" + seconds;
-
-        if (t <= 10f)
-        {
-            if (!m_Play)
+            if (m_Play)
             {
-                timesUpSound.Play();
-                m_Play = true;
+                timesUpSound[1].Play();
+                m_Play = false;
             }
-        }
+            timesUpSound[0].Stop();
+            Time.timeScale = 0f;
+            GameObject TimesUp = GameObject.Find("TimesUp").gameObject;
+            TimesUp.GetComponent<Image>().enabled = true;
+            TimesUp.transform.GetChild(0).GetComponent<Image>().enabled = true;
 
-        
+            if (Input.GetKeyDown("space"))
+            {
+                Time.timeScale = 1f;
+                GameObject points = GameObject.Find("PointsSurvivor");
+                DontDestroyOnLoad(points);
+                SceneManager.LoadScene(7);
+            }
+
+        }
+        else if (t <= 10f)
+        {
+            string minutes = ((int)t / 60).ToString("00");
+            string seconds = (t % 60).ToString("00");
+
+            timerText.text = minutes + ":" + seconds;
+                if (!m_Play)
+                {
+                    timesUpSound[0].Play();
+                    m_Play = true;
+                }
+        }        
     }
 }

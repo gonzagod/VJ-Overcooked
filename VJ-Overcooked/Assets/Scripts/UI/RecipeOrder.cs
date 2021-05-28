@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class RecipeOrder : MonoBehaviour
 {
-    private float timeForNextOrder = 20f;
+    private float timeForNextOrder = 10f;
     private int maxOrders = 5;
     private float elapsedTime;
     private int minRecipe;
@@ -15,6 +15,7 @@ public class RecipeOrder : MonoBehaviour
     private string food;
     private int rand;
     private int extra;
+    AudioSource RecipeDelivered;
     public Sprite Recipe0, Recipe1, Recipe2, Recipe3, Recipe4, Recipe5, Recipe6;
 
     private GameObject ChildGameObject;
@@ -25,6 +26,7 @@ public class RecipeOrder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        RecipeDelivered = transform.GetComponent<AudioSource>();
         elapsedTime = 0f;
         switch(SceneManager.GetActiveScene().name){
             case "Nivell 1":
@@ -159,9 +161,9 @@ public class RecipeOrder : MonoBehaviour
             ChildofChildGameObject.GetComponent<Image>().enabled = true;
             if (i == size - 1 && actualitzar)
             {
-                ChildGameObject.GetComponent<TimeBarRecipes>().elapsedTime = 60f;
-                ChildGameObject.GetComponent<TimeBarRecipes>().maxTime = 60f;
-                orderTime.Add(60f);
+                ChildGameObject.GetComponent<TimeBarRecipes>().elapsedTime = 20f;
+                ChildGameObject.GetComponent<TimeBarRecipes>().maxTime = 20f;
+                orderTime.Add(20f);
             }
             else
             {
@@ -183,6 +185,8 @@ public class RecipeOrder : MonoBehaviour
             orderTime.RemoveAt(posError);
             GameObject points = GameObject.Find("GameEnviroment 1/Canvases/HUDCanvas/PointsUI");
             points.GetComponent<PointsController>().addPoints(-10);
+            GameObject pointsScene = GameObject.Find("PointsSurvivor");
+            pointsScene.GetComponent<PointsScene>().AddPoints(-10);
         }
         else if (order != "Plate") {
             int size = _poolOrders.Count;
@@ -190,6 +194,8 @@ public class RecipeOrder : MonoBehaviour
             for (int i = 0; i < size; ++i)
             {
                 string x = _poolOrders[i];
+                Debug.Log("PoolOrder" + x);
+                Debug.Log("Order" + order);
                 if (x == order)
                 {
                     pos = i;
@@ -208,8 +214,11 @@ public class RecipeOrder : MonoBehaviour
                 else extra = 1;
                 int pts = 20 + extra;
                 points.GetComponent<PointsController>().addPoints(pts);
+                GameObject pointsScene = GameObject.Find("PointsSurvivor");
+                pointsScene.GetComponent<PointsScene>().AddPoints(pts);
                 _poolOrders.RemoveAt(pos);
                 orderTime.RemoveAt(pos);
+                RecipeDelivered.Play();
             }
         }
         showOrders(false);
