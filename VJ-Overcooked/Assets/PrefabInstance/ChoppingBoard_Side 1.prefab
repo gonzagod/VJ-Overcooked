@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2917440591905919526}
   - component: {fileID: -3278280521815731688}
   - component: {fileID: 3359072370589128144}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: ChoppingBoard_Side 1
   m_TagString: ChoppingStation
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 100527128240265080}
   - component: {fileID: 100527128240260084}
   - component: {fileID: 100527128240262629}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 100527128240260075}
   - component: {fileID: 100527128240262630}
   - component: {fileID: 100527128240273560}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: ChoppingBoard2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 100527128240260086}
   - component: {fileID: 100527128240273615}
   - component: {fileID: 100527128240262631}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Worktop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,7 +435,7 @@ PrefabInstance:
     - target: {fileID: 2205870648012733895, guid: d7bf820ccf97cce48bc66cfb0c25dc10,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6622930249334041269, guid: d7bf820ccf97cce48bc66cfb0c25dc10,
         type: 3}
@@ -507,10 +507,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7207808827121168892, guid: d7bf820ccf97cce48bc66cfb0c25dc10,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7341344156252001889, guid: d7bf820ccf97cce48bc66cfb0c25dc10,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7bf820ccf97cce48bc66cfb0c25dc10, type: 3}

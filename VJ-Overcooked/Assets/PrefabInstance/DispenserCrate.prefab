@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4571360181718457412}
   - component: {fileID: 7643324494745712914}
   - component: {fileID: 6384594694882743238}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: DispenserCrate
   m_TagString: Crate
   m_Icon: {fileID: 0}
@@ -62,8 +62,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crate_highlighted: {fileID: 2100000, guid: 3abf57e2186673f43839f9c0a75eef6e, type: 2}
   crate: {fileID: 2100000, guid: a070392d3a43be34380c3ea65cf0f0b3, type: 2}
-  top_crate: {fileID: 0}
-  top_crate_highlighted: {fileID: 0}
+  top_crate: {fileID: 2100000, guid: f6489a82d39ae214aa4f7be77eb7db8d, type: 2}
+  top_crate_highlighted: {fileID: 2100000, guid: 9fa6f4d8a5359524a845f5b89b93a3fd,
+    type: 2}
 --- !u!95 &7643324494745712914
 Animator:
   serializedVersion: 3
@@ -109,7 +110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8970511667674797958}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: crateLidBone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,9 +141,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5996576454664462213}
   - component: {fileID: 2465393772630844893}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: CrateLid_mesh
-  m_TagString: Onion Crate
+  m_TagString: Top Crate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223,7 +224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7870381084814920848}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: crateBone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2332636368890670555}
   - component: {fileID: 1213316976771876733}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4167219376124229843}
   - component: {fileID: 8720499621718964626}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -100,6 +100,9 @@ public class PotScript : MonoBehaviour
         timeCooked = 0;
         foodReady = false;
         soupReady = false;
+        burned = false;
+        burningCount = 0f;
+        checkBurned();
         updateIcons();
     }
 
@@ -182,6 +185,7 @@ public class PotScript : MonoBehaviour
         }else {
             burnedContent.SetActive(false);
             transform.Find("BurningPot").gameObject.SetActive(false);
+            transform.Find("BurnedIcon").gameObject.SetActive(false);
         }
     }
 

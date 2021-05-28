@@ -8,11 +8,11 @@ public class TargetInteraction : MonoBehaviour
     public bool usingExtinguisher = false;
     private GameObject target;
     private ItemSwitch itemSwitch;
-    private string itemOnHandsName = "";
-    private bool itemOnHandsChoppeable = false;
-    private string itemOnHandsChoppedFood = "";
-    private string typeOfItemOnHands = "";
-    private GameObject itemOnHands = null;
+    public string itemOnHandsName = "";
+    public bool itemOnHandsChoppeable = false;
+    public string itemOnHandsChoppedFood = "";
+    public string typeOfItemOnHands = "";
+    public GameObject itemOnHands = null;
     private Animator playerAnimator;
     public GameObject particleExtinguisher;
     // Start is called before the first frame update
@@ -68,7 +68,7 @@ public class TargetInteraction : MonoBehaviour
                                 target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
                                 itemSwitch.emptyHands();
                             }
-                        }else if(itemOnHands == null){
+                        } else if(itemOnHands == null){
                             itemSwitch.setItemOnHands(itemOnTable);
                             target.GetComponent<TableTopItem>().CleanTable();
                         } else if(itemOnTableString == "Pot" && itemOnHandsChoppedFood != ""){
@@ -90,18 +90,141 @@ public class TargetInteraction : MonoBehaviour
                                 else if(typeOfSoup == "Error") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("ErrorSoup");
                                 itemOnTable.transform.GetComponent<PotScript>().cleanPot();
                             }
+                        } else if(itemOnTableString == "Pan" && itemOnHandsChoppedFood != ""){
+                            string ingredientOnPan = itemOnTable.GetComponent<PanScript>().ingredientName;
+                            bool panBurned = itemOnTable.GetComponent<PanScript>().burned;
+                            if(ingredientOnPan == "" && !panBurned){
+                                itemOnTable.GetComponent<PanScript>().addIngredient(itemOnHands, itemOnHandsName);
+                                itemSwitch.deleteItemOnHands();
+                                itemSwitch.emptyHands();
+                            }
+                        } else if (itemOnTableString == "Pan" && itemOnTable.transform.GetComponent<PanScript>().foodReady)
+                        {
+                            if (itemOnHandsName == "Plate")
+                            {
+                                /*string typeOfSoup = itemOnTable.transform.GetComponent<PotScript>().madeOf;
+                                if(typeOfSoup == "Onion") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("OnionSoup");
+                                else if(typeOfSoup == "Tomato") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("TomatoSoup");
+                                else if(typeOfSoup == "Mushroom") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("MushroomSoup");
+                                else if(typeOfSoup == "Error") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("ErrorSoup");
+                                itemOnTable.transform.GetComponent<PotScript>().cleanPot();*/
+                            }
                         } else if (itemOnTableString == "Plate")
                         {
                             if(itemOnHandsName == "Pot"){
                                 if (itemOnHands.transform.GetComponent<PotScript>().soupReady)
                                 {
-                                    if (itemOnHands.transform.GetComponent<PotScript>().ingredientNames[0] == "Onion") itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate("OnionSoup");
+                                    string typeOfSoup = itemOnHands.transform.GetComponent<PotScript>().madeOf;
+                                    if(typeOfSoup == "Onion") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("OnionSoup");
+                                    else if(typeOfSoup == "Tomato") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("TomatoSoup");
+                                    else if(typeOfSoup == "Mushroom") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("MushroomSoup");
+                                    else if(typeOfSoup == "Error") itemOnTable.GetComponent<PlateSample>().InstantiatePlate("ErrorSoup");
                                     itemOnHands.transform.GetComponent<PotScript>().cleanPot();
                                 }
-                            }else if(itemOnHandsChoppedFood != ""){
-                                if(itemOnHandsChoppedFood == "Tomato") itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate("PlatedTomato");
-                                itemSwitch.deleteItemOnHands();
-                                itemSwitch.emptyHands();
+                            }else if (itemOnHandsChoppedFood != "") {
+                                if (itemOnTable.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate(itemOnHandsChoppedFood))
+                                {
+                                    itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate(itemOnHandsChoppedFood);
+                                    itemSwitch.deleteItemOnHands();
+                                    itemSwitch.emptyHands();
+                                }
+
+                            } else if (itemOnHandsName == "Plate") {
+                                if (itemOnTable.GetComponent<PlateSample>().PlateType == "Plate")
+                                {
+                                    if (itemOnHands.GetComponent<PlateSample>().ingredientNames.Count == 0)
+                                    {
+                                        foreach (string ingredient in itemOnTable.GetComponent<PlateSample>().ingredientNames)
+                                        {
+                                            itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate(ingredient);
+                                        }
+                                        itemOnTable.GetComponent<PlateSample>().CleanPlate();
+                                    }
+                                    else if (itemOnTable.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate(itemOnHands.GetComponent<PlateSample>().ingredientNames))
+                                    {
+                                        foreach (string ingredient in itemOnHands.GetComponent<PlateSample>().ingredientNames)
+                                        {
+                                            itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate(ingredient);
+                                        }
+                                        itemOnHands.GetComponent<PlateSample>().CleanPlate();
+                                    }
+                                }
+                                else
+                                {
+                                    if (itemOnHandsChoppedFood != null)
+                                    {
+                                        if (itemOnTable.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate(itemOnHandsChoppedFood))
+                                        {
+                                            itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate(itemOnHands.GetComponent<PlateSample>().PlateType);
+                                            itemOnHands.GetComponent<PlateSample>().CleanPlate();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (itemOnHandsName == "Plate")
+                        {
+                            if (itemOnTable.name == "Plate")
+                            {
+                                if (itemOnTable.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate(itemOnHands.GetComponent<PlateSample>().ingredientNames))
+                                {
+                                    foreach(string ingredient in itemOnHands.GetComponent<PlateSample>().ingredientNames)
+                                    {
+                                        itemOnTable.GetComponent<PlateSample>().InstantiateIngredientsInPlate(ingredient);
+                                    }
+                                }
+                            }
+                            else {
+                                switch (itemOnTableString)
+                                {
+                                    case "ChoppedOnion":
+                                        if (itemOnHands.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate("Onion"))
+                                        {
+                                            itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("Onion");
+                                            target.GetComponent<TableTopItem>().CleanTable();
+                                            target.GetComponent<TableTopItem>().deleteItemOnTable();
+                                            target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
+                                            itemSwitch.deleteItemOnHands();
+                                            itemSwitch.emptyHands();
+                                        }
+                                            break;
+                                    case "ChoppedTomato":
+                                        if (itemOnHands.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate("Tomato"))
+                                        {
+                                            itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("Tomato");
+                                            target.GetComponent<TableTopItem>().CleanTable();
+                                            target.GetComponent<TableTopItem>().deleteItemOnTable();
+                                            target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
+                                            itemSwitch.deleteItemOnHands();
+                                            itemSwitch.emptyHands();
+                                        }
+                                            break;
+                                    case "ChoppedMushroom":
+                                        if (itemOnHands.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate("Mushroom"))
+                                        {
+                                            itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("Mushroom");
+                                            target.GetComponent<TableTopItem>().CleanTable();
+                                            target.GetComponent<TableTopItem>().deleteItemOnTable();
+                                            target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
+                                            itemSwitch.deleteItemOnHands();
+                                            itemSwitch.emptyHands();
+                                        }
+                                            break;
+                                    case "ChoppedLettuce":
+                                        if (itemOnHands.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate("Lettuce"))
+                                        {
+                                            itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("Lettuce");
+                                            target.GetComponent<TableTopItem>().CleanTable();
+                                            target.GetComponent<TableTopItem>().deleteItemOnTable();
+                                            target.GetComponent<TableTopItem>().setItemOnTable(itemOnHands, itemOnHandsName);
+                                            itemSwitch.deleteItemOnHands();
+                                            itemSwitch.emptyHands();
+                                        }
+                                            break;
+                                    default:
+
+                                        break;
+                                }
                             }
                         }
                         break;
@@ -137,6 +260,14 @@ public class TargetInteraction : MonoBehaviour
                                         itemSwitch.deleteItemOnHands();
                                         itemSwitch.emptyHands();
                                     }
+                                }else if(utensilName == "Pan"){
+                                    string ingredientOnPan = utensil.GetComponent<PanScript>().ingredientName;
+                                    bool panBurned = utensil.GetComponent<PanScript>().burned;
+                                    if(ingredientOnPan == "" && !panBurned){
+                                        utensil.GetComponent<PanScript>().addIngredient(itemOnHands, itemOnHandsName);
+                                        itemSwitch.deleteItemOnHands();
+                                        itemSwitch.emptyHands();
+                                    }
                                 }
                             }
                         } else if(itemOnHands == null){
@@ -149,7 +280,8 @@ public class TargetInteraction : MonoBehaviour
                         }else if(typeOfItemOnHands == "Utensil"){
                             GameObject utensil = target.GetComponent<CookingStationScript>().utensilOnTop;
                             if(utensil == null){
-                                target.GetComponent<CookingStationScript>().setPotOnTop(itemOnHands.name);
+                                if(itemOnHandsName == "Pot") target.GetComponent<CookingStationScript>().setPotOnTop(itemOnHands.name);
+                                else target.GetComponent<CookingStationScript>().setPanOnTop(itemOnHands.name);
                                 itemSwitch.emptyHands();
                             }
 
@@ -173,6 +305,30 @@ public class TargetInteraction : MonoBehaviour
                         if (itemOnHands == null)
                         {
                             itemSwitch.setItemOnHands(plate);
+                        }
+                        break;
+
+                    case "Bin":
+                        if(typeOfItemOnHands == "Utensil"){
+                            if(itemOnHandsName == "Pot"){
+                                bool burnedPot = itemOnHands.transform.GetComponent<PotScript>().burned;
+                                float burningCountPot = itemOnHands.transform.GetComponent<PotScript>().burningCount;
+                                if(!burnedPot || (burnedPot && burningCountPot <= 0)){
+                                    itemOnHands.transform.GetComponent<PotScript>().cleanPot();
+                                }
+
+                            } else if(itemOnHandsName == "Pan") {
+                                bool burnedPan = itemOnHands.transform.GetComponent<PanScript>().burned;
+                                float burningCountPan = itemOnHands.transform.GetComponent<PanScript>().burningCount;
+                                if(!burnedPan || (burnedPan && burningCountPan <= 0)){
+                                    itemOnHands.transform.GetComponent<PanScript>().cleanPan();
+                                }
+                            }
+                        }else if(typeOfItemOnHands == "Plate"){
+                            itemOnHands.transform.GetComponent<PlateSample>().CleanPlate();
+                        }else {
+                            itemSwitch.deleteItemOnHands();
+                            itemSwitch.emptyHands();
                         }
                         break;
 

@@ -45,6 +45,18 @@ public class TimeBar : MonoBehaviour
             visibleTimeBar = placedParent.GetComponent<PotScript>().visibleTimeBar;
         }
 
+        if(placedParent.name.Contains("Pan")){
+            float burningCount = placedParent.GetComponent<PanScript>().burningCount;
+            if(burningCount > 0f) {
+                elapsedTime = burningCount;
+                maxTime = 2.5f;
+            } else {
+                elapsedTime = placedParent.GetComponent<PanScript>().timeCooked;
+                maxTime = 10f;
+            }
+            visibleTimeBar = placedParent.GetComponent<PanScript>().visibleTimeBar;
+        }
+
         if(elapsedTime <= 0){
             foreach(Transform child in gameObject.transform) child.gameObject.SetActive(false);
         }

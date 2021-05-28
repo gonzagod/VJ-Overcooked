@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2680763789420373806}
   - component: {fileID: 2680763789420370269}
   - component: {fileID: 2680763789420364135}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: FakeTableTop
   m_TagString: Table
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2680763789420373390}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: AttachPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 2680763789420370268}
   - component: {fileID: 2680763789420364129}
   - component: {fileID: 2680763789420368111}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Worktop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 30212438129619415}
   - component: {fileID: 4841708276098820213}
   - component: {fileID: 1509133142333297368}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Worktop (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

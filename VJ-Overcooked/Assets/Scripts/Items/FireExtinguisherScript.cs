@@ -18,10 +18,18 @@ public class FireExtinguisherScript : MonoBehaviour
     }
 
     void OnTriggerStay(Collider other){
+
         if(other.gameObject.tag == "CookingUtensil"){
-            PotScript potsc = other.gameObject.GetComponent<PotScript>();
-            if(potsc.burningCount > 0f){
-                potsc.burningCount -= Time.deltaTime;
+            if(other.gameObject.name.Contains("Pot")){
+                PotScript potsc = other.gameObject.GetComponent<PotScript>();
+                if(potsc.burningCount > 0f){
+                    potsc.burningCount -= Time.deltaTime;
+                }
+            }else if(other.gameObject.name.Contains("Pan")){
+                PanScript pansc = other.gameObject.GetComponent<PanScript>();
+                if(pansc.burningCount > 0f){
+                    pansc.burningCount -= Time.deltaTime;
+                }
             }
         }
     }

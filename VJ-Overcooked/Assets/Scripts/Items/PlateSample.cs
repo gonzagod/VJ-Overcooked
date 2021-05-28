@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +6,7 @@ public class PlateSample : MonoBehaviour
 {
     private GameObject childObject;
     public string PlateType;
+    public List<string> ingredientNames = new List<string>();
     // Start is called before the first frame update
     void Start()
     {
@@ -15,261 +16,110 @@ public class PlateSample : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void InstantiateIngredientsInPlate(string PlateName)
-    {
-        foreach(Transform food in gameObject.transform.Find("AttachPoint")){
-            Destroy(food.gameObject);
-        }
-        switch (PlateName) {
-            case "OnionSoup":
-                childObject = Instantiate(Resources.Load("plates/OnionSoup")) as GameObject;
-                childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                PlateType = PlateName;
-                break;
-            case "MushroomSoup":
-                childObject = Instantiate(Resources.Load("plates/MushroomSoup")) as GameObject;
-                childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                PlateType = PlateName;
-                break;
-            case "TomatoSoup":
-                childObject = Instantiate(Resources.Load("plates/TomatoSoup")) as GameObject;
-                childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                PlateType = PlateName;
-                break;
-            case "OnionTomatoBurger":
+        if (ingredientNames.Count == 0) PlateType = "Plate";
+        else if (ingredientNames.Count == 3)
+        {
+            if (ingredientNames.Contains("Onion") && ingredientNames.Contains("Tomato") && ingredientNames.Contains("Burger"))
+            {
+                CleanPlate();
+                ingredientNames.Add("Tomato");
+                ingredientNames.Add("Burger");
+                ingredientNames.Add("Onion");
                 childObject = Instantiate(Resources.Load("plates/OnionTomatoBurger")) as GameObject;
                 childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                PlateType = PlateName;
-                break;
-            case "LettuceTomatoBurger":
+                PlateType = "OnionTomatoBurger";
+            }
+            else if (ingredientNames.Contains("Lettuce") && ingredientNames.Contains("Tomato") && ingredientNames.Contains("Burger"))
+            {
+                CleanPlate();
+                ingredientNames.Add("Tomato");
+                ingredientNames.Add("Burger");
+                ingredientNames.Add("Lettuce");
                 childObject = Instantiate(Resources.Load("plates/LettuceTomatoBurger")) as GameObject;
                 childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                PlateType = PlateName;
-                break;
-            case "ChickenPotatoesTomato":
-                childObject = Instantiate(Resources.Load("plates/ChickenPotatoesTomato")) as GameObject;
+                PlateType = "LettuceTomatoBurger";
+            }
+            else if (ingredientNames.Contains("Chicken") && ingredientNames.Contains("Tomato") && ingredientNames.Contains("Mushroom"))
+            {
+                CleanPlate();
+                ingredientNames.Add("Chicken");
+                ingredientNames.Add("Tomato");
+                ingredientNames.Add("Mushroom");
+                childObject = Instantiate(Resources.Load("plates/ChickenTomatoMushroom")) as GameObject;
                 childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                PlateType = PlateName;
-                break;
-            case "ChickenPotatoesMushroom":
-                childObject = Instantiate(Resources.Load("plates/ChickenPotatoesMushroom")) as GameObject;
+                PlateType = "ChickenTomatoMushroom";
+            }
+            else if (ingredientNames.Contains("Chicken") && ingredientNames.Contains("Potatoes") && ingredientNames.Contains("Tomato"))
+            {
+                CleanPlate();
+                ingredientNames.Add("Chicken");
+                ingredientNames.Add("Potato");
+                ingredientNames.Add("Tomato");
+                childObject = Instantiate(Resources.Load("plates/ChickenPotatoTomato")) as GameObject;
                 childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                PlateType = PlateName;
-                break;
-            case "PlatedLettuce":
-                switch (PlateType)
-                {
-                    case "Plate":
-                        childObject = Instantiate(Resources.Load("plates/PlatedLettuce")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedLettuce";
-                        break;
-                    case "PlatedTomato":
-                        childObject = Instantiate(Resources.Load("plates/PlatedLettuceTomato")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedLettuceTomato";
-                        break;
-                    case "PlatedBurger":
-                        childObject = Instantiate(Resources.Load("plates/PlatedLettuceBurger")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedLettuceBurger";
-                        break;
-                    case "PlatedTomatoBurger":
-                        childObject = Instantiate(Resources.Load("plates/LettuceTomatoBurger")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "LettuceTomatoBurger";
-                        break;
-                    default:
-                        childObject = Instantiate(Resources.Load("plates/" + PlateType)) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        break;
-                }
-            break;
-            case "PlatedTomato":
-                switch (PlateType)
-                {
-                    case "Plate":
-                        childObject = Instantiate(Resources.Load("plates/PlatedTomato")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedTomato";
-                        break;
-                    case "PlatedLettuce":
-                        childObject = Instantiate(Resources.Load("plates/PlatedLettuceTomato")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedLettuceTomato";
-                        break;
-                    case "PlatedBurger":
-                        childObject = Instantiate(Resources.Load("plates/PlatedTomatoBurger")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedTomatoBurger";
-                        break;
-                    case "PlatedLettuceBurger":
-                        childObject = Instantiate(Resources.Load("plates/LettuceTomatoBurger")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "LettuceTomatoBurger";
-                        break;
-                    case "PlatedMushroom":
-                        childObject = Instantiate(Resources.Load("plates/PlatedTomatoMushroom")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedTomatoMushroom";
-                        break;
-                    case "PlatedChicken":
-                        childObject = Instantiate(Resources.Load("plates/PlatedChickenTomato")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedChickenTomato";
-                        break;
-                    case "PlatedOnion":
-                        childObject = Instantiate(Resources.Load("plates/PlatedOnionTomato")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedOnionTomato";
-                        break;
-                    case "PlatedOnionBurger":
-                        childObject = Instantiate(Resources.Load("plates/OnionTomatoBurger")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "OnionTomatoBurger";
-                        break;
-                    case "PlatedPotatoes":
-                        childObject = Instantiate(Resources.Load("plates/PlatedPotatoesTomato")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedPotatoesTomato";
-                        break;
-                    case "PlatedChickenPotatoes":
-                        childObject = Instantiate(Resources.Load("plates/PlatedChickenPotatoesTomato")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedChickenPotatoesTomato";
-                        break;
-                    case "PlatedChickenMushroom":
-                        childObject = Instantiate(Resources.Load("plates/PlatedChickenTomatoMushroom")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedChickenTomatoMushroom";
-                        break;
-                    default:
-                        childObject = Instantiate(Resources.Load("plates/" + PlateType)) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        break;
-                }
-                break;
-            case "PlatedMushroom":
-                switch (PlateType)
-                {
-                    case "PlatedChicken":
-                        childObject = Instantiate(Resources.Load("plates/PlatedChickenMushroom")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedChickenMushroom";
-                        break;
-                    case "PlatedChickenTomato":
-                        childObject = Instantiate(Resources.Load("plates/PlatedChickenTomatoMushroom")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedChickenTomatoMushroom";
-                        break;
-                    case "PlatedTomato":
-                        childObject = Instantiate(Resources.Load("plates/PlatedTomatoMushroom")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedTomatoMushroom";
-                        break;
-                    default:
-                        childObject = Instantiate(Resources.Load("plates/" + PlateType)) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        break;
-                }
-                break;
-            case "PlatedBurger":
-                switch(PlateType){
-                    case "PlatedTomato":
-                        childObject = Instantiate(Resources.Load("plates/PlatedTomatoBurger")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedTomatoBurger";
-                        break;
-                    case "PlatedLettuce":
-                        childObject = Instantiate(Resources.Load("plates/PlatedLettuceBurger")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedLettuceBurger";
-                        break;
-                    case "PlatedLettuceTomato":
-                        childObject = Instantiate(Resources.Load("plates/LettuceTomatoBurger")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "LettuceTomatoBurger";
-                        break;
-                    case "PlatedOnion":
-                        childObject = Instantiate(Resources.Load("plates/PlatedOnionBurger")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedOnionBurger";
-                        break;
-                    case "PlatedOnionTomato":
-                        childObject = Instantiate(Resources.Load("plates/OnionTomatoBurger")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "OnionTomatoBurger";
-                        break;
-                    default:
-                        childObject = Instantiate(Resources.Load("plates/" + PlateType)) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        break;
-                }
-                break;
-            case "PlatedChicken":
-                switch (PlateType)
-                {
-                    case "PlatedTomato":
-                        childObject = Instantiate(Resources.Load("plates/PlatedChickenTomato")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedChickenTomato";
-                        break;
-                    case "PlatedPotatoes":
-                        childObject = Instantiate(Resources.Load("plates/PlatedChickenPotatoes")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedChickenPotatoes";
-                        break;
-                    case "PlatedMushroom":
-                        childObject = Instantiate(Resources.Load("plates/PlatedChickenMushroom")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedChickenMushroom";
-                        break;
-                    case "PlatedChickenTomato":
-                        childObject = Instantiate(Resources.Load("plates/PlatedChickenTomatoMushroom")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedChickenTomatoMushroom";
-                        break;
-                    default:
-                        childObject = Instantiate(Resources.Load("plates/" + PlateType)) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        break;
-                }
-                break;
-            case "PlatedOnion":
-                switch (PlateType)
-                {
-                    case "PlatedBurger":
-                        childObject = Instantiate(Resources.Load("plates/PlatedOnionBurger")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedOnionBurger";
-                        break;
-                    case "Plate":
-                        childObject = Instantiate(Resources.Load("plates/PlatedOnion")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedOnion";
-                        break;
-                    case "PlatedTomato":
-                        childObject = Instantiate(Resources.Load("plates/PlatedOnionTomato")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "PlatedOnionTomato";
-                        break;
-                    case "PlatedTomatoBurger":
-                        childObject = Instantiate(Resources.Load("plates/OnionTomatoBurger")) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        PlateType = "OnionTomatoBurger";
-                        break;
-                    default:
-                        childObject = Instantiate(Resources.Load("plates/" + PlateType)) as GameObject;
-                        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
-                        break;
-                }
-                break;
-            default:
-
-                break;
+                PlateType = "ChickenPotatoTomato";
+            }
         }
+    }
+
+    public bool CanIInstantiateIngredientsInPlate(List<string> Plate)
+    {
+        if (ingredientNames.Count + Plate.Count > 3) return false;
+        for (int i = 0; i < ingredientNames.Count; ++i)
+        {
+            for (int j = 0; j < Plate.Count; ++j)
+            {
+                if (ingredientNames[i] == Plate[j])
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public bool CanIInstantiateIngredientsInPlate(string Plate)
+    {
+        if (ingredientNames.Count + 1 > 3) return false;
+        for (int i = 0; i < ingredientNames.Count; ++i)
+        {
+            if (ingredientNames[i] == Plate)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void InstantiateIngredientsInPlate(List<string> Plate)
+    {
+        for (int i = 0; i < Plate.Count; ++i)
+        {
+            childObject = Instantiate(Resources.Load("plates/" + Plate[i])) as GameObject;
+            childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
+        }
+    }
+
+    public void InstantiateIngredientsInPlate(string Plate)
+    {
+        ingredientNames.Add(Plate);
+        childObject = Instantiate(Resources.Load("plates/Plated" + Plate)) as GameObject;
+        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
+     }
+
+    public void InstantiatePlate(string Plate)
+    {
+        ingredientNames.Add("Tomato");
+        childObject = Instantiate(Resources.Load("plates/" + Plate)) as GameObject;
+        childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
+        PlateType = Plate;
+    }
+
+
+    public void CleanPlate()
+    {
+        foreach (Transform child in transform.Find("AttachPoint")) Destroy(child.gameObject);
+        PlateType = "Plate";
+        ingredientNames.Clear();
     }
 }

@@ -110,7 +110,7 @@ PrefabInstance:
     - target: {fileID: 3082019345558450323, guid: 75dfb926c3bff1b46aa0e600a4720345,
         type: 3}
       propertyPath: m_Name
-      value: MeatIcon
+      value: Icon
       objectReference: {fileID: 0}
     - target: {fileID: 3994981237874604321, guid: 75dfb926c3bff1b46aa0e600a4720345,
         type: 3}

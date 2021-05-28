@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2680763789420364135}
   - component: {fileID: 3191202325120922701}
   - component: {fileID: 2524007214902099596}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: TableTop_SidLv5
   m_TagString: Table
   m_Icon: {fileID: 0}
@@ -83,7 +83,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e543d58cecdcf43b764f7177f318e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemOnTop: 
+  itemOnTopString: 
+  itemOnTop: {fileID: 0}
 --- !u!1 &2680763789420378404
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +94,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2680763789420373390}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: AttachPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +127,7 @@ GameObject:
   - component: {fileID: 2680763789420370268}
   - component: {fileID: 2680763789420364129}
   - component: {fileID: 2680763789420368111}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Worktop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
