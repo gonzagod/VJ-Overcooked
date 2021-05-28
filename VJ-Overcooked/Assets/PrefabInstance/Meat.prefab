@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4016848324734604}
   - component: {fileID: 65994469833024829}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Meat
   m_TagString: Pre-Ingredient
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4381542451700127}
   - component: {fileID: 33407750576217090}
   - component: {fileID: 23366704611878850}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Meat_Raw
   m_TagString: Untagged
   m_Icon: {fileID: 0}

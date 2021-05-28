@@ -47,6 +47,11 @@ public class godMode : MonoBehaviour
             GameObject Tomato = Instantiate(Resources.Load("ChoppedTomato")) as GameObject;
             itemSwitch.setItemOnHands(Tomato);
         }
+        else if (Input.GetKeyDown("b"))
+        {
+            GameObject ChoppedBurger = Instantiate(Resources.Load("ChoppedBurger")) as GameObject;
+            itemSwitch.setItemOnHands(ChoppedBurger);
+        }
         else if (Input.GetKeyDown("y"))
         {
             itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("PlatedLettuce");

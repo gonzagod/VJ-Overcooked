@@ -107,6 +107,7 @@ public class PlateSample : MonoBehaviour
         childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
      }
 
+
     public void InstantiatePlate(string Plate)
     {
         ingredientNames.Add("Tomato");

@@ -248,4 +248,9 @@ public class PotScript : MonoBehaviour
         tmpColor.a = 0;
         _sprite.color = tmpColor;
     }
+
+    public bool canSoupItem(string nameItem){
+        if(nameItem != "Onion" && nameItem != "Mushroom" && nameItem != "Tomato") return false;
+        return true;
+    }
 }

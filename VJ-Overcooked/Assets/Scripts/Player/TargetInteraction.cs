@@ -74,7 +74,8 @@ public class TargetInteraction : MonoBehaviour
                         } else if(itemOnTableString == "Pot" && itemOnHandsChoppedFood != ""){
                             int numOfIngredientsInPot = itemOnTable.GetComponent<PotScript>().numIngredients;
                             bool potBurned = itemOnTable.GetComponent<PotScript>().burned;
-                            if(numOfIngredientsInPot < 3 && !potBurned){
+                            bool canSoupItemOnHands = itemOnTable.GetComponent<PotScript>().canSoupItem(itemOnHandsChoppedFood);
+                            if(numOfIngredientsInPot < 3 && !potBurned && canSoupItemOnHands){
                                 itemOnTable.GetComponent<PotScript>().addIngredient(itemOnHandsChoppedFood);
                                 itemSwitch.deleteItemOnHands();
                                 itemSwitch.emptyHands();
@@ -93,7 +94,8 @@ public class TargetInteraction : MonoBehaviour
                         } else if(itemOnTableString == "Pan" && itemOnHandsChoppedFood != ""){
                             string ingredientOnPan = itemOnTable.GetComponent<PanScript>().ingredientName;
                             bool panBurned = itemOnTable.GetComponent<PanScript>().burned;
-                            if(ingredientOnPan == "" && !panBurned){
+                            bool canFryItemOnHands = itemOnTable.GetComponent<PanScript>().canFryItem(itemOnHandsChoppedFood);
+                            if(ingredientOnPan == "" && !panBurned && canFryItemOnHands){
                                 itemOnTable.GetComponent<PanScript>().addIngredient(itemOnHands, itemOnHandsName);
                                 itemSwitch.deleteItemOnHands();
                                 itemSwitch.emptyHands();
@@ -102,12 +104,13 @@ public class TargetInteraction : MonoBehaviour
                         {
                             if (itemOnHandsName == "Plate")
                             {
-                                /*string typeOfSoup = itemOnTable.transform.GetComponent<PotScript>().madeOf;
-                                if(typeOfSoup == "Onion") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("OnionSoup");
-                                else if(typeOfSoup == "Tomato") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("TomatoSoup");
-                                else if(typeOfSoup == "Mushroom") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("MushroomSoup");
-                                else if(typeOfSoup == "Error") itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("ErrorSoup");
-                                itemOnTable.transform.GetComponent<PotScript>().cleanPot();*/
+                                string primaryFoodOnPan = itemOnTable.GetComponent<PanScript>().primaryFood;
+                                bool foodInPanReady = itemOnTable.GetComponent<PanScript>().foodReady;
+                                if(foodInPanReady && itemOnHands.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate(primaryFoodOnPan)){
+                                    itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate(primaryFoodOnPan);
+                                    itemOnTable.transform.GetComponent<PanScript>().cleanPan();
+                                }
+
                             }
                         } else if (itemOnTableString == "Plate")
                         {
@@ -255,7 +258,8 @@ public class TargetInteraction : MonoBehaviour
                                 if(utensilName == "Pot"){
                                     int numOfIngredientsInPot = utensil.GetComponent<PotScript>().numIngredients;
                                     bool potBurned = utensil.GetComponent<PotScript>().burned;
-                                    if(numOfIngredientsInPot < 3 && !potBurned){
+                                    bool canSoupItemOnHands = utensil.GetComponent<PotScript>().canSoupItem(itemOnHandsChoppedFood);
+                                    if(numOfIngredientsInPot < 3 && !potBurned && canSoupItemOnHands){
                                         utensil.GetComponent<PotScript>().addIngredient(itemOnHandsChoppedFood);
                                         itemSwitch.deleteItemOnHands();
                                         itemSwitch.emptyHands();
@@ -263,7 +267,8 @@ public class TargetInteraction : MonoBehaviour
                                 }else if(utensilName == "Pan"){
                                     string ingredientOnPan = utensil.GetComponent<PanScript>().ingredientName;
                                     bool panBurned = utensil.GetComponent<PanScript>().burned;
-                                    if(ingredientOnPan == "" && !panBurned){
+                                    bool canFryItemOnHands = utensil.GetComponent<PanScript>().canFryItem(itemOnHandsChoppedFood);
+                                    if(ingredientOnPan == "" && !panBurned && canFryItemOnHands){
                                         utensil.GetComponent<PanScript>().addIngredient(itemOnHands, itemOnHandsName);
                                         itemSwitch.deleteItemOnHands();
                                         itemSwitch.emptyHands();
@@ -285,6 +290,30 @@ public class TargetInteraction : MonoBehaviour
                                 itemSwitch.emptyHands();
                             }
 
+                        }else if(typeOfItemOnHands == "Plate"){
+                            GameObject utensil = target.GetComponent<CookingStationScript>().utensilOnTop;
+                            string utensilName = target.GetComponent<CookingStationScript>().utensilOnTopString;
+                            if(utensil != null){
+                                if(utensilName == "Pot"){
+                                    int numOfIngredientsInPot = utensil.GetComponent<PotScript>().numIngredients;
+                                    bool soupInPot = utensil.GetComponent<PotScript>().soupReady;
+                                    if(numOfIngredientsInPot == 3 && soupInPot){
+                                        string typeOfSoup = utensil.GetComponent<PotScript>().madeOf;
+                                        if(typeOfSoup == "Onion") itemOnHands.GetComponent<PlateSample>().InstantiatePlate("OnionSoup");
+                                        else if(typeOfSoup == "Tomato") itemOnHands.GetComponent<PlateSample>().InstantiatePlate("TomatoSoup");
+                                        else if(typeOfSoup == "Mushroom") itemOnHands.GetComponent<PlateSample>().InstantiatePlate("MushroomSoup");
+                                        else if(typeOfSoup == "Error") itemOnHands.GetComponent<PlateSample>().InstantiatePlate("ErrorSoup");
+                                        utensil.GetComponent<PotScript>().cleanPot();
+                                    }
+                                }else if(utensilName == "Pan"){
+                                    string primaryFoodOnPan = utensil.GetComponent<PanScript>().primaryFood;
+                                    bool foodInPanReady = utensil.GetComponent<PanScript>().foodReady;
+                                    if(foodInPanReady && itemOnHands.GetComponent<PlateSample>().CanIInstantiateIngredientsInPlate(primaryFoodOnPan)){
+                                        itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate(primaryFoodOnPan);
+                                        utensil.GetComponent<PanScript>().cleanPan();
+                                    }
+                                }
+                            }
                         }
                         break;
 

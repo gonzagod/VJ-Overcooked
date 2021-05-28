@@ -46,7 +46,7 @@ public class ItemSwitch : MonoBehaviour
                 typeOfItem = "Food";
             }else if(item.name.Contains("ChoppedBurger")){
                 selectedItemName="ChoppedBurger";
-                choppedFood = "Meat";
+                choppedFood = "Burger";
                 typeOfItem = "Food";
             } else if(item.name.Contains("ChoppedChicken")){
                 selectedItemName="ChoppedChicken";

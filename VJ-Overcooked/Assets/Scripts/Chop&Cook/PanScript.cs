@@ -6,6 +6,7 @@ public class PanScript : MonoBehaviour
 {
 
     public string ingredientName = "";
+    public string primaryFood = "";
     public float timeCooked = 0;
     public float maxTimeToCook = 10;
     public bool burned = false;
@@ -70,6 +71,7 @@ public class PanScript : MonoBehaviour
 
     public void cleanPan(){
         ingredientName = "";
+        primaryFood = "";
         burningAlarm = false;
         visibleTimeBar = false;
         timeCooked = 0;
@@ -148,6 +150,7 @@ public class PanScript : MonoBehaviour
                 food = newMeat;
                 ingredientName = "PlatedBurger";
                 food.transform.SetParent(content.transform, false);
+                primaryFood = "Burger";
                 //food.transform.Find("Icon").gameObject.SetActive(false);
                 break;
             case "ChoppedChicken":
@@ -156,6 +159,7 @@ public class PanScript : MonoBehaviour
                 food = newChicken;
                 ingredientName = "PlatedChicken";
                 food.transform.SetParent(content.transform, false);
+                primaryFood = "Chicken";
                 //food.transform.Find("Icon").gameObject.SetActive(false);
                 break;
             case "ChoppedPotato":
@@ -164,6 +168,7 @@ public class PanScript : MonoBehaviour
                 food = newPotato;
                 ingredientName = "PlatedPotato";
                 food.transform.SetParent(content.transform, false);
+                primaryFood = "Potato";
                 //food.transform.Find("Icon").gameObject.SetActive(false);
                 break;
 
@@ -224,5 +229,10 @@ public class PanScript : MonoBehaviour
         }
         tmpColor.a = 0;
         _sprite.color = tmpColor;
+    }
+
+    public bool canFryItem(string nameItem){
+        if(nameItem != "Burger" && nameItem != "Potato" && nameItem != "Chicken") return false;
+        return true;
     }
 }

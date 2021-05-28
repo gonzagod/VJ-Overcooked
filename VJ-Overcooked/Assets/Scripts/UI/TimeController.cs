@@ -18,7 +18,7 @@ public class TimeController : MonoBehaviour
         timesUpSound = GetComponents<AudioSource>();
         m_Play = false;
         elapsedTime = 0f;
-        startTime = 150f;
+        startTime = 100f;
     }
 
     // Update is called once per frame
@@ -59,6 +59,6 @@ public class TimeController : MonoBehaviour
                     timesUpSound[0].Play();
                     m_Play = true;
                 }
-        }        
+        }
     }
 }
