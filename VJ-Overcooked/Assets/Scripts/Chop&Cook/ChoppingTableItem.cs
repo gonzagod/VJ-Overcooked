@@ -61,7 +61,8 @@ public class ChoppingTableItem : MonoBehaviour
             itemOnTopString = itemName;
             itemOnTopChoppeable = itemChoppeable;
             if(!itemChoppeable){
-                item.transform.GetComponentInChildren<Animator>().enabled = false;
+                Animator itemAnimator = item.transform.GetComponentInChildren<Animator>();
+                if(itemAnimator != null) itemAnimator.enabled = false;
             }
         }
         itemOnTop = item;
@@ -77,22 +78,23 @@ public class ChoppingTableItem : MonoBehaviour
     public void StartChopping(){
         Chopping = true;
         ItemChopped();
-        itemOnTopAnimator.speed = 0.65f;
+        if(itemOnTopAnimator != null) itemOnTopAnimator.speed = 0.65f;
     }
 
     public void ContinueChopping(){
         if(Chopping == false){
             Chopping = true;
-            itemOnTopAnimator.speed = 0.65f;
+            if(itemOnTopAnimator != null) itemOnTopAnimator.speed = 0.65f;
         }
     }
 
     public void StopChopping(){
         Chopping = false;
-        itemOnTopAnimator.speed = 0f;
+        if(itemOnTopAnimator != null) itemOnTopAnimator.speed = 0f;
     }
 
     public void FinishedChopping(){
+        if(itemOnTopString == "Meat" || itemOnTopString == "Chicken" ||itemOnTopString == "Potato") updateItemOnTop();
         Chopping = false;
         itemOnTopChoppeable = false;
         timeChopping = 0;
@@ -132,6 +134,38 @@ public class ChoppingTableItem : MonoBehaviour
                 setItemOnChoppingTable(newTomato, "ChoppedTomato", true);
                 itemOnTopAnimator = itemOnTop.GetComponentInChildren<Animator>();
                 itemOnTop.transform.Find("Icon").gameObject.SetActive(false);
+                break;
+
+            default:
+                itemOnTopAnimator = null;
+                break;
+        }
+    }
+
+    private void updateItemOnTop(){
+        switch(itemOnTopString){
+            case "Meat":
+                foreach(Transform child in transform.Find("AttachPoint")) Destroy(child.gameObject);
+                GameObject newMeat= Instantiate(Resources.Load("ChoppedBurger"), Vector3.zero, Quaternion.identity) as GameObject;
+                setItemOnChoppingTable(newMeat, "ChoppedBurger", true);
+                itemOnTopAnimator = null;
+                itemOnTop.transform.Find("Icon").gameObject.SetActive(false);
+                break;
+            case "Chicken":
+                foreach(Transform child in transform.Find("AttachPoint")) Destroy(child.gameObject);
+                GameObject newChicken= Instantiate(Resources.Load("ChoppedChicken"), Vector3.zero, Quaternion.identity) as GameObject;
+                setItemOnChoppingTable(newChicken, "ChoppedChicken", true);
+                itemOnTopAnimator = null;
+                itemOnTop.transform.Find("Icon").gameObject.SetActive(false);
+                break;
+            case "Potato":
+                foreach(Transform child in transform.Find("AttachPoint")) Destroy(child.gameObject);
+                GameObject newPotato= Instantiate(Resources.Load("ChoppedPotato"), Vector3.zero, Quaternion.identity) as GameObject;
+                setItemOnChoppingTable(newPotato, "ChoppedPotato", true);
+                itemOnTopAnimator = null;
+                itemOnTop.transform.Find("Icon").gameObject.SetActive(false);
+                break;
+            default:
                 break;
         }
     }

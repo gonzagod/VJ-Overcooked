@@ -12,13 +12,14 @@ public class TimeController : MonoBehaviour
     private bool m_Play;
     private bool m_ToggleChange;
     float elapsedTime;
+    public GameObject TimesUp;
     // Start is called before the first frame update
     void Start()
     {
         timesUpSound = GetComponents<AudioSource>();
         m_Play = false;
         elapsedTime = 0f;
-        startTime = 150f;
+        startTime = 5f;
     }
 
     // Update is called once per frame
@@ -35,9 +36,9 @@ public class TimeController : MonoBehaviour
             }
             timesUpSound[0].Stop();
             Time.timeScale = 0f;
-            GameObject TimesUp = GameObject.Find("TimesUp").gameObject;
-            TimesUp.GetComponent<Image>().enabled = true;
-            TimesUp.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            transform.parent.parent.GetComponent<Animator>().enabled = true;
+            TimesUp.SetActive(true);
+            TimesUp.transform.GetChild(0).gameObject.SetActive(true);
 
             if (Input.GetKeyDown("space"))
             {
@@ -59,6 +60,6 @@ public class TimeController : MonoBehaviour
                     timesUpSound[0].Play();
                     m_Play = true;
                 }
-        }        
+        }
     }
 }

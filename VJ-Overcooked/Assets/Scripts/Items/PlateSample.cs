@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -106,6 +106,7 @@ public class PlateSample : MonoBehaviour
         childObject = Instantiate(Resources.Load("plates/Plated" + Plate)) as GameObject;
         childObject.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
      }
+
 
     public void InstantiatePlate(string Plate)
     {

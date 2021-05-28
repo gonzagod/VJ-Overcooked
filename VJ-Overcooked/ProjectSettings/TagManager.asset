@@ -30,6 +30,7 @@ TagManager:
   - Recipe
   - Tomato Soup
   - Fire Extinguisher
+  - Bin
   layers:
   - Default
   - TransparentFX

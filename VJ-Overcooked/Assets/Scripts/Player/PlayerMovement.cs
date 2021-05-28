@@ -24,9 +24,8 @@ public class PlayerMovement : MonoBehaviour
         bool usingExtinguisher = targetInter.usingExtinguisher;
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        Vector3 movementDirection = new Vector3(horizontalInput, 0f, verticalInput);
+        Vector3 movementDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
         if(!usingExtinguisher) player_controller.Move(movementDirection * speed * Time.deltaTime);
-
         if (movementDirection.magnitude >= 0.1f){
           transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection), 0.1F);
           animator.SetBool("isWalking", true);

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3803289564810318912}
   - component: {fileID: 3803289564810317898}
   - component: {fileID: 3803289564810321475}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: PlateStation_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 3803289564810318480}
   - component: {fileID: 3803289564810321544}
   - component: {fileID: 3803289564810321474}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: ThePass_Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3803289564810318915}
   - component: {fileID: 3803289564810321472}
-  m_Layer: 20
+  m_Layer: 0
   m_Name: BlockNonPlates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 3803289564810321473}
   - component: {fileID: 2567177198353332154}
   - component: {fileID: 2362009307982154236}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: PlateStation
   m_TagString: PlateStation
   m_Icon: {fileID: 0}
@@ -345,7 +345,6 @@ Transform:
   - {fileID: 3803289564810318912}
   - {fileID: 3803289564810318915}
   - {fileID: 3803289564810318914}
-  - {fileID: 6413807231126924802}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 89.99997, z: 0}
@@ -388,9 +387,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0c23852e32d664190620b4994b04a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemOnTop: 
-  Player: {fileID: 0}
-  plateReturn: {fileID: 0}
+  utensilOnTop: {fileID: 0}
+  utensilOnTopString: 
   recipes: {fileID: 0}
 --- !u!1 &3803289564810319730
 GameObject:
@@ -403,7 +401,7 @@ GameObject:
   - component: {fileID: 3803289564810318918}
   - component: {fileID: 3803289564810321247}
   - component: {fileID: 3803289564810317899}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Spotlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,7 +500,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3803289564810318919}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: AttachPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,95 +521,3 @@ Transform:
   m_Father: {fileID: 3803289564810318916}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &4061120128885525467
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6415853859382582330}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9d6b47fde1c1096479299c13d74ea578, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1001 &6416534929750129191
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 3803289564810318916}
-    m_Modifications:
-    - target: {fileID: 1598217795216925, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_Name
-      value: Plate
-      objectReference: {fileID: 0}
-    - target: {fileID: 1598217795216925, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071716464792613, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071716464792613, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071716464792613, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071716464792613, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071716464792613, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071716464792613, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071716464792613, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071716464792613, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071716464792613, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071716464792613, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071716464792613, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e2b8c25e909ef0144a8ca1dc812e175b, type: 3}
---- !u!1 &6415853859382582330 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1598217795216925, guid: e2b8c25e909ef0144a8ca1dc812e175b,
-    type: 3}
-  m_PrefabInstance: {fileID: 6416534929750129191}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6413807231126924802 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4071716464792613, guid: e2b8c25e909ef0144a8ca1dc812e175b,
-    type: 3}
-  m_PrefabInstance: {fileID: 6416534929750129191}
-  m_PrefabAsset: {fileID: 0}

@@ -17,12 +17,14 @@ public class IconLookAtCamera : MonoBehaviour
     void Update()
     {
 
-        if(gameObject.tag != "Time Bar") gameObject.transform.LookAt(MainCamera.transform);
+        if(gameObject.tag != "Time Bar"){
+            gameObject.transform.LookAt(MainCamera.transform);
+        }
         else {
             Vector3 lookAtPosition = MainCamera.transform.position;
             lookAtPosition.x = transform.position.x;
             transform.LookAt(lookAtPosition);
-            
+
         }
 
     }

@@ -44,6 +44,18 @@ public class ItemSwitch : MonoBehaviour
                 selectedItemName="ChoppedTomato";
                 choppedFood = "Tomato";
                 typeOfItem = "Food";
+            }else if(item.name.Contains("ChoppedBurger")){
+                selectedItemName="ChoppedBurger";
+                choppedFood = "Burger";
+                typeOfItem = "Food";
+            } else if(item.name.Contains("ChoppedChicken")){
+                selectedItemName="ChoppedChicken";
+                choppedFood = "Chicken";
+                typeOfItem = "Food";
+            } else if(item.name.Contains("ChoppedPotato")){
+                selectedItemName="ChoppedPotato";
+                choppedFood = "Potato";
+                typeOfItem = "Food";
             } else {
 
                 choppedFood = "";
@@ -60,7 +72,16 @@ public class ItemSwitch : MonoBehaviour
                 } else if(item.name.Contains("Tomato")){
                     selectedItemName="Tomato";
                     typeOfItem = "Food";
-                }if(item.name.Contains("Pot")){
+                } else if(item.name.Contains("Meat")){
+                    selectedItemName="Meat";
+                    typeOfItem = "Food";
+                } else if(item.name.Contains("Chicken")){
+                    selectedItemName="Chicken";
+                    typeOfItem = "Food";
+                } else if(item.name.Contains("Potato")){
+                    selectedItemName="Potato";
+                    typeOfItem = "Food";
+                }else if(item.name.Contains("Pot")){
                     selectedItemName="Pot";
                     typeOfItem = "Utensil";
                 } else if(item.name.Contains("Pan")){

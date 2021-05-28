@@ -26,7 +26,22 @@ public class TableTopItem : MonoBehaviour
             if(gameObject.name == "TableTop_Space21"){
                 setExtinguisher();
             }
+        }else if(SceneManager.GetActiveScene().name == "Nivell 3"){
+            if(gameObject.name == "TableTop_Level3 1" || gameObject.name == "TableTop_Level3 2"){
+                setStartingPlate();
+            }
+            if(gameObject.name == "TableTop_Level3 3"){
+                setExtinguisher();
+            }
+        }else if(SceneManager.GetActiveScene().name == "Nivell 5"){
+            if(gameObject.name == "TableTop_SidLv5_14" || gameObject.name == "TableTop_SidLv5_21"){
+                setStartingPlate();
+            }
+            if(gameObject.name == "TableTop_SidLv5_22"){
+                setExtinguisher();
+            }
         }
+
     }
 
     // Update is called once per frame
@@ -58,5 +73,10 @@ public class TableTopItem : MonoBehaviour
         Extinguisher.transform.SetParent(gameObject.transform.Find("AttachPoint"), false);
         itemOnTop = Extinguisher;
         itemOnTopString = "FireExtinguisher";
+    }
+
+    public void deleteItemOnTable()
+    {
+        foreach (Transform child in gameObject.transform.Find("AttachPoint")) Destroy(child.gameObject);
     }
 }
