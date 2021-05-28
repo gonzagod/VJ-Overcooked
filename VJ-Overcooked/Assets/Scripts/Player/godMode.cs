@@ -6,11 +6,24 @@ public class godMode : MonoBehaviour
 {
     public GameObject playerItem;
     public ItemSwitch itemSwitch;
+    public bool enableBurning = true;
     private GameObject itemOnHands = null;
     private string itemOnHandsName = "";
     private bool itemOnHandsChoppeable = false;
     private string itemOnHandsChoppedFood = "";
     private string typeOfItemOnHands = "";
+
+    private KeyCode[] keyCodes = {
+         KeyCode.Alpha1,
+         KeyCode.Alpha2,
+         KeyCode.Alpha3,
+         KeyCode.Alpha4,
+         KeyCode.Alpha5,
+         KeyCode.Alpha6,
+         KeyCode.Alpha7,
+         KeyCode.Alpha8,
+         KeyCode.Alpha9,
+     };
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +40,20 @@ public class godMode : MonoBehaviour
         itemOnHandsChoppedFood = itemSwitch.choppedFood;
         itemOnHandsChoppeable = itemSwitch.selectedFoodChoppeable;
         typeOfItemOnHands = itemSwitch.typeOfItem;
+
+        for(int i = 0 ; i < keyCodes.Length; i ++ ){
+           if(Input.GetKeyDown(keyCodes[i])){
+                  int numberPressed = i+1;
+                  if(numberPressed == 6 ){
+                      setOrderOnHands();
+                  }else if(numberPressed == 7){
+                      completeCooking();
+                  }else if(numberPressed == 8){
+                      disableBurning();
+                  }
+           }
+       }
+
         if (Input.GetKeyDown("o"))
         {
             itemSwitch.deleteItemOnHands();
@@ -100,5 +127,49 @@ public class godMode : MonoBehaviour
             itemOnHands.GetComponent<PlateSample>().InstantiatePlate(recipes._poolOrders[0]);
             itemSwitch.setItemOnHands(itemOnHands);
         }
+    }
+
+    public void setOrderOnHands(){
+        itemOnHands = itemSwitch.selectedItemOnHands;
+        itemOnHandsName = itemSwitch.selectedItemName;
+        itemOnHandsChoppedFood = itemSwitch.choppedFood;
+        itemOnHandsChoppeable = itemSwitch.selectedFoodChoppeable;
+        typeOfItemOnHands = itemSwitch.typeOfItem;
+        itemSwitch.deleteItemOnHands();
+        itemSwitch.emptyHands();
+        GameObject Plate = Instantiate(Resources.Load("Plate")) as GameObject;
+        itemSwitch.setItemOnHands(Plate);
+        RecipeOrder recipes = GameObject.Find("GameEnviroment 1/Canvases/HUDCanvas/ReceptesUI").GetComponent<RecipeOrder>();
+        itemOnHands = itemSwitch.selectedItemOnHands;
+        itemOnHandsName = itemSwitch.selectedItemName;
+        itemOnHandsChoppedFood = itemSwitch.choppedFood;
+        itemOnHandsChoppeable = itemSwitch.selectedFoodChoppeable;
+        typeOfItemOnHands = itemSwitch.typeOfItem;
+        itemOnHands.GetComponent<PlateSample>().InstantiatePlate(recipes._poolOrders[0]);
+        itemSwitch.setItemOnHands(itemOnHands);
+    }
+
+    public void completeCooking(){
+        GameObject Pot1 = GameObject.Find("Pot 1");
+        GameObject Pot2 = GameObject.Find("Pot 2");
+        GameObject Pot3 = GameObject.Find("Pot 3");
+        GameObject Pot4 = GameObject.Find("Pot 4");
+        GameObject Pan1 = GameObject.Find("Pan 1");
+        GameObject Pan2 = GameObject.Find("Pan 2");
+        GameObject Pan3 = GameObject.Find("Pan 3");
+        GameObject Pan4 = GameObject.Find("Pan 4");
+
+        if(Pot1 != null) Pot1.GetComponent<PotScript>().finishCooking();
+        if(Pot2 != null) Pot2.GetComponent<PotScript>().finishCooking();
+        if(Pot3 != null) Pot3.GetComponent<PotScript>().finishCooking();
+        if(Pot4 != null) Pot4.GetComponent<PotScript>().finishCooking();
+        if(Pan1 != null) Pan1.GetComponent<PanScript>().finishCooking();
+        if(Pan2 != null) Pan2.GetComponent<PanScript>().finishCooking();
+        if(Pan3 != null) Pan3.GetComponent<PanScript>().finishCooking();
+        if(Pan4 != null) Pan4.GetComponent<PanScript>().finishCooking();
+    }
+
+    public void disableBurning(){
+        enableBurning = !enableBurning;
     }
 }

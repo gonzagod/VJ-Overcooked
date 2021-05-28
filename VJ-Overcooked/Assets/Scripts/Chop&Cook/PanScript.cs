@@ -25,6 +25,7 @@ public class PanScript : MonoBehaviour
     private AudioSource audioCooked = null;
     private AudioSource audioCooking = null;
     bool isAudioCooking = false;
+    public bool canBurn = true;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,7 @@ public class PanScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        canBurn = GameObject.Find("GameManager").GetComponent<godMode>().enableBurning;
         if(ingredientName == "") steam.SetActive(false);
         checkBurned();
         parentPlace = gameObject.transform.parent.gameObject;
@@ -59,7 +61,7 @@ public class PanScript : MonoBehaviour
                 burningAlarm = false;
             }
         }
-        if(timeCooked >= maxTimeToCook*2 && !burned) burnPan();
+        if(timeCooked >= maxTimeToCook*2 && !burned && canBurn) burnPan();
         if(timeCooked >= maxTimeToCook && timeCooked < maxTimeToCook*1.2 && !foodReady) foodReadyAnim();
         if(timeCooked >= maxTimeToCook*1.5 && !burningAlarm) alarmPan();
 
@@ -259,5 +261,9 @@ public class PanScript : MonoBehaviour
     public bool canFryItem(string nameItem){
         if(nameItem != "Burger" && nameItem != "Potato" && nameItem != "Chicken") return false;
         return true;
+    }
+
+    public void finishCooking(){
+        if(timeCooked > 0) timeCooked = 10f;
     }
 }

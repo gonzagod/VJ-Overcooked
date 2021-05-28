@@ -27,6 +27,7 @@ public class PotScript : MonoBehaviour
     private AudioSource[] audioSound;
     private AudioSource audioCooked = null;
     bool isAudioCooking = false;
+    public bool canBurn = true;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,7 @@ public class PotScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        canBurn = GameObject.Find("GameManager").GetComponent<godMode>().enableBurning;
         if(numIngredients < 1) desactivateContent();
         if(numIngredients > 0) activateContent();
         checkBurned();
@@ -64,7 +66,7 @@ public class PotScript : MonoBehaviour
                 burningAlarm = false;
             }
         }
-        if(timeCooked >= maxTimeToCook*2 && !burned) burnPot();
+        if(timeCooked >= maxTimeToCook*2 && !burned && canBurn) burnPot();
         if(timeCooked >= maxTimeToCook && timeCooked < maxTimeToCook*1.2 && !foodReady) foodReadyAnim();
         if(timeCooked >= maxTimeToCook*1.5 && !burningAlarm) alarmPot();
 
@@ -272,5 +274,9 @@ public class PotScript : MonoBehaviour
     public bool canSoupItem(string nameItem){
         if(nameItem != "Onion" && nameItem != "Mushroom" && nameItem != "Tomato") return false;
         return true;
+    }
+
+    public void finishCooking(){
+        if(timeCooked > 0) timeCooked = 10f;
     }
 }

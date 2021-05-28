@@ -102,7 +102,7 @@ public class RecipeOrder : MonoBehaviour
                 food = "LettuceTomatoBurger";
             break;
             case 4:
-                food = "ChickenPotatoMushroom";
+                food = "ChickenTomatoMushroom";
             break;
             case 5:
                 food = "ChickenPotatoTomato";
