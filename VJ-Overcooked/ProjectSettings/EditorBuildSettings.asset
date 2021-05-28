@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Nivell 5.unity
     guid: aee394c9fc3cb2d4582573fa565865f6
+  - enabled: 1
+    path: Assets/Scene/Puntuation.unity
+    guid: ca49828ace2f49343b4ff4986e5f30e8
   m_configObjects: {}

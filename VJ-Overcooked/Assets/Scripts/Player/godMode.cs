@@ -44,7 +44,7 @@ public class godMode : MonoBehaviour
         }
         else if (Input.GetKeyDown("t"))
         {
-            GameObject Tomato = Instantiate(Resources.Load("Tomato")) as GameObject;
+            GameObject Tomato = Instantiate(Resources.Load("ChoppedTomato")) as GameObject;
             itemSwitch.setItemOnHands(Tomato);
         }
         else if (Input.GetKeyDown("y"))
@@ -57,11 +57,24 @@ public class godMode : MonoBehaviour
         }
         else if (Input.GetKeyDown("r"))
         {
-            itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("PlatedBurger");
+            itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("Burger");
         }
         else if (Input.GetKeyDown("e"))
         {
             itemOnHands.GetComponent<PlateSample>().InstantiateIngredientsInPlate("PlatedOnion");
         }
+        else if (Input.GetKeyDown("x")) {
+            itemSwitch.deleteItemOnHands();
+            itemSwitch.emptyHands();
+            GameObject Plate = Instantiate(Resources.Load("Plate")) as GameObject;
+            itemSwitch.setItemOnHands(Plate);
+            RecipeOrder recipes = GameObject.Find("GameEnviroment 1/Canvases/HUDCanvas/ReceptesUI").GetComponent<RecipeOrder>();
+            itemOnHands = itemSwitch.selectedItemOnHands;
+            itemOnHandsName = itemSwitch.selectedItemName;
+            itemOnHandsChoppedFood = itemSwitch.choppedFood;
+            itemOnHandsChoppeable = itemSwitch.selectedFoodChoppeable;
+            typeOfItemOnHands = itemSwitch.typeOfItem;
+            itemOnHands.GetComponent<PlateSample>().InstantiatePlate(recipes._poolOrders[0]);
+            }
     }
 }
