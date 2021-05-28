@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuButton : MonoBehaviour
 {
@@ -33,15 +34,13 @@ public class MenuButton : MonoBehaviour
                         Pause.resume();
                         break;
                     case 2:
-                        Pause.controls();
-                        break;
-                    case 3:
                         Pause.resume();
                         Pause.restart();
                         break;
-                    case 4:
+                    case 3:
                         Pause.resume();
-                        Pause.quit();
+                        if (SceneManager.GetActiveScene().name != "Mapa") Pause.quit();
+                        else Pause.mapaQuit();
                         break;
                 }
             } else

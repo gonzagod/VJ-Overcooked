@@ -52,4 +52,9 @@ public class Pause : MonoBehaviour
         SceneManager.LoadScene(1);
         paused = false;
     }
+
+    public void mapaQuit()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
